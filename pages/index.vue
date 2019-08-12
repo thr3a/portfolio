@@ -56,18 +56,19 @@
       <br>
       <br>
       <div id="element">Hi. I'm #element.</div>aaaa
+      <profile />
     </div>
   </div>
 </template>
 
 <script>
-// import Logo from '~/components/Logo.vue'
+import Profile from '~/components/profile.vue'
 
-// export default {
-//   components: {
-//     Logo
-//   }
-// }
+export default {
+  components: {
+    Profile
+  }
+}
 </script>
 
 <style>
