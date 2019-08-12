@@ -11,7 +11,8 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-scrollto": "^2.15.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^4.1.0",
