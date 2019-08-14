@@ -1,12 +1,10 @@
 <template>
   <div class="header">
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-3" v-for="(name, index) in menu" :key="index">
-        <div class="tile is-child box notification has-background-white has-text-grey-darker">
-          <h2 class="title has-text-centered">
-            <nuxt-link v-scroll-to="'#'+name.toLowerCase()" to="#">{{ name }}</nuxt-link>
-          </h2>
-        </div>
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-6-mobile" v-for="(name, index) in menu" :key="index">
+        <h2 class="title has-text-centered">
+          <nuxt-link v-scroll-to="'#'+name.toLowerCase()" to="#">{{ name }}</nuxt-link>
+        </h2>
       </div>
     </div>
   </div>
@@ -23,8 +21,9 @@ export default {
 </script>
 
 <style scoped>
-.header {
+/* .header {
   top: 0;
   position: sticky;
-}
+  margin-bottom: 30px;
+} */
 </style>

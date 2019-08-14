@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <Header />
-    <profile />
-    <works />
-    <links />
+    <logo />
+    <!-- <profile /> -->
+    <!-- <works /> -->
+    <!-- <links /> -->
   </div>
 </template>
 
@@ -12,9 +13,10 @@ import Profile from '~/components/Profile.vue'
 import Links from '~/components/Links.vue'
 import Works from '~/components/Works.vue'
 import Header from '~/components/Header.vue'
+import Logo from '~/components/Logo.vue'
 export default {
   components: {
-    Profile, Links, Works, Header
+    Profile, Links, Works, Header, Logo
   }
 }
 </script>
