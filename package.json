@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+    "deploy": "nuxt build && push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "bulma": "^0.7.5",
