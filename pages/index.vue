@@ -1,75 +1,32 @@
 <template>
   <div class="container">
-    <div>
-      <nuxt-link v-scroll-to='"#element"' to="#">このサイトについて（Nuxt アプリケーション内部リンク）</nuxt-link>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div id="element">Hi. I'm #element.</div>aaaa
-      <profile />
-    </div>
+    <Header />
+    <profile />
+    <works />
+    <links />
   </div>
 </template>
 
 <script>
-import Profile from '~/components/profile.vue'
-
+import Profile from '~/components/Profile.vue'
+import Links from '~/components/Links.vue'
+import Works from '~/components/Works.vue'
+import Header from '~/components/Header.vue'
 export default {
   components: {
-    Profile
+    Profile, Links, Works, Header
   }
 }
 </script>
 
 <style>
+.hero {
+  height: 100%;
+}
+.main {
+  margin-top: 25px;
+}
+.container {
+  padding-bottom: 100px;
+}
 </style>
