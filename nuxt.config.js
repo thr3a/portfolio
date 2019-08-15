@@ -1,3 +1,6 @@
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  base: '/portfolio/'
+} : {}
 
 export default {
   mode: 'spa',
@@ -23,6 +26,8 @@ export default {
   ** Global CSS
   */
   css: [
+    "~assets/common.scss",
+    "@fortawesome/fontawesome-free/css/all.css"
   ],
   /*
   ** Plugins to load before mounting the App
@@ -38,6 +43,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    ['vue-scrollto/nuxt', { duration: 300 }],
   ],
   /*
   ** Build configuration
@@ -46,7 +52,10 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
-  }
+  },
+  // router: {
+  //   base: '/portfolio/'
+  // }
 }
