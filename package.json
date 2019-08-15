@@ -16,7 +16,6 @@
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.2.0",
-    "vanilla-framework": "^2.3.0",
     "vue-scrollto": "^2.15.0"
   },
   "devDependencies": {

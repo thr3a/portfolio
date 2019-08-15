@@ -75,7 +75,4 @@ td.right {
 .link-text {
   font-size: 28px;
 }
-.link-icon {
-  color: #fecb81;
-}
 </style>
