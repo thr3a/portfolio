@@ -1,13 +1,11 @@
 <template>
-  <section class="section">
-    <div class="container">
-      <Header />
-      <logo />
-      <profile />
-      <works />
-      <links />
-    </div>
-  </section>
+  <div>
+    <Header />
+    <logo />
+    <profile />
+    <works />
+    <links />
+  </div>
 </template>
 
 <script>
@@ -31,10 +29,10 @@ export default {
 .hero {
   height: 100%;
 }
-.main {
-  margin-top: 25px;
+.section {
+  padding-top: 0;
 }
 .container {
-  padding-bottom: 100px;
+  max-width: 1000px;
 }
 </style>

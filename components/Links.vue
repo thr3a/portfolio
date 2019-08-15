@@ -1,33 +1,37 @@
 <template>
-  <div class="columns" id="links">
-    <div class="column is-6">
-      <section class="hero is-danger is-small">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">Links</h1>
+  <section class="section">
+    <div class="container">
+      <div class="columns" id="links">
+        <div class="column is-6">
+          <section class="hero is-danger is-small">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">Links</h1>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="column is-6 is-vcentered">
+          <div>
+            <table class="table is-fullwidth">
+              <tbody>
+                <tr v-for="(l, index) in links" :key="index">
+                  <td class="left">
+                    <p class="has-text-right link-text has-text-dark">
+                      <i v-bind:class="l.class"></i>
+                    </p>
+                  </td>
+                  <td class="right">
+                    <a class="link-text" v-bind:href="l.url" target="_blank">{{ l.label }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-      </section>
-    </div>
-    <div class="column is-6 is-vcentered">
-      <div>
-        <table class="table is-fullwidth">
-          <tbody>
-            <tr v-for="(l, index) in links" :key="index">
-              <td class="left">
-                <p class="has-text-right link-text has-text-dark">
-                  <i v-bind:class="l.class"></i>
-                </p>
-              </td>
-              <td class="right">
-                <a class="link-text" v-bind:href="l.href" target="_blank">{{ l.label }}</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

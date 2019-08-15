@@ -1,13 +1,15 @@
 <template>
-  <div class="header">
-    <div class="columns is-multiline is-mobile">
-      <div class="column is-6-mobile" v-for="(name, index) in menu" :key="index">
-        <h2 class="title has-text-centered">
-          <nuxt-link v-scroll-to="'#'+name.toLowerCase()" to="#">{{ name }}</nuxt-link>
-        </h2>
+  <section class="section">
+    <div class="header">
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-6-mobile" v-for="(name, index) in menu" :key="index">
+          <h1 class="subtitle is-3 has-text-centered">
+            <nuxt-link v-scroll-to="'#'+name.toLowerCase()" to="#">{{ name }}</nuxt-link>
+          </h1>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -21,9 +23,15 @@ export default {
 </script>
 
 <style scoped>
-/* .header {
+.header {
   top: 0;
-  position: sticky;
-  margin-bottom: 30px;
-} */
+  left: 0;
+  position: fixed;
+  width:100%;
+  z-index: 334;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 </style>
