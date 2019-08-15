@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
-    <Header />
-    <logo />
-    <!-- <profile /> -->
-    <!-- <works /> -->
-    <!-- <links /> -->
-  </div>
+  <section class="section">
+    <div class="container">
+      <Header />
+      <logo />
+      <profile />
+      <works />
+      <links />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -16,7 +18,11 @@ import Header from '~/components/Header.vue'
 import Logo from '~/components/Logo.vue'
 export default {
   components: {
-    Profile, Links, Works, Header, Logo
+    Profile,
+    Links,
+    Works,
+    Header,
+    Logo
   }
 }
 </script>
