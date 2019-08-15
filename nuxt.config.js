@@ -55,7 +55,7 @@ export default {
     extend(config, ctx) {
     }
   },
-  router: {
-    base: '/portfolio/'
-  }
+  // router: {
+  //   base: '/portfolio/'
+  // }
 }
