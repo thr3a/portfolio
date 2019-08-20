@@ -42,6 +42,11 @@ export default {
             '年収が平均年収と比較して高いか低いかをチェックするツール。e-Statsの賃金構造基本統計調査を使用'
         },
         {
+          name: "Twitter検索ヘルパー",
+          url: "https://twisearch-helper.firebaseapp.com",
+          description: "画像付ツイートのみやバズってるツイートのみにフィルタリングしてTwitter検索できるサイトこれもBulma"
+        },
+        {
           name: 'ニコ動タイムマシン',
           url: 'http://niconico.turai.work/',
           description:
@@ -71,11 +76,6 @@ export default {
           description:
             'PCやスマホのユーザーエージェントをランダム生成しまくるサイト テストに使える（使えるとは言ってない'
         }
-        // {
-        //   name: "",
-        //   url: "",
-        //   description: ""
-        // },
         // {
         //   name: "",
         //   url: "",
