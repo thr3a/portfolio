@@ -37,7 +37,7 @@ export default {
       works: [
         {
           name: '年収格付けチェッカー',
-          url: 'http://salary.turai.work/',
+          url: 'https://salary.turai.work/',
           description:
             '年収が平均年収と比較して高いか低いかをチェックするツール。e-Statsの賃金構造基本統計調査を使用'
         },
@@ -48,13 +48,13 @@ export default {
         },
         {
           name: 'ニコ動タイムマシン',
-          url: 'http://niconico.turai.work/',
+          url: 'https://niconico.turai.work/',
           description:
             '10年前の今日にニコニコ動画に投稿された動画を振り返るサイト'
         },
         {
           name: 'はてなブログ芝生',
-          url: 'http://hatena.turai.work/',
+          url: 'https://hatena.turai.work/',
           description:
             'はてなブログの投稿数でGithubのような芝生を作成 緑を増やしていけ'
         },

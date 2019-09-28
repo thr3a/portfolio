@@ -35,7 +35,7 @@
             </table>
             <p>ブログの進捗</p>
             <div class="is-centered">
-              <img src="http://hatena.turai.work/grass?url=http://thr3a.hatenablog.com/" />
+              <img src="https://hatena.turai.work/grass?url=https://thr3a.hatenablog.com/" />
             </div>
           </div>
         </div>
