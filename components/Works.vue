@@ -36,6 +36,12 @@ export default {
     return {
       works: [
         {
+          name: '生涯費用シミュレーター',
+          url: 'https://cost.turai.work/',
+          description:
+            '毎月/毎年の費用を入力すると生涯いくら掛かるのか算出するツール。保険金のためにつくったけどNHK受信料ハンパないな'
+        },
+        {
           name: '年収格付けチェッカー',
           url: 'https://salary.turai.work/',
           description:
