@@ -36,10 +36,21 @@ export default {
     return {
       works: [
         {
+          name: "ポケモンタイプ相性チェッカー",
+          url: "http://poketype.turai.work/",
+          description: "フェアリータイプのポケモンっていいよね（唐突"
+        },
+        {
+          name: 'ガチャシュミレーター',
+          url: 'https://gacha.turai.work/',
+          description:
+            '推しを出せれば実質無料'
+        },
+        {
           name: '生涯費用シミュレーター',
           url: 'https://cost.turai.work/',
           description:
-            '毎月/毎年の費用を入力すると生涯いくら掛かるのか算出するツール。保険金のためにつくったけどNHK受信料ハンパないな'
+            '毎月/毎年の費用を入力すると生涯いくら掛かるのか算出するツール。NHK受信料ハンパないな'
         },
         {
           name: '年収格付けチェッカー',
@@ -49,8 +60,8 @@ export default {
         },
         {
           name: "Twitter検索ヘルパー",
-          url: "https://twisearch-helper.firebaseapp.com",
-          description: "画像付ツイートのみやバズってるツイートのみにフィルタリングしてTwitter検索できるサイトこれもBulma"
+          url: "https://t.turai.work/",
+          description: "公式が使いづらすぎるから作った"
         },
         {
           name: 'ニコ動タイムマシン',
@@ -74,7 +85,7 @@ export default {
           name: 'ダミー電話番号生成器',
           url: 'https://thr3a.github.io/phone_number_generator/',
           description:
-            '使われてない電話番号帯域からランダムに云々 ネーミングセンスのNASA'
+            '使われてない電話番号帯域からランダムに云々'
         },
         {
           name: 'ua-factory',
