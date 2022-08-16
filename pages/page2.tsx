@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
 import { Center } from '@mantine/core';
 
 const MyPage: NextPage = () => {
@@ -9,6 +9,6 @@ const MyPage: NextPage = () => {
       </Center>
     </div>
   );
-}
+};
 
-export default MyPage
+export default MyPage;

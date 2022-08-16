@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const urlPrefix = process.env.URL_PREFIX ? '/' + process.env.URL_PREFIX : ''
+const urlPrefix = process.env.URL_PREFIX ? '/' + process.env.URL_PREFIX : '';
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,5 +15,5 @@ const nextConfig = {
   images: {
     unoptimized: true
   }
-}
-module.exports = nextConfig
+};
+module.exports = nextConfig;
