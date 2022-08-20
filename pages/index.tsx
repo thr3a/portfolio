@@ -1,34 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { Container, List } from '@mantine/core';
+import { Container, Grid, Title, Space } from '@mantine/core';
 import { GetStaticProps } from "next";
 import { Prism } from '@mantine/prism';
 import fs from 'fs';
-import MyButton from '../components/MyButton';
-
-type MyProps = {
-  intro_yaml: string,
-  sns: Sns[],
-};
-
-export interface JsonData {
-  sns: Sns[];
-  works: Work[];
-}
-
-export interface Sns {
-  name:  string;
-  url:   string;
-  icon:  string;
-  color: string;
-}
-
-export interface Work {
-  name: string;
-  url:  string;
-}
+import SnsButton from '../components/SnsButton';
+import MyImage from '../components/MyImage';
+import { MyProps, JsonData} from '../components/Definition';
 
 const Home: NextPage<MyProps> = (props: MyProps) => {
   return (
@@ -39,18 +18,25 @@ const Home: NextPage<MyProps> = (props: MyProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container className={styles.container}>
-        <span className={styles.title}>turai.work</span>
+        <Grid className={styles.header}>
+          <Grid.Col sm={2} span={12}>
+            <MyImage></MyImage>
+          </Grid.Col>
+          <Grid.Col sm={8} span={12}>
+            <span className={styles.title}>turai.work</span>
+          </Grid.Col>
+        </Grid>
         <div>
           <Prism language="yaml" noCopy={true} colorScheme='dark'>{props.intro_yaml}</Prism>
         </div>
-        
-        <List size="xl">
-          {props.sns.map(({ name, url, color, icon }) => (
-            <div key={name}>
-              <MyButton url={url} name={name} color={color} icon={icon}></MyButton>
-            </div>
-          ))}
-        </List>
+        <Space h="md" />
+        <Title order={1}>Links</Title>
+        {props.sns.map(({ name, url, color, icon }) => (
+          <div key={name}>
+            <SnsButton url={url} name={name} color={color} icon={icon}></SnsButton>
+          </div>
+        ))}
+        <Title order={1}>Works</Title>
       </Container>
     </>
   );
