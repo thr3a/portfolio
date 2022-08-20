@@ -32,9 +32,14 @@
       "description": "画像とか除外ワードとか一発検索できる。履歴機能付"
     },
     {
-      "title": "Twitter検索ヘルパー",
-      "url": "https://t.turai.work/",
-      "description": "画像とか除外ワードとか一発検索できる。履歴機能付"
+      "title": "ポケモンタイプ相性チェッカー",
+      "url": "https://poketype.turai.work/",
+      "description": "フェアリーしか勝たん"
+    },
+    {
+      "title": "メルカリ除外キーワード",
+      "url": "https://chrome.google.com/webstore/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl",
+      "description": "メルカリで除外キーワードを使えるようにするChrome拡張機能"
     }
   ]
 }
