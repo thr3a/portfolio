@@ -57,7 +57,7 @@ const Home: NextPage<MyProps> = (props: MyProps) => {
 };
 
 export const getStaticProps: GetStaticProps<MyProps> = async (context) => {  
-  const intro_yaml = fs.readFileSync('./pages/self_introduction.yaml', 'utf8');
+  const intro_yaml = fs.readFileSync('./data/self_introduction.yaml', 'utf8');
   const json: JsonData = JSON.parse(fs.readFileSync('./data/links.json', 'utf8'));
   return {
     props: {
