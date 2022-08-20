@@ -19,7 +19,7 @@ type Props = {
   icon: keyof typeof iconMap
 }
 
-export default function MyButton(props: Props) {
+export default function SnsButton(props: Props) {
   const Component = iconMap[props.icon];
   
   return (
