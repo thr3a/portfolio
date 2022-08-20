@@ -1,5 +1,6 @@
 import { Button, Text } from '@mantine/core';
-import { IconBrandTwitter, IconEdit, IconExternalLink, IconBrandGithub, TablerIcon } from '@tabler/icons';
+import { IconBrandTwitter, IconEdit, IconExternalLink, IconBrandGithub } from '@tabler/icons';
+import type { TablerIcon } from '@tabler/icons';
 
 type StringKeyObject = {
   [key: string]: TablerIcon;
