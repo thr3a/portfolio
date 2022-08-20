@@ -21,7 +21,6 @@ type Props = {
 
 export default function MyButton(props: Props) {
   const Component = iconMap[props.icon];
-  console.log(props);
   
   return (
     <div style={{ width: 200 }}>
