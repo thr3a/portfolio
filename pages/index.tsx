@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import { Container, Grid, Title, Space } from '@mantine/core';
+import { Container, Grid, Title, createStyles } from '@mantine/core';
 import { GetStaticProps } from "next";
 import { Prism } from '@mantine/prism';
 import fs from 'fs';
@@ -10,7 +10,15 @@ import MyImage from '../components/MyImage';
 import MyWork from '../components/MyWork';
 import { MyProps, JsonData } from '../components/Definition';
 
+const useStyles = createStyles((theme) => ({
+  header: {
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.md
+  }
+}));
+
 const Home: NextPage<MyProps> = (props: MyProps) => {
+  const { classes } = useStyles();
   return (
     <>
       <Head>
@@ -18,7 +26,7 @@ const Home: NextPage<MyProps> = (props: MyProps) => {
         <meta name="description" content="turai.work" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container className={styles.container}>
+      <Container>
         <Grid className={styles.header}>
           <Grid.Col sm={2} span={12}>
             <MyImage></MyImage>
@@ -30,14 +38,13 @@ const Home: NextPage<MyProps> = (props: MyProps) => {
         <div>
           <Prism language="yaml" noCopy={true} colorScheme='dark'>{props.intro_yaml}</Prism>
         </div>
-        <Space h="md" />
-        <Title order={1}>Links</Title>
+        <Title order={1} className={classes.header}>Links</Title>
         {props.sns.map(({ name, url, color, icon }) => (
           <div key={name}>
             <SnsButton url={url} name={name} color={color} icon={icon}></SnsButton>
           </div>
         ))}
-        <Title order={1}>Works</Title>
+        <Title order={1} className={classes.header}>Works</Title>
         {props.works.map(({ title, url, description }) => (
           <div key={title}>
             <MyWork title={title} url={url} description={description}></MyWork>

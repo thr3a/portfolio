@@ -34,6 +34,9 @@ export default function SnsButton(props: Props) {
         radius="xs"
         href={props.url}
         styles={(theme) => ({
+          inner: {
+            justifyContent: "flex-start"
+          },
           root: {
             marginTop: 5,
             marginBottom: 5
