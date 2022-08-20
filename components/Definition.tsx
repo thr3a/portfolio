@@ -1,6 +1,7 @@
 export type MyProps = {
   intro_yaml: string,
   sns: Sns[],
+  works: Work[]
 };
 
 export interface JsonData {
@@ -16,6 +17,7 @@ export interface Sns {
 }
 
 export interface Work {
-  name: string;
+  title: string;
   url:  string;
+  description: string;
 }

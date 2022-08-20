@@ -27,8 +27,14 @@
   ],
   "works": [
     {
-      "name": "Twitter検索ヘルパー",
-      "url": "https://t.turai.work/"
+      "title": "Twitter検索ヘルパー",
+      "url": "https://t.turai.work/",
+      "description": "画像とか除外ワードとか一発検索できる。履歴機能付"
+    },
+    {
+      "title": "Twitter検索ヘルパー",
+      "url": "https://t.turai.work/",
+      "description": "画像とか除外ワードとか一発検索できる。履歴機能付"
     }
   ]
 }
