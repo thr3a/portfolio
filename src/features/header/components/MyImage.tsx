@@ -1,6 +1,6 @@
 import { Image, Center } from '@mantine/core';
 
-const MyImage = () => {
+export const MyImage = () => {
   return (
     <Center>
       <Image
@@ -13,6 +13,3 @@ const MyImage = () => {
     </Center>
   );
 };
-
-export default MyImage;
-

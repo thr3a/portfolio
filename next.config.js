@@ -7,11 +7,6 @@ const nextConfig = {
   assetPrefix: urlPrefix,
   basePath: urlPrefix,
   trailingSlash: true,
-  experimental: {
-    images: {
-      unoptimized: true
-    }
-  },
   images: {
     unoptimized: true
   }

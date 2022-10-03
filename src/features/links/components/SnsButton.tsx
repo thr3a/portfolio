@@ -14,13 +14,13 @@ const iconMap: StringKeyObject = {
 };
 
 type Props = {
-  url: string,
-  name: string,
-  color: string,
-  icon: keyof typeof iconMap
+  url: string;
+  name: string;
+  color: string;
+  icon: keyof typeof iconMap;
 }
 
-export default function SnsButton(props: Props) {
+export const SnsButton = (props: Props) => {
   const Component = iconMap[props.icon];
   
   return (
@@ -49,4 +49,4 @@ export default function SnsButton(props: Props) {
     </div>
 
   );
-}
+};
