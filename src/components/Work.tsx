@@ -10,7 +10,7 @@ export const Work = ({ title, description, url }: WorkProps): JSX.Element => {
       target="_blank"
       href={url}
     >
-      <Anchor fw={'bold'} fz={'xl'}>{title}</Anchor>
+      <Anchor component={'span'} fw={'bold'} fz={'xl'}>{title}</Anchor>
       <Text size="sm" c={'black'}>
         {description}
       </Text>

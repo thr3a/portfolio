@@ -1,19 +1,20 @@
 import '@mantine/core/styles.css';
 import '@mantine/code-highlight/styles.css';
 import { MantineProvider, createTheme, Container, ColorSchemeScript, Stack, Space, Title } from '@mantine/core';
-import { WorkData } from './data/works';
-import { Work } from './components/Work';
 import { Header } from './components/Header';
 import { Profile } from './components/Profile';
 import { SnsLink } from './components/SnsLink';
 import { SnsData } from './data/sns';
+import { useState } from 'react';
+import { WorkGroup } from './components/WorkGroup';
 
 const theme = createTheme({
   defaultRadius: 'xs',
   fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif'
 });
 
-export default function App () {
+export default function App (): JSX.Element {
+  const [workGroup, setworkGroup] = useState('all');
   return <MantineProvider theme={theme} defaultColorScheme='auto'>
     <ColorSchemeScript defaultColorScheme='auto' />
     <Container mt={'md'} mb={'md'}>
@@ -27,9 +28,7 @@ export default function App () {
       </Stack>
       <Space h={'md'}></Space>
       <Title order={2}>Works</Title>
-      <Stack gap={'xs'}>
-        { WorkData.map((work, index) => (<Work key={index} {...work} />)) }
-      </Stack>
+      <WorkGroup workGroup={workGroup} setworkGroup={setworkGroup}></WorkGroup>
     </Container>
   </MantineProvider>;
 }
