@@ -28,7 +28,7 @@ jobs:
         #   URL_PREFIX: portfolio
 
       - name: Generate sitemap
-        run: npm run sitemap
+        run: npm run generate-sitemap
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
