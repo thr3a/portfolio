@@ -3,6 +3,9 @@ name: Deploy
 on:
   push:
 
+env:
+  TZ: Asia/Tokyo
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,6 +27,9 @@ jobs:
         # env:
         #   URL_PREFIX: portfolio
 
+      - name: Generate sitemap
+        run: npm run sitemap
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
