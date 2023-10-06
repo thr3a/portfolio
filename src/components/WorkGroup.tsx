@@ -3,7 +3,12 @@ import { type WorkProps } from '../data/works';
 import { Work } from './Work';
 import { WorkData } from '../data/works';
 
-export const WorkGroup = ({ workGroup, setworkGroup }: any): JSX.Element => {
+type props = {
+  workGroup: string
+  setworkGroup: (workGroup: string) => void
+};
+
+export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
   const filteredGroups = (): WorkProps[] => {
     if (workGroup === 'all') {
       return WorkData;

@@ -31,12 +31,6 @@ export const SnsLink = (props: SnsProps): JSX.Element => {
       target="_blank"
       href={props.url}
       justify="flex-start"
-      // styles={(theme) => ({
-      //   inner: {
-      //     justifyContent: 'flex-start'
-      //   }
-      // })}
-      // leftIcon={<IconComponent />}
       leftSection={<IconComponent size={22} />}
     >
       <Text fw={'bold'}>{props.name}</Text>

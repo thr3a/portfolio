@@ -1,5 +1,6 @@
 import { Paper, Text, Anchor } from '@mantine/core';
 import { type WorkProps } from '../data/works';
+import classes from './Text.module.css';
 
 export const Work = ({ title, description, url }: WorkProps): JSX.Element => {
   return (
@@ -11,7 +12,7 @@ export const Work = ({ title, description, url }: WorkProps): JSX.Element => {
       href={url}
     >
       <Anchor component={'span'} fw={'bold'} fz={'xl'}>{title}</Anchor>
-      <Text size="sm" c={'black'}>
+      <Text size="sm" className={classes.root}>
         {description}
       </Text>
     </Paper>
