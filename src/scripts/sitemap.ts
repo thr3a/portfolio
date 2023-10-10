@@ -20,5 +20,6 @@ function createSitemap (urls: string[]): string {
   return sitemap;
 }
 
-const testSitemap = createSitemap(WorkData.map(x => x.url));
+const urls = WorkData.filter((data) => data.url.includes('turai.work')).map(x => x.url);
+const testSitemap = createSitemap(urls);
 fs.writeFileSync('dist/sitemap.xml', testSitemap);
