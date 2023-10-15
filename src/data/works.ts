@@ -32,7 +32,7 @@ export const WorkData: WorkProps[] = [
   },
   {
     title: '命名先生',
-    url: 'https://meimei-sensei.turai.work/',
+    url: 'https://ai.turai.work/meimei/',
     description: '変数名をAIをつけてくれるやつ',
     group: 'ai'
   },
