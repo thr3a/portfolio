@@ -7,13 +7,19 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'お母さんヒス構文メーカー',
+    url: 'https://ai.turai.work/mhiss/',
+    description: 'ヒス構文もChatGPTで自動生成なんだ、じゃあお母さんはいらないってこと？',
+    group: 'ai'
+  },
+  {
     title: '言い換えAI',
     url: 'https://ai.turai.work/paraphrase/',
     description: '単語/文章をシチュエーションに合わせてChatGPTが変換',
     group: 'ai'
   },
   {
-    title: '検索キーワード作成くん',
+    title: '英語でググり隊',
     url: 'https://ai.turai.work/ggr-en',
     description: '英語でググりたいときにいい感じに翻訳',
     group: 'ai'
