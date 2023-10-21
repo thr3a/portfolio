@@ -25,9 +25,9 @@ export const WorkData: WorkProps[] = [
     group: 'ai'
   },
   {
-    title: 'AI議論コロシアム',
-    url: 'https://debate-simulator.turai.work/',
-    description: 'お題入れるとAさんとBさんが自動で真面目な議論始めて面白い',
+    title: 'AI言論コロシアム',
+    url: 'https://ai.turai.work/discuss/',
+    description: 'ChatGPT vs ChatGPT',
     group: 'ai'
   },
   {
