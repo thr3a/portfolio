@@ -99,5 +99,11 @@ export const WorkData: WorkProps[] = [
     url: 'https://github.com/thr3a/docker-build-station',
     description: '毎日新鮮なイメージをお届けします',
     group: 'dev'
+  },
+  {
+    title: 'はてなブログ芝生',
+    url: 'https://github.com/thr3a/docker-build-station',
+    description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
+    group: 'tool'
   }
 ];
