@@ -7,9 +7,15 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'JKヒス構文メーカー',
+    url: 'https://ai.turai.work/jkhiss/',
+    description: 'JKヒス構文もAIで自動生成なんだ、私なんかいなくなっちゃえばいいんだ！',
+    group: 'ai'
+  },
+  {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
-    description: 'ヒス構文もChatGPTで自動生成なんだ、じゃあお母さんはいらないってこと？',
+    description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
     group: 'ai'
   },
   {
@@ -102,7 +108,7 @@ export const WorkData: WorkProps[] = [
   },
   {
     title: 'はてなブログ芝生',
-    url: 'https://github.com/thr3a/docker-build-station',
+    url: 'https://hatena.turai.work/',
     description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
     group: 'tool'
   }
