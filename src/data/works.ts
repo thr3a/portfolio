@@ -111,5 +111,11 @@ export const WorkData: WorkProps[] = [
     url: 'https://hatena.turai.work/',
     description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
     group: 'tool'
+  },
+  {
+    title: 'アートWiki',
+    url: 'https://wiki.turai.work/',
+    description: '西洋絵画個人的まとめwiki',
+    group: 'tool'
   }
 ];
