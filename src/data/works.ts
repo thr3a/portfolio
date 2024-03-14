@@ -1,8 +1,8 @@
 export type WorkProps = {
-  title: string
-  url: string
-  description: string
-  group: 'ai' | 'tool' | 'dev'
+  title: string;
+  url: string;
+  description: string;
+  group: 'ai' | 'tool' | 'dev';
 };
 
 export const WorkData: WorkProps[] = [

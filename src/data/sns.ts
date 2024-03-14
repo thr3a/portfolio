@@ -1,4 +1,4 @@
-import { type SnsProps } from '../components/SnsLink';
+import type { SnsProps } from '../components/SnsLink';
 
 export const SnsData: SnsProps[] = [
   {

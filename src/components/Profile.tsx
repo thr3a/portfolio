@@ -17,9 +17,5 @@ hobbies:
 `;
 
 export const Profile = (): JSX.Element => {
-  return <CodeHighlight
-    code={yaml}
-    language='yaml'
-    withCopyButton={false}
-  />;
+  return <CodeHighlight code={yaml} language='yaml' withCopyButton={false} />;
 };

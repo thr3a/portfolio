@@ -1,27 +1,26 @@
 import { Box, SegmentedControl, Stack } from '@mantine/core';
-import { type WorkProps } from '../data/works';
-import { Work } from './Work';
+import type { WorkProps } from '../data/works';
 import { WorkData } from '../data/works';
+import { Work } from './Work';
 
 type props = {
-  workGroup: string
-  setworkGroup: (workGroup: string) => void
+  workGroup: string;
+  setworkGroup: (workGroup: string) => void;
 };
 
 export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
   const filteredGroups = (): WorkProps[] => {
     if (workGroup === 'all') {
       return WorkData;
-    } else {
-      return WorkData.filter((x: WorkProps) => x.group === workGroup);
     }
+    return WorkData.filter((x: WorkProps) => x.group === workGroup);
   };
 
   return (
     <Box>
       <SegmentedControl
         value={workGroup}
-        color="blue"
+        color='blue'
         onChange={setworkGroup}
         data={[
           { label: 'すべて', value: 'all' },
@@ -34,7 +33,7 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
       />
       <Stack gap={'xs'}>
         {filteredGroups().map((props, index) => (
-          <Work key={index} {...props}></Work>
+          <Work key={index} {...props} />
         ))}
       </Stack>
     </Box>

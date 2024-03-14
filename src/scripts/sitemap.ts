@@ -1,8 +1,8 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import dayjs from 'dayjs';
 import { WorkData } from '../data/works';
 
-function createSitemap (urls: string[]): string {
+function createSitemap(urls: string[]): string {
   const now = dayjs();
   const iso8601 = now.format('YYYY-MM-DDTHH:mm:ssZ');
 
@@ -20,6 +20,6 @@ function createSitemap (urls: string[]): string {
   return sitemap;
 }
 
-const urls = WorkData.filter((data) => data.url.includes('turai.work')).map(x => x.url);
+const urls = WorkData.filter((data) => data.url.includes('turai.work')).map((x) => x.url);
 const testSitemap = createSitemap(urls);
 fs.writeFileSync('dist/sitemap.xml', testSitemap);

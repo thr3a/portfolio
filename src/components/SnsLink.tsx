@@ -1,7 +1,7 @@
 import { Button, Text } from '@mantine/core';
 // import { type SnsProps, iconMap } from '@/features/Props';
 import type { TablerIconsProps } from '@tabler/icons-react';
-import { IconBrandTwitter, IconEdit, IconExternalLink, IconBrandGithub } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandTwitter, IconEdit, IconExternalLink } from '@tabler/icons-react';
 
 type StringKeyObject = Record<string, React.FC<TablerIconsProps>>;
 
@@ -13,10 +13,10 @@ const iconMap: StringKeyObject = {
 };
 
 export type SnsProps = {
-  url: string
-  name: string
-  color: string
-  icon: keyof typeof iconMap
+  url: string;
+  name: string;
+  color: string;
+  icon: keyof typeof iconMap;
 };
 
 export const SnsLink = (props: SnsProps): JSX.Element => {
@@ -27,10 +27,10 @@ export const SnsLink = (props: SnsProps): JSX.Element => {
       w={200}
       size={'lg'}
       color={props.color}
-      component="a"
-      target="_blank"
+      component='a'
+      target='_blank'
       href={props.url}
-      justify="flex-start"
+      justify='flex-start'
       leftSection={<IconComponent size={22} />}
     >
       <Text fw={'bold'}>{props.name}</Text>
