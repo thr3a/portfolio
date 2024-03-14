@@ -2,16 +2,18 @@ import { CodeHighlight } from '@mantine/code-highlight';
 
 const yaml = /* yaml */ `
 name: あまねきー
-place: 東京
-favorite:
-  language:
+location: 東京
+favorites:
+  languages:
     - Ruby
     - TypeScript
   animal: 猫
   game: スプラトゥーン 🦑
-  food:
+  foods:
     - お寿司
     - 甘いもの全般
+hobbies:
+  - 西洋絵画
 `;
 
 export const Profile = (): JSX.Element => {
