@@ -32,14 +32,8 @@ export default function App(): JSX.Element {
         <Profile />
         <Space h={'md'} />
         <Stack gap={'xs'}>
-          {SnsData.map((props, index) => (
-            <SnsLink
-              key={index}
-              url={props.url}
-              name={props.name}
-              color={props.color}
-              icon={props.icon}
-            />
+          {SnsData.map((props) => (
+            <SnsLink url={props.url} name={props.name} color={props.color} icon={props.icon} />
           ))}
         </Stack>
         <Space h={'md'} />

@@ -16,7 +16,7 @@
     "@mantine/code-highlight": "^7.6.2",
     "@mantine/core": "7.6.2",
     "@mantine/hooks": "7.6.2",
-    "@tabler/icons-react": "^3.0.2",
+    "@tabler/icons-react": "^2.47.0",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",

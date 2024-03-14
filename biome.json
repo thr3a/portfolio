@@ -10,10 +10,6 @@
       "suspicious": {
         "noImplicitAnyLet": "warn",
         "noExplicitAny": "warn"
-      },
-      "correctness": {
-        "noUndeclaredVariables": "warn",
-        "noUnusedVariables": "warn"
       }
 		}
 	},

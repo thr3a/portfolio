@@ -32,8 +32,8 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
         mt={'sm'}
       />
       <Stack gap={'xs'}>
-        {filteredGroups().map((props, index) => (
-          <Work key={index} {...props} />
+        {filteredGroups().map((props) => (
+          <Work key={props.url} {...props} />
         ))}
       </Stack>
     </Box>
