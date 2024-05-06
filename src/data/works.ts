@@ -90,11 +90,12 @@ export const WorkData: WorkProps[] = [
     description: 'スプラ 洗濯機 消す方法 [検索]',
     group: 'old'
   },
-  // {
-  //   "title": "メルカリ除外キーワード",
-  //   "url": "https://chrome.google.com/webstore/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl",
-  //   "description": "メルカリで除外キーワードを使えるようにするChrome拡張機能"
-  // },
+  {
+    title: 'メルカリ除外キーワード',
+    url: 'https://chromewebstore.google.com/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl',
+    description: 'メルカリで除外キーワードを使えるようにするChrome拡張機能',
+    group: 'old'
+  },
   {
     title: 'Mantine Components Gallery',
     url: 'https://thr3a.github.io/mantine-cheatsheets/',
