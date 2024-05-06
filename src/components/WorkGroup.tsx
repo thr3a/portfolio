@@ -11,7 +11,7 @@ type props = {
 export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
   const filteredGroups = (): WorkProps[] => {
     if (workGroup === 'all') {
-      return WorkData;
+      return WorkData.filter((x: WorkProps) => x.group !== 'old');
     }
     return WorkData.filter((x: WorkProps) => x.group === workGroup);
   };
@@ -26,7 +26,8 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
           { label: 'すべて', value: 'all' },
           { label: 'AI', value: 'ai' },
           { label: '便利ツール', value: 'tool' },
-          { label: '開発', value: 'dev' }
+          { label: '開発', value: 'dev' },
+          { label: '開発終了', value: 'old' }
         ]}
         mb={'sm'}
         mt={'sm'}
