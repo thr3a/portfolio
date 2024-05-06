@@ -2,10 +2,22 @@ export type WorkProps = {
   title: string;
   url: string;
   description: string;
-  group: 'ai' | 'tool' | 'dev';
+  group: 'ai' | 'tool' | 'dev' | 'old';
 };
 
 export const WorkData: WorkProps[] = [
+  {
+    title: 'Anime Remove Background',
+    url: 'https://huggingface.co/spaces/thr3a/anime-remove-background',
+    description: '2次元画像の背景削除時に白色できるようにしたやつ',
+    group: 'ai'
+  },
+  {
+    title: 'Super-IOPaint',
+    url: 'https://huggingface.co/spaces/thr3a/super-iopaint',
+    description: '画像背景削除するやつ',
+    group: 'ai'
+  },
   {
     title: 'JKヒス構文メーカー',
     url: 'https://ai.turai.work/jkhiss/',
@@ -42,12 +54,12 @@ export const WorkData: WorkProps[] = [
     description: '変数名をAIをつけてくれるやつ',
     group: 'ai'
   },
-  {
-    title: 'ブログ記事おたすけくん',
-    url: 'https://article-generator.turai.work/',
-    description: '箇条書きから文章をAIが自動生成',
-    group: 'ai'
-  },
+  // {
+  //   title: 'ブログ記事おたすけくん',
+  //   url: 'https://article-generator.turai.work/',
+  //   description: '箇条書きから文章をAIが自動生成',
+  //   group: 'ai'
+  // },
   {
     title: 'Twitter検索ヘルパー',
     url: 'https://t.turai.work/',
@@ -76,7 +88,7 @@ export const WorkData: WorkProps[] = [
     title: 'スプラトゥーン3 射程比較表',
     url: 'https://spla3.turai.work/',
     description: 'スプラ 洗濯機 消す方法 [検索]',
-    group: 'tool'
+    group: 'old'
   },
   // {
   //   "title": "メルカリ除外キーワード",
@@ -87,7 +99,7 @@ export const WorkData: WorkProps[] = [
     title: 'Mantine Components Gallery',
     url: 'https://thr3a.github.io/mantine-cheatsheets/',
     description: 'Mantineはいいぞ',
-    group: 'dev'
+    group: 'old'
   },
   // {
   //   "title": "Twitter Profile Auto Generator",
