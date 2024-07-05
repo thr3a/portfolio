@@ -1,9 +1,9 @@
 import { Button, Text } from '@mantine/core';
 // import { type SnsProps, iconMap } from '@/features/Props';
-import type { TablerIconsProps } from '@tabler/icons-react';
+import type { IconProps } from '@tabler/icons-react';
 import { IconBrandGithub, IconBrandTwitter, IconEdit, IconExternalLink } from '@tabler/icons-react';
 
-type StringKeyObject = Record<string, React.FC<TablerIconsProps>>;
+type StringKeyObject = Record<string, React.FC<IconProps>>;
 
 const iconMap: StringKeyObject = {
   twitter: IconBrandTwitter,
