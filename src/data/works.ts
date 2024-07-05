@@ -18,12 +18,12 @@ export const WorkData: WorkProps[] = [
     description: '画像背景削除するやつ',
     group: 'ai'
   },
-  {
-    title: 'JKヒス構文メーカー',
-    url: 'https://ai.turai.work/jkhiss/',
-    description: 'JKヒス構文もAIで自動生成なんだ、私なんかいなくなっちゃえばいいんだ！',
-    group: 'ai'
-  },
+  // {
+  //   title: 'JKヒス構文メーカー',
+  //   url: 'https://ai.turai.work/jkhiss/',
+  //   description: 'JKヒス構文もAIで自動生成なんだ、私なんかいなくなっちゃえばいいんだ！',
+  //   group: 'ai'
+  // },
   {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
@@ -42,12 +42,12 @@ export const WorkData: WorkProps[] = [
     description: '英語でググりたいときにいい感じに翻訳',
     group: 'ai'
   },
-  {
-    title: 'AI言論コロシアム',
-    url: 'https://ai.turai.work/discuss/',
-    description: 'ChatGPT vs ChatGPT',
-    group: 'ai'
-  },
+  // {
+  //   title: 'AI言論コロシアム',
+  //   url: 'https://ai.turai.work/discuss/',
+  //   description: 'ChatGPT vs ChatGPT',
+  //   group: 'ai'
+  // },
   {
     title: '命名先生',
     url: 'https://ai.turai.work/meimei/',
