@@ -12,22 +12,22 @@
     "generate-sitemap": "bun src/scripts/sitemap.ts"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.6.1",
-    "@mantine/code-highlight": "^7.6.2",
-    "@mantine/core": "7.6.2",
-    "@mantine/hooks": "7.6.2",
-    "@tabler/icons-react": "^2.47.0",
-    "@types/react": "^18.2.65",
-    "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react": "^4.2.1",
-    "bun": "^1.0.30",
-    "dayjs": "^1.11.10",
-    "postcss": "^8.4.35",
-    "postcss-preset-mantine": "1.13.0",
+    "@biomejs/biome": "^1.8.3",
+    "@mantine/code-highlight": "^7.11.1",
+    "@mantine/core": "7.11.1",
+    "@mantine/hooks": "7.11.1",
+    "@tabler/icons-react": "^3.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "bun": "^1.1.18",
+    "dayjs": "^1.11.11",
+    "postcss": "^8.4.39",
+    "postcss-preset-mantine": "1.15.0",
     "postcss-simple-vars": "^7.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.4.2",
-    "vite": "^5.1.6"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3"
   }
 }
