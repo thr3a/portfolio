@@ -25,6 +25,12 @@ export const WorkData: WorkProps[] = [
   //   group: 'ai'
   // },
   {
+    title: 'プロンプト改善くん',
+    url: 'https://ai.turai.work/improve-prompt/',
+    description: 'プロンプト改善もAIにやらせよう',
+    group: 'ai'
+  },
+  {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
     description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
@@ -84,12 +90,12 @@ export const WorkData: WorkProps[] = [
     description: '物価上昇を耐え抜け',
     group: 'tool'
   },
-  {
-    title: 'スプラトゥーン3 射程比較表',
-    url: 'https://spla3.turai.work/',
-    description: 'スプラ 洗濯機 消す方法 [検索]',
-    group: 'old'
-  },
+  // {
+  //   title: 'スプラトゥーン3 射程比較表',
+  //   url: 'https://spla3.turai.work/',
+  //   description: 'スプラ 洗濯機 消す方法 [検索]',
+  //   group: 'old'
+  // },
   {
     title: 'メルカリ除外キーワード',
     url: 'https://chromewebstore.google.com/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl',
@@ -124,11 +130,11 @@ export const WorkData: WorkProps[] = [
     url: 'https://hatena.turai.work/',
     description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
     group: 'tool'
-  },
-  {
-    title: 'アートWiki',
-    url: 'https://wiki.turai.work/',
-    description: '西洋絵画個人的まとめwiki',
-    group: 'tool'
   }
+  // {
+  //   title: 'アートWiki',
+  //   url: 'https://wiki.turai.work/',
+  //   description: '西洋絵画個人的まとめwiki',
+  //   group: 'tool'
+  // }
 ];
