@@ -7,6 +7,24 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'クソリプジェネレーター',
+    url: 'https://ai.turai.work/kusoreply/',
+    description: 'ChatGPTの無駄遣い',
+    group: 'ai'
+  },
+  {
+    title: 'ダジャレべた褒めジェネレーター',
+    url: 'https://ai.turai.work/owen-reply/',
+    description: 'ダジャレxAIで自己肯定感を高めるソリューション',
+    group: 'ai'
+  },
+  {
+    title: 'Terraform code builder',
+    url: 'https://ai.turai.work/terraform/',
+    description: 'Terraformのコードをつくってくれるやつ',
+    group: 'ai'
+  },
+  {
     title: 'Anime Remove Background',
     url: 'https://huggingface.co/spaces/thr3a/anime-remove-background',
     description: '2次元画像の背景削除時に白色できるようにしたやつ',

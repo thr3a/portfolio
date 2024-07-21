@@ -27,7 +27,7 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
           { label: 'AI', value: 'ai' },
           { label: '便利ツール', value: 'tool' },
           { label: '開発', value: 'dev' },
-          { label: '開発終了', value: 'old' }
+          { label: '🪦', value: 'old' }
         ]}
         mb={'sm'}
         mt={'sm'}
