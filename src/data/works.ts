@@ -7,6 +7,18 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'AI討論コロシアム',
+    url: 'https://ai.turai.work/arena/',
+    description: 'ChatGPT Vs ChatGPT',
+    group: 'ai'
+  },
+  {
+    title: 'AI大阪弁変換くん',
+    url: 'https://ai.turai.work/kansai/',
+    description: 'えらいこっちゃ、AIがなんやら大阪弁しゃべりよる！',
+    group: 'ai'
+  },
+  {
     title: 'クソリプジェネレーター',
     url: 'https://ai.turai.work/kusoreply/',
     description: 'ChatGPTの無駄遣い',
