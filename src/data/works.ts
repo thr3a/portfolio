@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'ビジネスフレームワーク提案くん',
+    url: 'https://ai.turai.work/business-framework/',
+    description: '最適なビジネスフレームワークを教えてくれる',
+    group: 'ai'
+  },
+  {
     title: '無知フクロウ二次創作ジェネレーター',
     url: 'https://ai.turai.work/muchifuku/',
     description: 'AIなんも分かんないプー',
