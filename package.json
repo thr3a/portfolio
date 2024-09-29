@@ -12,22 +12,22 @@
     "generate-sitemap": "node --import tsx  src/scripts/sitemap.ts"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.8.3",
-    "@mantine/code-highlight": "^7.12.2",
-    "@mantine/core": "7.12.2",
-    "@mantine/hooks": "7.12.2",
-    "@tabler/icons-react": "^3.14.0",
-    "@types/react": "^18.3.5",
+    "@biomejs/biome": "^1.9.2",
+    "@mantine/code-highlight": "^7.13.0",
+    "@mantine/core": "7.13.0",
+    "@mantine/hooks": "7.13.0",
+    "@tabler/icons-react": "^3.19.0",
+    "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "dayjs": "^1.11.13",
-    "postcss": "^8.4.45",
+    "postcss": "^8.4.47",
     "postcss-preset-mantine": "1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.3"
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
   }
 }
