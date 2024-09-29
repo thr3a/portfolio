@@ -1,13 +1,5 @@
 import '@mantine/code-highlight/styles.css';
-import {
-  ColorSchemeScript,
-  Container,
-  MantineProvider,
-  Space,
-  Stack,
-  Title,
-  createTheme
-} from '@mantine/core';
+import { ColorSchemeScript, Container, MantineProvider, Space, Stack, Title, createTheme } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { useState } from 'react';
 import { Header } from './components/Header';
@@ -18,8 +10,7 @@ import { SnsData } from './data/sns';
 
 const theme = createTheme({
   defaultRadius: 'xs',
-  fontFamily:
-    '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif'
+  fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif'
 });
 
 export default function App(): JSX.Element {
@@ -32,8 +23,8 @@ export default function App(): JSX.Element {
         <Profile />
         <Space h={'md'} />
         <Stack gap={'xs'}>
-          {SnsData.map((props) => (
-            <SnsLink url={props.url} name={props.name} color={props.color} icon={props.icon} />
+          {SnsData.map((props, index) => (
+            <SnsLink key={index} url={props.url} name={props.name} color={props.color} icon={props.icon} />
           ))}
         </Stack>
         <Space h={'md'} />

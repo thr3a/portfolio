@@ -35,12 +35,7 @@ export const Header = (): JSX.Element => {
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Text component='span' fz={'60px'} fw={'bold'}>
             tur
-            <Text
-              component='span'
-              variant='gradient'
-              gradient={{ from: randomColor(), to: randomColor() }}
-              inherit
-            >
+            <Text component='span' variant='gradient' gradient={{ from: randomColor(), to: randomColor() }} inherit>
               ai
             </Text>
             .work
