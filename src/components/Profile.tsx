@@ -2,18 +2,18 @@ import { CodeHighlight } from '@mantine/code-highlight';
 
 const yaml = /* yaml */ `
 name: あまねきー
-location: 東京
+region: ap-northeast-1
 favorites:
   languages:
     - Ruby
     - TypeScript
-  animal: 猫
-  game: スプラトゥーン 🦑
+  animal: cat
+  game: Splatoon 🦑
   foods:
-    - お寿司
-    - 甘いもの全般
+    - sushi
+    - sweets
 hobbies:
-  - 西洋絵画
+  - western painting
 `;
 
 export const Profile = (): JSX.Element => {
