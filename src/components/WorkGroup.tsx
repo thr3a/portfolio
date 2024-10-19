@@ -1,5 +1,4 @@
-import { Box, SegmentedControl, Stack } from '@mantine/core';
-import { useMantineTheme } from '@mantine/core';
+import { SegmentedControl, Stack, useMantineTheme } from '@mantine/core';
 import type { WorkProps } from '../data/works';
 import { WorkData } from '../data/works';
 import { Work } from './Work';
@@ -19,7 +18,7 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
   const theme = useMantineTheme();
 
   return (
-    <Box>
+    <>
       <SegmentedControl
         value={workGroup}
         color={theme.primaryColor}
@@ -31,14 +30,13 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
           { label: '開発', value: 'dev' },
           { label: '🪦', value: 'old' }
         ]}
-        mb={'sm'}
-        mt={'sm'}
+        mb={'xs'}
       />
       <Stack gap={'xs'}>
         {filteredGroups().map((props) => (
           <Work key={props.url} {...props} />
         ))}
       </Stack>
-    </Box>
+    </>
   );
 };
