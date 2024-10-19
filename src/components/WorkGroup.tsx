@@ -1,4 +1,5 @@
 import { Box, SegmentedControl, Stack } from '@mantine/core';
+import { useMantineTheme } from '@mantine/core';
 import type { WorkProps } from '../data/works';
 import { WorkData } from '../data/works';
 import { Work } from './Work';
@@ -15,12 +16,13 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
     }
     return WorkData.filter((x: WorkProps) => x.group === workGroup);
   };
+  const theme = useMantineTheme();
 
   return (
     <Box>
       <SegmentedControl
         value={workGroup}
-        color='blue'
+        color={theme.primaryColor}
         onChange={setworkGroup}
         data={[
           { label: 'すべて', value: 'all' },

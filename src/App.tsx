@@ -10,7 +10,8 @@ import { SnsData } from './data/sns';
 
 const theme = createTheme({
   defaultRadius: 'xs',
-  fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif'
+  fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
+  primaryColor: 'violet'
 });
 
 export default function App(): JSX.Element {
