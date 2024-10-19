@@ -1,4 +1,4 @@
-import { Center, Flex, Grid, Image, Text } from '@mantine/core';
+import { Flex, Image, Text } from '@mantine/core';
 import { DarkModeButton } from './DarkModeButton';
 
 const randomColor = (): string => {
@@ -26,22 +26,16 @@ export const Header = (): JSX.Element => {
       <Flex justify='flex-end'>
         <DarkModeButton />
       </Flex>
-      <Grid mb={'md'}>
-        <Grid.Col span={{ base: 12, md: 2 }}>
-          <Center>
-            <Image h={100} w='auto' radius={'xl'} src='./icon.jpg' alt='cute cat!' />
-          </Center>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 8 }}>
-          <Text component='span' fz={'60px'} fw={'bold'}>
-            tur
-            <Text component='span' variant='gradient' gradient={{ from: randomColor(), to: randomColor() }} inherit>
-              ai
-            </Text>
-            .work
+      <Flex align={'center'} justify='center' gap={'lg'} mt={'lg'} mb={'lg'}>
+        <Image h={80} w='auto' radius={'xs'} fit={'contain'} src='./icon.jpg' alt='cute cat!' />
+        <Text component='div' fz={'clamp(2rem, 1.364rem + 3.18vw, 3.75rem)'} fw={'bold'}>
+          tur
+          <Text component='span' variant='gradient' gradient={{ from: randomColor(), to: randomColor() }} inherit>
+            ai
           </Text>
-        </Grid.Col>
-      </Grid>
+          .work
+        </Text>
+      </Flex>
     </>
   );
 };
