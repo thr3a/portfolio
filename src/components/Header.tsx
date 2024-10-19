@@ -1,5 +1,5 @@
 import { Flex, Image, Text } from '@mantine/core';
-import { DarkModeButton } from './DarkModeButton';
+import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 const randomColor = (): string => {
   const colors = [
@@ -24,7 +24,7 @@ export const Header = (): JSX.Element => {
   return (
     <>
       <Flex justify='flex-end'>
-        <DarkModeButton />
+        <ColorSchemeToggle />
       </Flex>
       <Flex align={'center'} justify='center' gap={'lg'} mt={'lg'} mb={'lg'}>
         <Image h={80} w='auto' radius={'xs'} fit={'contain'} src='./icon.jpg' alt='cute cat!' />
