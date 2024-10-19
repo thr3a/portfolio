@@ -1,5 +1,6 @@
 import { Flex, Image, Text } from '@mantine/core';
 import { ColorSchemeToggle } from './ColorSchemeToggle';
+import * as classes from './Header.css';
 
 const randomColor = (): string => {
   const colors = [
@@ -27,8 +28,8 @@ export const Header = (): JSX.Element => {
         <ColorSchemeToggle />
       </Flex>
       <Flex align={'center'} justify='center' gap={'lg'} mt={'lg'} mb={'lg'}>
-        <Image h={80} w='auto' radius={'xs'} fit={'contain'} src='./icon.jpg' alt='cute cat!' />
-        <Text component='div' fz={'clamp(2rem, 1.364rem + 3.18vw, 3.75rem)'} fw={'bold'}>
+        <Image h={'12vh'} w='auto' radius={'xs'} fit={'contain'} src='./icon.jpg' alt='cute cat!' />
+        <Text component='div' className={classes.title} fw={'bold'}>
           tur
           <Text component='span' variant='gradient' gradient={{ from: randomColor(), to: randomColor() }} inherit>
             ai
