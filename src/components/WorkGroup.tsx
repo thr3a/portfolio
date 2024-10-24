@@ -23,11 +23,13 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
         value={workGroup}
         color={theme.primaryColor}
         onChange={setworkGroup}
+        size='md'
         data={[
           { label: 'すべて', value: 'all' },
           { label: 'AI', value: 'ai' },
-          { label: '便利ツール', value: 'tool' },
+          { label: '便利', value: 'tool' },
           { label: '開発', value: 'dev' },
+          { label: '本', value: 'book' },
           { label: '🪦', value: 'old' }
         ]}
         mb={'xs'}

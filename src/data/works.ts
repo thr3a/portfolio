@@ -2,10 +2,16 @@ export type WorkProps = {
   title: string;
   url: string;
   description: string;
-  group: 'ai' | 'tool' | 'dev' | 'old';
+  group: 'ai' | 'tool' | 'dev' | 'old' | 'book';
 };
 
 export const WorkData: WorkProps[] = [
+  {
+    title: 'sie; TechBook vol.1',
+    url: 'https://techbookfest.org/product/i0PDp1UKf9jMPXN4JRDCj0?productVariantID=i5cQdNGaWEmXvz75J7jFdm',
+    description: '生成AIにエビフライ学習させてみた',
+    group: 'book'
+  },
   {
     title: 'ビジネスフレームワーク提案くん',
     url: 'https://ai.turai.work/business-framework/',
