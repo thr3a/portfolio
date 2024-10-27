@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'sie; TechBook vol.2',
+    url: 'https://techbookfest.org/product/jECrnrUCE2sW1Sg9Xn1KrY',
+    description: '格安感熱式プリンターで遊ぶ',
+    group: 'book'
+  },
+  {
     title: 'sie; TechBook vol.1',
     url: 'https://techbookfest.org/product/i0PDp1UKf9jMPXN4JRDCj0?productVariantID=i5cQdNGaWEmXvz75J7jFdm',
     description: '生成AIにエビフライ学習させてみた',
