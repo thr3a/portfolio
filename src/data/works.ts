@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'ポケポケ ガチャシュミレーター',
+    url: 'https://gacha.turai.work/pokepoke.html',
+    description: 'ミューツーexください😭',
+    group: 'tool'
+  },
+  {
     title: 'sie; TechBook vol.2',
     url: 'https://techbookfest.org/product/jECrnrUCE2sW1Sg9Xn1KrY',
     description: '格安感熱式プリンターで遊ぶ',
