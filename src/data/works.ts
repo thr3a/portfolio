@@ -7,6 +7,18 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'PDFメタデータビューアー',
+    url: 'https://pdf-metadata.turai.work/',
+    description: '最終更新日時が深夜だとヒェッってなるやつ',
+    group: 'tool'
+  },
+  {
+    title: 'Amazon banana',
+    url: 'https://chromewebstore.google.com/detail/amazon-banana/bimgbejbhnlaeapccdejdgnjfcembnjj?authuser=0&hl=ja',
+    description: 'Amazon販売ページのウザい表示を抹消するChrome拡張機能',
+    group: 'tool'
+  },
+  {
     title: 'ポケポケ ガチャシュミレーター',
     url: 'https://gacha.turai.work/pokepoke.html',
     description: 'ミューツーexください😭',
