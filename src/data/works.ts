@@ -7,9 +7,46 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'LibreChat質問部屋',
+    url: 'https://ai.turai.work/docs-librechat/',
+    description: '公式ドキュメントに基づいてAIがLibreChatをサポート',
+    group: 'dev'
+  },
+  {
+    title: 'mise質問部屋',
+    url: 'https://ai.turai.work/docs-mise/',
+    description: '公式ドキュメントに基づいてAIがmiseをサポート',
+    group: 'dev'
+  },
+
+  {
+    title: 'mise質問部屋',
+    url: 'https://ai.turai.work/docs-mise/',
+    description: '公式ドキュメントに基づいてAIがmiseをサポート',
+    group: 'dev'
+  },
+  {
+    title: 'Kamal質問部屋',
+    url: 'https://ai.turai.work/docs-kamal/',
+    description: '公式ドキュメントに基づいてAIがKamalサポート',
+    group: 'dev'
+  },
+  {
+    title: 'repo-to-text',
+    url: 'https://github.com/thr3a/repo-to-text',
+    description: 'LLM用にソースコードをテキストに変換するツール',
+    group: 'dev'
+  },
+  {
+    title: 'remove-markdown-links',
+    url: 'https://github.com/thr3a/remove-markdown-links',
+    description: 'LLM用にリンクを除去するMarkdown整形ツール',
+    group: 'dev'
+  },
+  {
     title: 'PDFメタデータビューアー',
     url: 'https://pdf-metadata.turai.work/',
-    description: '最終更新日時が深夜だとヒェッってなるやつ',
+    description: 'プレスリリースの最終更新日時が深夜ってことは…？',
     group: 'tool'
   },
   {
