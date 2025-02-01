@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'llm-token-count',
+    url: 'https://github.com/thr3a/llm-token-count',
+    description: '標準入力から受け取った文字列のトークン数をカウントするツール',
+    group: 'dev'
+  },
+  {
     title: 'LibreChat質問部屋',
     url: 'https://ai.turai.work/docs-librechat/',
     description: '公式ドキュメントに基づいてAIがLibreChatをサポート',
