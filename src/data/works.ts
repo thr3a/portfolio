@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'wedding',
+    url: 'https://ai-dev.turai.work/wedding',
+    description: 'www',
+    group: 'dev'
+  },
+  {
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
     description: '標準入力から受け取った文字列のトークン数をカウントするツール',
@@ -18,13 +24,6 @@ export const WorkData: WorkProps[] = [
     description: '公式ドキュメントに基づいてAIがLibreChatをサポート',
     group: 'dev'
   },
-  {
-    title: 'mise質問部屋',
-    url: 'https://ai.turai.work/docs-mise/',
-    description: '公式ドキュメントに基づいてAIがmiseをサポート',
-    group: 'dev'
-  },
-
   {
     title: 'mise質問部屋',
     url: 'https://ai.turai.work/docs-mise/',
