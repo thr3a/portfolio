@@ -7,9 +7,9 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
-    title: 'wedding',
-    url: 'https://ai-dev.turai.work/wedding',
-    description: 'www',
+    title: 'E-Paper Image tool',
+    url: 'https://epaper.turai.work/',
+    description: '電子ペーパー用の画像に変換ツール',
     group: 'dev'
   },
   {
