@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'パスワード一括生成ツール',
+    url: 'https://password.turai.work/',
+    description: '安全なパスワードを一括で作成します。',
+    group: 'dev'
+  },
+  {
     title: 'E-Paper Image tool',
     url: 'https://epaper.turai.work/',
     description: '電子ペーパー用の画像に変換ツール',
