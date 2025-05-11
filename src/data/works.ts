@@ -7,6 +7,18 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: '神話4択クイズ',
+    url: 'https://ai.turai.work/art-quiz/',
+    description: '４択クイズで絵画知識を学ぼう',
+    group: 'tool'
+  },
+  {
+    title: 'TailwindCSS UI生成ツール',
+    url: 'https://ai.turai.work/html-ui/',
+    description: 'TailwindCSS対応のHTMLを作れる モック用',
+    group: 'dev'
+  },
+  {
     title: 'パスワード一括生成ツール',
     url: 'https://password.turai.work/',
     description: '安全なパスワードを一括で作成します。',
