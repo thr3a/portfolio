@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'EPUBテキスト変換ツール',
+    url: 'https://epub.turai.work/',
+    description: 'EPUBをテキストに変換するツール',
+    group: 'tool'
+  },
+  {
     title: '神話4択クイズ',
     url: 'https://ai.turai.work/art-quiz/',
     description: '４択クイズで絵画知識を学ぼう',
