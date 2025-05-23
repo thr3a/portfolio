@@ -1,4 +1,4 @@
-import { CodeHighlight } from '@mantine/code-highlight';
+import { YamlHighlighter } from './YamlHighlighter';
 
 const yaml = /* yaml */ `
 name: あまねきー
@@ -17,5 +17,5 @@ hobbies:
 `;
 
 export const Profile = () => {
-  return <CodeHighlight code={yaml} language='yaml' withCopyButton={false} />;
+  return <YamlHighlighter code={yaml} />;
 };
