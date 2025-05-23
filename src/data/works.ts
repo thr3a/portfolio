@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'rubocop-rspec_enforce_description',
+    url: 'https://epub.turai.work/',
+    description: 'RSpecの説明が「〜こと」で終わっていること',
+    group: 'dev'
+  },
+  {
     title: 'EPUBテキスト変換ツール',
     url: 'https://epub.turai.work/',
     description: 'EPUBをテキストに変換するツール',
