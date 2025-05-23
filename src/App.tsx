@@ -1,24 +1,17 @@
-import { ColorSchemeScript, Container, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import { useState } from 'react';
-import { Header } from './components/Header';
-import { Profile } from './components/Profile';
-import { Title as MyTitle } from './components/Title';
-import { WorkGroup } from './components/WorkGroup';
-import { theme } from './theme';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import NotFound from './NotFound';
+import Portfolio from './portfolio/Page';
+import Template from './template/Page';
 
 export default function App() {
-  const [workGroup, setworkGroup] = useState('all');
   return (
-    <MantineProvider theme={theme} defaultColorScheme='auto'>
-      <ColorSchemeScript defaultColorScheme='auto' />
-      <Container mt={'md'} mb={'md'}>
-        <Header />
-        <MyTitle title='Profile' />
-        <Profile />
-        <MyTitle title='Works' />
-        <WorkGroup workGroup={workGroup} setworkGroup={setworkGroup} />
-      </Container>
-    </MantineProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Portfolio />} />
+        <Route path='/template' element={<Template />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

@@ -1,6 +1,6 @@
 import { Anchor, Paper, Text } from '@mantine/core';
-import type { WorkProps } from '../data/works';
 import { text } from './Work.css';
+import type { WorkProps } from './data/works';
 
 export const Work = ({ title, description, url }: WorkProps) => {
   return (

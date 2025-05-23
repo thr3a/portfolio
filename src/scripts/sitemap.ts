@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import dayjs from 'dayjs';
-import { WorkData } from '../data/works';
+import { WorkData } from '../portfolio/data/works';
 
 function createSitemap(urls: string[]): string {
   const now = dayjs();

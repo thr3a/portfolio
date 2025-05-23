@@ -1,7 +1,7 @@
 import { SegmentedControl, Stack, useMantineTheme } from '@mantine/core';
-import type { WorkProps } from '../data/works';
-import { WorkData } from '../data/works';
 import { Work } from './Work';
+import type { WorkProps } from './data/works';
+import { WorkData } from './data/works';
 
 type props = {
   workGroup: string;
