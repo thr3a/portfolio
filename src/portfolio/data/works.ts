@@ -7,6 +7,12 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'レストランメニュー解説くん',
+    url: 'https://ai.turai.work/describe-menu/',
+    description: '海外旅行もこれで安心',
+    group: 'ai'
+  },
+  {
     title: 'rubocop-rspec_enforce_description',
     url: 'https://github.com/thr3a/rubocop-rspec_enforce_description',
     description: 'RSpecの説明が「〜こと」で終わっていること',
@@ -32,7 +38,7 @@ export const WorkData: WorkProps[] = [
   },
   {
     title: 'パスワード一括生成ツール',
-    url: 'https://password.turai.work/',
+    url: 'https://turai.work/password/',
     description: '安全なパスワードを一括で作成します。',
     group: 'dev'
   },
