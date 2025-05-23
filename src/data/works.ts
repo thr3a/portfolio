@@ -15,7 +15,7 @@ export const WorkData: WorkProps[] = [
   {
     title: 'EPUBテキスト変換ツール',
     url: 'https://epub.turai.work/',
-    description: 'EPUBをテキストに変換するツール',
+    description: 'EPUBをテキストに必要な章だけダウンロード',
     group: 'tool'
   },
   {
@@ -27,7 +27,7 @@ export const WorkData: WorkProps[] = [
   {
     title: 'TailwindCSS UI生成ツール',
     url: 'https://ai.turai.work/html-ui/',
-    description: 'TailwindCSS対応のHTMLを作れる モック用',
+    description: 'TailwindCSS対応のHTMLを作れるよ',
     group: 'dev'
   },
   {
@@ -45,7 +45,7 @@ export const WorkData: WorkProps[] = [
   {
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
-    description: '標準入力から受け取った文字列のトークン数をカウントするツール',
+    description: '文字列のLLMトークン数をカウントするツール',
     group: 'dev'
   },
   {
