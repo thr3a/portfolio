@@ -8,7 +8,7 @@ export type WorkProps = {
 export const WorkData: WorkProps[] = [
   {
     title: 'rubocop-rspec_enforce_description',
-    url: 'https://epub.turai.work/',
+    url: 'https://github.com/thr3a/rubocop-rspec_enforce_description',
     description: 'RSpecの説明が「〜こと」で終わっていること',
     group: 'dev'
   },
