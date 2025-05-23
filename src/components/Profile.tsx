@@ -14,6 +14,10 @@ favorites:
     - sweets
 hobbies:
   - western painting
+links:
+  - Twitter: https://twitter.com/amanekey
+  - Blog: https://blog.turai.work/
+  - GitHub: https://github.com/thr3a
 `;
 
 export const Profile = () => {

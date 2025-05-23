@@ -1,4 +1,3 @@
-import '@mantine/code-highlight/styles.css';
 import { ColorSchemeScript, Container, MantineProvider, Stack } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { useState } from 'react';
