@@ -1,0 +1,15 @@
+これはITエンジニアのポートフォリオプロジェクトです。
+
+# 必ず守ること
+
+- タスクを依頼されたら最初に必ずpackage.jsonの内容を確認して仕様ライブラリを把握すること
+- コードコメントは日本語で 既存のコードコメントは指示がない限り変えないこと
+- ビルドエラーを直してとお願いされたら「npm run build」して成功するまで修正とビルドを繰り返すこと
+- 可能な限りReact純正のhookよりmantine hookを利用すること
+
+# ライブラリ概要
+
+- 言語: TypeScript
+- UI: React v19 Mantine v8
+- hook: mantine hook
+- lint: biome
