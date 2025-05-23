@@ -19,7 +19,7 @@ export type SnsProps = {
   icon: keyof typeof iconMap;
 };
 
-export const SnsLink = (props: SnsProps): JSX.Element => {
+export const SnsLink = (props: SnsProps) => {
   const IconComponent = iconMap[props.icon];
 
   return (

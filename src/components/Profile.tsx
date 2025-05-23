@@ -16,6 +16,6 @@ hobbies:
   - western painting
 `;
 
-export const Profile = (): JSX.Element => {
+export const Profile = () => {
   return <CodeHighlight code={yaml} language='yaml' withCopyButton={false} />;
 };

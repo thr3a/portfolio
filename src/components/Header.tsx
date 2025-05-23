@@ -21,7 +21,7 @@ const randomColor = (): string => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export const Header = (): JSX.Element => {
+export const Header = () => {
   return (
     <>
       <Flex justify='flex-end'>

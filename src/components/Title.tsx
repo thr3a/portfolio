@@ -1,6 +1,6 @@
 import { Text, useMantineTheme } from '@mantine/core';
 
-export const Title = ({ title }: { title: string }): JSX.Element => {
+export const Title = ({ title }: { title: string }) => {
   const theme = useMantineTheme();
 
   return (

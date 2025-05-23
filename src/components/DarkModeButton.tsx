@@ -3,7 +3,7 @@ import { IconMoon, IconSun } from '@tabler/icons-react';
 import cx from 'clsx';
 import classes from './Demo.module.css';
 
-export function DarkModeButton(): JSX.Element {
+export function DarkModeButton() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
 

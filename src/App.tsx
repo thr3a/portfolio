@@ -10,7 +10,7 @@ import { WorkGroup } from './components/WorkGroup';
 import { SnsData } from './data/sns';
 import { theme } from './theme';
 
-export default function App(): JSX.Element {
+export default function App() {
   const [workGroup, setworkGroup] = useState('all');
   return (
     <MantineProvider theme={theme} defaultColorScheme='auto'>

@@ -8,7 +8,7 @@ type props = {
   setworkGroup: (workGroup: string) => void;
 };
 
-export const WorkGroup = ({ workGroup, setworkGroup }: props): JSX.Element => {
+export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
   const filteredGroups = (): WorkProps[] => {
     if (workGroup === 'all') {
       return WorkData.filter((x: WorkProps) => x.group !== 'old');
