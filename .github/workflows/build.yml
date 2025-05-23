@@ -27,6 +27,11 @@ jobs:
         # env:
         #   URL_PREFIX: portfolio
 
+        # GitHub Pagesはサーバーサイドのルーティングができないため、React Routerを使ったSPAでURLを直接指定すると404エラーになる。
+        # GitHub Pagesの仕様で、存在しないパスは404.htmlにリダイレクトされる。から、index.htmlと同じ内容にすることでReact Routerがルーティングを処理できる。
+      - name: 404.html for SPA routing on GitHub Pages
+        run: cp dist/index.html dist/404.html
+
       - name: Generate sitemap
         run: npm run generate-sitemap
 

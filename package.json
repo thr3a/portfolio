@@ -9,8 +9,7 @@
     "lint": "biome check --write ./src",
     "preview": "vite preview",
     "serve": "python -m http.server -d dist",
-    "generate-sitemap": "node --import tsx  src/scripts/sitemap.ts",
-    "postbuild": "cp dist/index.html dist/404.html"
+    "generate-sitemap": "node --import tsx  src/scripts/sitemap.ts"
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
