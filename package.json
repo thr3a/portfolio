@@ -9,11 +9,13 @@
     "lint": "biome check --write ./src",
     "preview": "vite preview",
     "serve": "python -m http.server -d dist",
-    "generate-sitemap": "node --import tsx  src/scripts/sitemap.ts"
+    "generate-sitemap": "node --import tsx  src/scripts/sitemap.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
     "@mantine/core": "8.0.1",
+    "@mantine/form": "^8.0.1",
     "@mantine/hooks": "8.0.1",
     "@mantine/vanilla-extract": "^8.0.1",
     "@tabler/icons-react": "^3.33.0",
@@ -31,6 +33,7 @@
     "react-router-dom": "^7.6.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
   }
 }
