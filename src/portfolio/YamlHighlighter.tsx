@@ -9,7 +9,7 @@ const linkify = (text: string) => {
     if (part.match(urlRegex)) {
       return (
         <Anchor href={part} target='_blank' key={index} underline={'always'}>
-          {part}
+          {part.replace('https://', '')}
         </Anchor>
       );
     }
