@@ -30,6 +30,19 @@ describe('passwordGenerator', () => {
     expect(password).toMatch(/^[a-z]+$/);
   });
 
+  it('小文字が選択されている場合、生成されたパスワードに小文字が必ず含まれる', () => {
+    const options: PasswordOptions = {
+      length: 8,
+      lower: true,
+      upper: false,
+      number: false,
+      symbol: false,
+      excludeSimilar: false
+    };
+    const password = generatePassword(options);
+    expect(password).toMatch(/[a-z]/);
+  });
+
   it('大文字のみのパスワードを生成する', () => {
     const options: PasswordOptions = {
       length: 8,
@@ -41,6 +54,19 @@ describe('passwordGenerator', () => {
     };
     const password = generatePassword(options);
     expect(password).toMatch(/^[A-Z]+$/);
+  });
+
+  it('大文字が選択されている場合、生成されたパスワードに大文字が必ず含まれる', () => {
+    const options: PasswordOptions = {
+      length: 8,
+      lower: false,
+      upper: true,
+      number: false,
+      symbol: false,
+      excludeSimilar: false
+    };
+    const password = generatePassword(options);
+    expect(password).toMatch(/[A-Z]/);
   });
 
   it('数字のみのパスワードを生成する', () => {
@@ -56,6 +82,19 @@ describe('passwordGenerator', () => {
     expect(password).toMatch(/^[0-9]+$/);
   });
 
+  it('数字が選択されている場合、生成されたパスワードに数字が必ず含まれる', () => {
+    const options: PasswordOptions = {
+      length: 8,
+      lower: false,
+      upper: false,
+      number: true,
+      symbol: false,
+      excludeSimilar: false
+    };
+    const password = generatePassword(options);
+    expect(password).toMatch(/[0-9]/);
+  });
+
   it('記号のみのパスワードを生成する', () => {
     const options: PasswordOptions = {
       length: 8,
@@ -67,6 +106,19 @@ describe('passwordGenerator', () => {
     };
     const password = generatePassword(options);
     expect(password).toMatch(/^[!@#$%^&*]+$/);
+  });
+
+  it('記号が選択されている場合、生成されたパスワードに記号が必ず含まれる', () => {
+    const options: PasswordOptions = {
+      length: 8,
+      lower: false,
+      upper: false,
+      number: false,
+      symbol: true,
+      excludeSimilar: false
+    };
+    const password = generatePassword(options);
+    expect(password).toMatch(/[!@#$%^&*]/);
   });
 
   it('似た文字を除外したパスワードを生成する', () => {

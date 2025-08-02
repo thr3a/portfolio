@@ -17,20 +17,33 @@ export type PasswordOptions = {
 function getRandomValues(array: Uint8Array): Uint8Array {
   // ブラウザ環境
   if (typeof window !== 'undefined' && window.crypto) {
-    window.crypto.getRandomValues(array);
-    return array;
+    return window.crypto.getRandomValues(array);
   }
-  // Node.js環境
+  // Node.js環境 (グローバルスコープ)
   if (typeof global !== 'undefined' && global.crypto) {
-    global.crypto.getRandomValues(array);
-    return array;
+    return global.crypto.getRandomValues(array);
   }
-  // Node.jsのcryptoモジュールを使用
+  // Node.js環境 (モジュール)
   try {
     const nodeCrypto = require('node:crypto');
     return nodeCrypto.getRandomValues(array);
   } catch (e) {
     throw new Error('Crypto.getRandomValues is not supported in this environment');
+  }
+}
+
+// 暗号学的に安全な方法で、0からmax-1までのランダムな整数を生成する
+function secureRandomIndex(max: number): number {
+  // 剰余バイアスを避けるための閾値
+  const threshold = 256 - (256 % max);
+  while (true) {
+    const randomBytes = new Uint8Array(1);
+    getRandomValues(randomBytes);
+    const randomValue = randomBytes[0];
+
+    if (randomValue < threshold) {
+      return randomValue % max;
+    }
   }
 }
 
@@ -51,19 +64,57 @@ export function generatePassword(options: PasswordOptions): string {
     return '';
   }
 
-  const charsetLength = charset.length;
-  const threshold = 256 - (256 % charsetLength);
+  // excludeSimilarオプションを考慮した各文字セットを定義
+  const lowerCharset = options.excludeSimilar ? LOWER.replace(SIMILAR, '') : LOWER;
+  const upperCharset = options.excludeSimilar ? UPPER.replace(SIMILAR, '') : UPPER;
+  const numberCharset = options.excludeSimilar ? NUMBER.replace(SIMILAR, '') : NUMBER;
+  const symbolCharset = SYMBOL; // SYMBOLには紛らわしい文字がない想定
 
-  let password = '';
-  while (password.length < options.length) {
-    const randomBytes = new Uint8Array(1);
-    getRandomValues(randomBytes);
-    const randomValue = randomBytes[0];
+  const requiredChars: string[] = [];
 
-    if (randomValue < threshold) {
-      const randomIndex = randomValue % charsetLength;
-      password += charset[randomIndex];
-    }
+  // 各文字種から安全な乱数で1文字を必ず選ぶ
+  if (options.lower && lowerCharset.length > 0) {
+    const randomIndex = secureRandomIndex(lowerCharset.length);
+    requiredChars.push(lowerCharset[randomIndex]);
   }
-  return password;
+  if (options.upper && upperCharset.length > 0) {
+    const randomIndex = secureRandomIndex(upperCharset.length);
+    requiredChars.push(upperCharset[randomIndex]);
+  }
+  if (options.number && numberCharset.length > 0) {
+    const randomIndex = secureRandomIndex(numberCharset.length);
+    requiredChars.push(numberCharset[randomIndex]);
+  }
+  if (options.symbol && symbolCharset.length > 0) {
+    const randomIndex = secureRandomIndex(symbolCharset.length);
+    requiredChars.push(symbolCharset[randomIndex]);
+  }
+
+  // 必須文字数が要求された長さより多い場合は、必須文字のみでパスワードを生成
+  if (requiredChars.length >= options.length) {
+    // パスワードを安全な方法でシャッフル
+    for (let i = requiredChars.length - 1; i > 0; i--) {
+      const j = secureRandomIndex(i + 1);
+      [requiredChars[i], requiredChars[j]] = [requiredChars[j], requiredChars[i]];
+    }
+    return requiredChars.slice(0, options.length).join('');
+  }
+
+  // 必須文字をパスワードに追加
+  let password = requiredChars.join('');
+
+  // 残りの文字数分をcharsetからランダムに選ぶ (この部分は元から安全)
+  while (password.length < options.length) {
+    const randomIndex = secureRandomIndex(charset.length);
+    password += charset[randomIndex];
+  }
+
+  // パスワードを安全な方法でシャッフル
+  const passwordArray = password.split('');
+  for (let i = passwordArray.length - 1; i > 0; i--) {
+    const j = secureRandomIndex(i + 1);
+    [passwordArray[i], passwordArray[j]] = [passwordArray[j], passwordArray[i]];
+  }
+
+  return passwordArray.join('');
 }
