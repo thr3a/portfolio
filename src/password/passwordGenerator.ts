@@ -3,7 +3,7 @@ const LOWER = 'abcdefghijklmnopqrstuvwxyz';
 const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const NUMBER = '0123456789';
 const SYMBOL = '!@#$%^&*';
-const SIMILAR = /[1lI0O]/g;
+const SIMILAR = /[1lI0Oo]/g;
 
 export type PasswordOptions = {
   length: number;
@@ -13,6 +13,27 @@ export type PasswordOptions = {
   symbol: boolean;
   excludeSimilar: boolean;
 };
+
+// 暗号学的に安全な乱数を生成する関数
+function getRandomValues(array: Uint8Array): Uint8Array {
+  // ブラウザ環境
+  if (typeof window !== 'undefined' && window.crypto) {
+    window.crypto.getRandomValues(array);
+    return array;
+  }
+  // Node.js環境
+  if (typeof global !== 'undefined' && global.crypto) {
+    global.crypto.getRandomValues(array);
+    return array;
+  }
+  // Node.jsのcryptoモジュールを使用
+  try {
+    const nodeCrypto = require('node:crypto');
+    return nodeCrypto.getRandomValues(array);
+  } catch (e) {
+    throw new Error('Crypto.getRandomValues is not supported in this environment');
+  }
+}
 
 // 指定されたオプションから文字セットを生成
 export function getCharset(options: PasswordOptions): string {
@@ -26,19 +47,20 @@ export function getCharset(options: PasswordOptions): string {
 }
 
 // 指定された長さと文字セットでパスワードを生成
-export function generatePassword(length: number, charset: string): string {
-  if (!charset) return '';
-  const arr = new Uint32Array(length);
-  // ブラウザ/Node両対応
-  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
-    crypto.getRandomValues(arr);
-  } else {
-    // Node.js用フォールバック
-    // biome-ignore lint/suspicious/noExplicitAny: Node.js用
-    const nodeCrypto: any = require('node:crypto');
-    nodeCrypto.randomFillSync(arr);
+export function generatePassword(options: PasswordOptions): string {
+  const charset = getCharset(options);
+  if (charset.length === 0) {
+    return '';
   }
-  return Array.from(arr)
-    .map((v) => charset[v % charset.length])
-    .join('');
+
+  const charsetLength = charset.length;
+  const randomBytes = new Uint8Array(options.length);
+  getRandomValues(randomBytes);
+
+  let password = '';
+  for (let i = 0; i < options.length; i++) {
+    const randomIndex = randomBytes[i] % charsetLength;
+    password += charset[randomIndex];
+  }
+  return password;
 }

@@ -2,16 +2,10 @@ import { Box, Button, Checkbox, Flex, Group, Input, Paper, Select, Stack, Text, 
 import { useForm } from '@mantine/form';
 import { useCallback, useState } from 'react';
 import { ButtonCopy } from './ButtonCopy';
-
-// パスワード生成ロジック
-const LOWER = 'abcdefghijklmnopqrstuvwxyz';
-const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const NUMBER = '0123456789';
-const SYMBOL = '!@#$%^&*';
-const SIMILAR = /[1lI0O]/g;
+import { generatePassword } from './passwordGenerator.ts';
 
 type FormValues = {
-  length: string;
+  length: number;
   lower: boolean;
   upper: boolean;
   number: boolean;
@@ -19,29 +13,10 @@ type FormValues = {
   excludeSimilar: boolean;
 };
 
-function getCharset(values: FormValues) {
-  let chars = '';
-  if (values.lower) chars += LOWER;
-  if (values.upper) chars += UPPER;
-  if (values.number) chars += NUMBER;
-  if (values.symbol) chars += SYMBOL;
-  if (values.excludeSimilar) chars = chars.replace(SIMILAR, '');
-  return chars;
-}
-
-function generatePassword(length: number, charset: string): string {
-  if (!charset) return '';
-  const arr = new Uint32Array(length);
-  crypto.getRandomValues(arr);
-  return Array.from(arr)
-    .map((v) => charset[v % charset.length])
-    .join('');
-}
-
 import { useEffect } from 'react';
 
 const initialFormValues: FormValues = {
-  length: '8',
+  length: 8,
   lower: true,
   upper: true,
   number: true,
@@ -55,30 +30,19 @@ export function PasswordGenerator() {
   const form = useForm<FormValues>({
     initialValues: initialFormValues,
     validate: {
-      length: (v: string) => (Number(v) >= 4 && Number(v) <= 20 ? null : '4〜20の範囲で選択してください'),
       lower: (_: boolean, values: FormValues) =>
         values.lower || values.upper || values.number || values.symbol ? null : '最低1つは選択してください'
     }
   });
 
   const handleGenerateOnButtonClick = useCallback(() => {
-    const currentValues = form.values;
-    const charset = getCharset(currentValues);
-    const len = Number(currentValues.length);
-    // フォームのバリデーションにより、長さは4から20の範囲であるべき
-    // charsetが空の場合は generatePassword が空文字を返すことで対応
-    if (!charset || Number.isNaN(len) || len < 4) return; // 最小長チェック
-    const result = Array.from({ length: 10 }, () => generatePassword(len, charset));
+    const result = Array.from({ length: 10 }, () => generatePassword(form.values));
     setPasswords(result);
   }, [form.values]);
 
   // 初回マウント時に自動生成
   useEffect(() => {
-    const charset = getCharset(initialFormValues);
-    const len = Number(initialFormValues.length);
-    // フォームのバリデーションにより、長さは4から20の範囲であるべき
-    if (!charset || Number.isNaN(len) || len < 4) return; // 最小長チェック
-    const result = Array.from({ length: 10 }, () => generatePassword(len, charset));
+    const result = Array.from({ length: 10 }, () => generatePassword(initialFormValues));
     setPasswords(result);
   }, []); // initialFormValues が外部で変更される可能性がなければ空で良い
 
@@ -97,7 +61,7 @@ export function PasswordGenerator() {
               label: String(i + 4)
             }))}
             {...form.getInputProps('length')}
-            defaultValue='8'
+            defaultValue={'8'}
             allowDeselect={false}
           />
           <Group gap='xs'>
