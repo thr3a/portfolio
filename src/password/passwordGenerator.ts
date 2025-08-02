@@ -1,4 +1,3 @@
-// パスワード生成用定数
 const LOWER = 'abcdefghijklmnopqrstuvwxyz';
 const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const NUMBER = '0123456789';
@@ -46,7 +45,6 @@ export function getCharset(options: PasswordOptions): string {
   return chars;
 }
 
-// 指定された長さと文字セットでパスワードを生成
 export function generatePassword(options: PasswordOptions): string {
   const charset = getCharset(options);
   if (charset.length === 0) {
@@ -54,13 +52,18 @@ export function generatePassword(options: PasswordOptions): string {
   }
 
   const charsetLength = charset.length;
-  const randomBytes = new Uint8Array(options.length);
-  getRandomValues(randomBytes);
+  const threshold = 256 - (256 % charsetLength);
 
   let password = '';
-  for (let i = 0; i < options.length; i++) {
-    const randomIndex = randomBytes[i] % charsetLength;
-    password += charset[randomIndex];
+  while (password.length < options.length) {
+    const randomBytes = new Uint8Array(1);
+    getRandomValues(randomBytes);
+    const randomValue = randomBytes[0];
+
+    if (randomValue < threshold) {
+      const randomIndex = randomValue % charsetLength;
+      password += charset[randomIndex];
+    }
   }
   return password;
 }
