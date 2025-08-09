@@ -10,26 +10,15 @@ const SLOT_SIZE = 'clamp(32px, 9vw, 56px)'; // 演算子スロット
 const NUM_FONT = 'clamp(20px, 8vw, 36px)';
 const OP_FONT = 'clamp(16px, 7vw, 28px)';
 
-// StrictMode対策: 初期生成の回答例ログをモジュールスコープで1回に抑止
-let didLogInitialSolution = false;
-
 export default function Make12Page() {
-  // タイトル設定
   useEffect(() => {
     document.title = 'Make12';
   }, []);
 
-  // 問題初期生成（少なくとも1解あり）
   const initial = useMemo(() => generateMake12Problem(), []);
   const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
 
-  // デバッグ: 問題作成時に回答例を1回だけ文字列で出力（StrictMode対応）
-  useEffect(() => {
-    if (!didLogInitialSolution) {
-      console.log(initial.solution.expression);
-      didLogInitialSolution = true;
-    }
-  }, [initial]);
+  console.log(initial.solution.expression);
 
   // 3つの演算子スロット（nullは未選択）
   const [operators, operatorsHandlers] = useListState<OperatorSymbol | null>([null, null, null]);
@@ -166,11 +155,15 @@ export default function Make12Page() {
 
   return (
     <MantineProvider theme={theme}>
-      <Container id='container' maw={560} p='md'>
+      <Container id='container' maw={560}>
         <Stack gap='xs'>
           {/* ヘッダー */}
-          <Title order={2} mt='sm'>
+          <Title mt={'sm'} order={2}>
             Make12
+          </Title>
+          <Title order={6} mb={'sm'} c={'dimmed'}>
+            四則演算を駆使して12をつくろう！
+            <div>(例: 9,4,6,8 → 9 + 4 × 6 ÷ 8)</div>
           </Title>
 
           {/* 正解フィードバック */}
