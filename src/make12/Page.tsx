@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Center, Container, Group, MantineProvider, Stack, Title } from '@mantine/core';
-import { useListState, useTimeout } from '@mantine/hooks';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useListState, useLongPress, useTimeout } from '@mantine/hooks';
+import { useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
 import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
 
@@ -33,9 +33,6 @@ export default function Make12Page() {
   const [regenDisabled, setRegenDisabled] = useState(false);
   const regenTimeout = useTimeout(() => setRegenDisabled(false), 500);
 
-  // スロット長押しでクリアするためのタイマー
-  const pressTimersRef = useRef<Record<number, number | undefined>>({});
-
   // 現在の評価値（3つ揃っていなければ null）
   const currentResult = useMemo(() => {
     if (operators.every((o): o is OperatorSymbol => o !== null)) {
@@ -65,21 +62,6 @@ export default function Make12Page() {
     operatorsHandlers.setItem(selectedIndex, op);
   };
 
-  // スロット長押しでクリア
-  const startLongPress = (index: number) => {
-    clearLongPress(index);
-    pressTimersRef.current[index] = window.setTimeout(() => {
-      operatorsHandlers.setItem(index, null);
-    }, 500); // 500ms長押しでクリア
-  };
-  const clearLongPress = (index: number) => {
-    const t = pressTimersRef.current[index];
-    if (t) {
-      clearTimeout(t);
-      pressTimersRef.current[index] = undefined;
-    }
-  };
-
   // 別の問題にする（デバウンス込み）
   const handleRegenerate = () => {
     if (regenDisabled) return;
@@ -87,7 +69,7 @@ export default function Make12Page() {
     regenTimeout.start();
 
     const next = generateMake12Problem();
-    console.log(next.solution.expression); // デバッグ: 回答例を1回だけ文字列で出力
+    console.log(next.solution.expression);
     setNumbers(next.numbers);
     operatorsHandlers.setState([null, null, null]);
     setSelectedIndex(null);
@@ -119,35 +101,34 @@ export default function Make12Page() {
     const isSelected = selectedIndex === index;
     const bg = isSelected ? 'var(--mantine-color-orange-6)' : 'var(--mantine-color-gray-1)';
     const color = isSelected ? 'white' : 'var(--mantine-color-dark-7)';
+    const handlers = useLongPress(() => operatorsHandlers.setItem(index, null), { threshold: 500 });
+
     return (
-      <Center
-        component='button'
+      <Button
         type='button'
-        aria-label={`operator-slot-${index + 1}`}
         onClick={() => setSelectedIndex(index)}
-        // 長押しでクリア
-        onPointerDown={() => startLongPress(index)}
-        onPointerUp={() => clearLongPress(index)}
-        onPointerCancel={() => clearLongPress(index)}
-        onPointerLeave={() => clearLongPress(index)}
-        style={{
-          width: SLOT_SIZE,
-          height: SLOT_SIZE,
-          borderRadius: 10,
-          background: bg,
-          color,
-          border: isSelected ? '2px solid var(--mantine-color-orange-7)' : '1px solid var(--mantine-color-gray-4)',
-          fontSize: OP_FONT,
-          fontWeight: 700,
-          boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
-          userSelect: 'none',
-          touchAction: 'manipulation',
-          transition: 'background 120ms ease, border-color 120ms ease, box-shadow 120ms ease'
+        {...handlers}
+        styles={{
+          root: {
+            width: SLOT_SIZE,
+            height: SLOT_SIZE,
+            padding: 0,
+            borderRadius: 10,
+            background: bg,
+            color,
+            border: isSelected ? '2px solid var(--mantine-color-orange-7)' : '1px solid var(--mantine-color-gray-4)',
+            fontSize: OP_FONT,
+            fontWeight: 700,
+            boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
+            userSelect: 'none',
+            touchAction: 'manipulation'
+            // transition: 'background 120ms ease, border-color 120ms ease, box-shadow 120ms ease'
+          }
         }}
-        title='タップで選択 / 長押しでクリア'
+        variant='filled'
       >
         {value ?? ''}
-      </Center>
+      </Button>
     );
   };
 
@@ -175,7 +156,6 @@ export default function Make12Page() {
 
           {/* 問題表示（1行固定、折り返さない） */}
           <Box
-            aria-label='problem-area'
             style={{
               width: '100%',
               overflowX: 'auto',
