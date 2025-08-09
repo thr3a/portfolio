@@ -1,5 +1,5 @@
-import { Alert, Box, Button, Center, Container, Group, MantineProvider, Stack, Title } from '@mantine/core';
-import { useListState, useLongPress } from '@mantine/hooks';
+import { Alert, Box, Button, Center, Container, Group, List, MantineProvider, Stack, Title } from '@mantine/core';
+import { useDisclosure, useListState, useLongPress } from '@mantine/hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
 import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
@@ -14,6 +14,8 @@ export default function Make12Page() {
   useEffect(() => {
     document.title = 'Make12';
   }, []);
+
+  const [opened, { toggle }] = useDisclosure(false);
 
   const initial = useMemo(() => generateMake12Problem(), []);
   const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
@@ -141,19 +143,33 @@ export default function Make12Page() {
 
   const palette: OperatorSymbol[] = ['+', '-', '×', '÷'];
 
+  const Rule = () => {
+    return (
+      <>
+        <Alert color='green' variant='light'>
+          ルール
+          <List>
+            <List.Item>演算子を組み合わせて合計値12を作るゲームです。</List.Item>
+            <List.Item>整数のみ、小数点、分数不可</List.Item>
+            <List.Item>演算の評価順は×,÷が先で+,-が後</List.Item>
+            <List.Item>例: 9,4,6,8 → 9 + 4 × 6 ÷ 8</List.Item>
+          </List>
+        </Alert>
+      </>
+    );
+  };
+
   return (
     <MantineProvider theme={theme}>
       <Container id='container' maw={560}>
-        <Stack gap='xs'>
-          {/* ヘッダー */}
-          <Title mt={'sm'} order={2}>
-            Make12
-          </Title>
-          <Title order={6} mb={'sm'} c={'dimmed'}>
-            四則演算を駆使して12をつくろう！
-            <div>(例: 9,4,6,8 → 9 + 4 × 6 ÷ 8)</div>
-          </Title>
+        <Title mt={'sm'} order={2}>
+          Make12
+        </Title>
+        <Title order={6} mb={'sm'} c={'dimmed'}>
+          四則演算を駆使して12をつくろう！
+        </Title>
 
+        <Stack gap='xs'>
           {/* 判定結果 */}
           {judged === true && (
             <Alert color='green' variant='light'>
@@ -218,6 +234,7 @@ export default function Make12Page() {
 
             {/* アクションエリア */}
             <Stack justify='center' gap='md' mt={'xl'}>
+              <Rule />
               <Button onClick={handleCheck}>☑️ チェック！</Button>
               <Button variant='outline' onClick={handleRegenerate}>
                 ♻️ 別の問題にする
