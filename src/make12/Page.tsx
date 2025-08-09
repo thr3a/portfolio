@@ -17,6 +17,10 @@ export default function Make12Page() {
 
   const initial = useMemo(() => generateMake12Problem(), []);
   const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
+  // 現在の問題に対する回答例（演算子3つ）
+  const [solutionOps, setSolutionOps] = useState<[OperatorSymbol, OperatorSymbol, OperatorSymbol]>(
+    initial.solution.operators
+  );
 
   console.log(initial.solution.expression);
 
@@ -28,6 +32,8 @@ export default function Make12Page() {
 
   // 正解メッセージ表示制御
   const [isCorrect, setIsCorrect] = useState(false);
+  // 「解答表示」を押したかどうか（押した場合は正解フィードバックを抑制する）
+  const [revealedSolution, setRevealedSolution] = useState(false);
 
   // 「別の問題にする」連打デバウンス（一定時間押下無効化）
   const [regenDisabled, setRegenDisabled] = useState(false);
@@ -59,7 +65,15 @@ export default function Make12Page() {
   // スロットへ演算子を設定
   const setOpToSelected = (op: OperatorSymbol) => {
     if (selectedIndex === null) return;
+    setRevealedSolution(false);
     operatorsHandlers.setItem(selectedIndex, op);
+  };
+
+  // 解答表示: 回答例の演算子をスロットにセット
+  const handleRevealSolution = () => {
+    operatorsHandlers.setState([...solutionOps]);
+    setSelectedIndex(null);
+    setRevealedSolution(true);
   };
 
   // 別の問題にする（デバウンス込み）
@@ -71,9 +85,11 @@ export default function Make12Page() {
     const next = generateMake12Problem();
     console.log(next.solution.expression);
     setNumbers(next.numbers);
+    setSolutionOps(next.solution.operators);
     operatorsHandlers.setState([null, null, null]);
     setSelectedIndex(null);
     setIsCorrect(false);
+    setRevealedSolution(false);
   };
 
   // 表示用コンポーネント: 数字ブロック（タップ不可）
@@ -148,7 +164,7 @@ export default function Make12Page() {
           </Title>
 
           {/* 正解フィードバック */}
-          {isCorrect && (
+          {isCorrect && !revealedSolution && (
             <Alert color='green' variant='light'>
               正解です
             </Alert>
@@ -207,9 +223,12 @@ export default function Make12Page() {
             </Group>
 
             {/* アクションエリア */}
-            <Group justify='center' mt='sm'>
-              <Button variant='light' color='gray' onClick={handleRegenerate} disabled={regenDisabled}>
-                別の問題にする
+            <Group justify='center' mt='xl'>
+              <Button variant='outline' onClick={handleRegenerate} disabled={regenDisabled}>
+                ♻️ 別の問題にする
+              </Button>
+              <Button variant='outline' color='red' disabled={regenDisabled} onClick={handleRevealSolution}>
+                😭 解答表示
               </Button>
             </Group>
           </Box>
