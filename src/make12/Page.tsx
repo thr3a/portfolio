@@ -30,10 +30,8 @@ export default function Make12Page() {
   // 選択中スロット index（0,1,2）/ 未選択は null
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  // 正解メッセージ表示制御
-  const [isCorrect, setIsCorrect] = useState(false);
-  // 「解答表示」を押したかどうか（押した場合は正解フィードバックを抑制する）
-  const [revealedSolution, setRevealedSolution] = useState(false);
+  // 判定結果の表示制御（null: 未判定, true: 正解, false: 間違い）
+  const [judged, setJudged] = useState<null | boolean>(null);
 
   // 「別の問題にする」連打デバウンス（一定時間押下無効化）
   const [regenDisabled, setRegenDisabled] = useState(false);
@@ -59,13 +57,12 @@ export default function Make12Page() {
       console.log('value:', null);
     }
 
-    setIsCorrect(currentResult === 12);
+    setJudged(null);
   }, [numbers, operators, currentResult]);
 
   // スロットへ演算子を設定
   const setOpToSelected = (op: OperatorSymbol) => {
     if (selectedIndex === null) return;
-    setRevealedSolution(false);
     operatorsHandlers.setItem(selectedIndex, op);
   };
 
@@ -73,7 +70,7 @@ export default function Make12Page() {
   const handleRevealSolution = () => {
     operatorsHandlers.setState([...solutionOps]);
     setSelectedIndex(null);
-    setRevealedSolution(true);
+    setJudged(null);
   };
 
   // 別の問題にする（デバウンス込み）
@@ -88,8 +85,11 @@ export default function Make12Page() {
     setSolutionOps(next.solution.operators);
     operatorsHandlers.setState([null, null, null]);
     setSelectedIndex(null);
-    setIsCorrect(false);
-    setRevealedSolution(false);
+    setJudged(null);
+  };
+
+  const handleCheck = () => {
+    setJudged(currentResult === 12);
   };
 
   // 表示用コンポーネント: 数字ブロック（タップ不可）
@@ -162,10 +162,15 @@ export default function Make12Page() {
             <div>(例: 9,4,6,8 → 9 + 4 × 6 ÷ 8)</div>
           </Title>
 
-          {/* 正解フィードバック */}
-          {isCorrect && !revealedSolution && (
+          {/* 判定結果 */}
+          {judged === true && (
             <Alert color='green' variant='light'>
-              正解です
+              おめでとう！🎉🎉 正解です！
+            </Alert>
+          )}
+          {judged === false && (
+            <Alert color='red' variant='light'>
+              残念、違います。
             </Alert>
           )}
 
@@ -194,9 +199,7 @@ export default function Make12Page() {
               position: 'sticky',
               bottom: 0,
               padding: '12px',
-              background: 'var(--mantine-color-body)',
-              borderTop: '1px solid var(--mantine-color-gray-3)',
-              zIndex: 10
+              borderTop: '1px solid var(--mantine-color-gray-3)'
             }}
           >
             {/* 演算子パレット */}
@@ -222,13 +225,13 @@ export default function Make12Page() {
             </Group>
 
             {/* アクションエリア */}
-            <Stack h={300} bg='var(--mantine-color-body)' align='stretch' justify='center' gap='md' mt={'xl'}>
-              <Button>チェック！</Button>
+            <Stack justify='center' gap='md' mt={'xl'}>
+              <Button onClick={handleCheck}>☑️ チェック！</Button>
               <Button variant='outline' onClick={handleRegenerate} disabled={regenDisabled}>
                 ♻️ 別の問題にする
               </Button>
               <Button variant='outline' color='red' disabled={regenDisabled} onClick={handleRevealSolution}>
-                😭 解答表示
+                解答表示
               </Button>
             </Stack>
           </Box>
