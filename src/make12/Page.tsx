@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Center, Container, Group, List, MantineProvider, Stack, Title } from '@mantine/core';
 import { useListState, useLongPress } from '@mantine/hooks';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
 import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
 
@@ -10,19 +10,11 @@ const SLOT_SIZE = 'clamp(32px, 9vw, 56px)'; // 演算子スロット
 const NUM_FONT = 'clamp(20px, 8vw, 36px)';
 const OP_FONT = 'clamp(16px, 7vw, 28px)';
 
-export default function Make12Page() {
-  useEffect(() => {
-    document.title = 'Make12';
-  }, []);
+const useMake12Game = () => {
+  const [problem, setProblem] = useState(() => generateMake12Problem());
+  const { numbers, solution } = problem;
 
-  const initial = useMemo(() => generateMake12Problem(), []);
-  const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
-  // 現在の問題に対する回答例（演算子3つ）
-  const [solutionOps, setSolutionOps] = useState<[OperatorSymbol, OperatorSymbol, OperatorSymbol]>(
-    initial.solution.operators
-  );
-
-  console.log(initial.solution.expression);
+  console.log(problem.solution.expression);
 
   // 3つの演算子スロット（nullは未選択）
   const [operators, operatorsHandlers] = useListState<OperatorSymbol | null>([null, null, null]);
@@ -41,10 +33,8 @@ export default function Make12Page() {
     return null;
   }, [numbers, operators]);
 
-  // デバッグログと正解判定
+  // デバッグログ
   useEffect(() => {
-    // デバッグ: 評価値は常にログ出力（未完成は null）
-    // 可能なら式文字列も出力
     if (operators.every((o): o is OperatorSymbol => o !== null)) {
       const ops = operators as [OperatorSymbol, OperatorSymbol, OperatorSymbol];
       console.log('expr:', formatExpression(numbers, ops));
@@ -52,110 +42,162 @@ export default function Make12Page() {
     } else {
       console.log('value:', null);
     }
-
-    setJudged(null);
   }, [numbers, operators, currentResult]);
 
   // スロットへ演算子を設定
-  const setOpToSelected = (op: OperatorSymbol) => {
-    if (selectedIndex === null) return;
-    operatorsHandlers.setItem(selectedIndex, op);
-  };
+  const setOpToSelected = useCallback(
+    (op: OperatorSymbol) => {
+      if (selectedIndex === null) return;
+      operatorsHandlers.setItem(selectedIndex, op);
+      setJudged(null); // 演算子を変更したら判定結果をリセット
+    },
+    [selectedIndex, operatorsHandlers]
+  );
 
-  // 解答表示: 回答例の演算子をスロットにセット
-  const handleRevealSolution = () => {
-    operatorsHandlers.setState([...solutionOps]);
-    setSelectedIndex(null);
-    setJudged(null);
-  };
+  // スロットの演算子をクリア
+  const clearOpSlot = useCallback(
+    (index: number) => {
+      operatorsHandlers.setItem(index, null);
+      setJudged(null);
+    },
+    [operatorsHandlers]
+  );
+
+  // 解答をチェック
+  const check = useCallback(() => {
+    setJudged(currentResult === 12);
+  }, [currentResult]);
 
   // 別の問題にする
-  const handleRegenerate = () => {
-    const next = generateMake12Problem();
-    console.log(next.solution.expression);
-    setNumbers(next.numbers);
-    setSolutionOps(next.solution.operators);
+  const regenerate = useCallback(() => {
+    const nextProblem = generateMake12Problem();
+    console.log(nextProblem.solution.expression);
+    setProblem(nextProblem);
     operatorsHandlers.setState([null, null, null]);
     setSelectedIndex(null);
     setJudged(null);
-  };
+  }, [operatorsHandlers]);
 
-  const handleCheck = () => {
-    setJudged(currentResult === 12);
-  };
+  // 解答表示
+  const revealSolution = useCallback(() => {
+    operatorsHandlers.setState([...solution.operators]);
+    setSelectedIndex(null);
+    setJudged(null);
+  }, [solution, operatorsHandlers]);
 
-  // 表示用コンポーネント: 数字ブロック（タップ不可）
-  const NumberCard = ({ value }: { value: number }) => (
-    <Center
-      style={{
-        width: NUM_SIZE,
-        height: NUM_SIZE,
-        borderRadius: 12,
-        background: 'var(--mantine-color-gray-0)',
-        border: '1px solid var(--mantine-color-gray-4)',
-        fontSize: NUM_FONT,
-        fontWeight: 700,
-        userSelect: 'none',
-        touchAction: 'manipulation'
+  return {
+    numbers,
+    operators,
+    selectedIndex,
+    judged,
+    currentResult,
+    setSelectedIndex,
+    setOpToSelected,
+    clearOpSlot,
+    check,
+    regenerate,
+    revealSolution
+  };
+};
+
+// 表示用コンポーネント: 数字ブロック（タップ不可）
+const NumberCard = ({ value }: { value: number }) => (
+  <Center
+    style={{
+      width: NUM_SIZE,
+      height: NUM_SIZE,
+      borderRadius: 12,
+      background: 'var(--mantine-color-gray-0)',
+      border: '1px solid var(--mantine-color-gray-4)',
+      fontSize: NUM_FONT,
+      fontWeight: 700,
+      userSelect: 'none',
+      touchAction: 'manipulation'
+    }}
+  >
+    {value}
+  </Center>
+);
+
+// 表示用コンポーネント: 演算子スロット
+const OpSlot = ({
+  value,
+  isSelected,
+  onClick,
+  onClear
+}: {
+  value: OperatorSymbol | null;
+  isSelected: boolean;
+  onClick: () => void;
+  onClear: () => void;
+}) => {
+  const bg = isSelected ? 'var(--mantine-color-orange-6)' : 'var(--mantine-color-gray-1)';
+  const color = isSelected ? 'white' : 'var(--mantine-color-dark-7)';
+  const handlers = useLongPress(onClear, { threshold: 500 });
+
+  return (
+    <Button
+      type='button'
+      onClick={onClick}
+      {...handlers}
+      styles={{
+        root: {
+          width: SLOT_SIZE,
+          height: SLOT_SIZE,
+          padding: 0,
+          borderRadius: 10,
+          background: bg,
+          color,
+          border: isSelected ? '2px solid var(--mantine-color-orange-7)' : '1px solid var(--mantine-color-gray-4)',
+          fontSize: OP_FONT,
+          fontWeight: 700,
+          boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
+          userSelect: 'none',
+          touchAction: 'manipulation'
+        }
       }}
+      variant='filled'
     >
-      {value}
-    </Center>
+      {value ?? ''}
+    </Button>
   );
+};
 
-  // 表示用コンポーネント: 演算子スロット
-  const OpSlot = ({ index }: { index: number }) => {
-    const value = operators[index];
-    const isSelected = selectedIndex === index;
-    const bg = isSelected ? 'var(--mantine-color-orange-6)' : 'var(--mantine-color-gray-1)';
-    const color = isSelected ? 'white' : 'var(--mantine-color-dark-7)';
-    const handlers = useLongPress(() => operatorsHandlers.setItem(index, null), { threshold: 500 });
+const Rule = () => {
+  return (
+    <>
+      <Alert color='green' variant='light'>
+        <List>
+          <List.Item>演算子を組み合わせて合計値12を作るゲームです。</List.Item>
+          <List.Item>整数のみ、小数点、分数不可</List.Item>
+          <List.Item>演算の評価順は×,÷が先で+,-が後</List.Item>
+          <List.Item>例: 9,4,6,8 → 9 + 4 × 6 ÷ 8</List.Item>
+        </List>
+      </Alert>
+    </>
+  );
+};
 
-    return (
-      <Button
-        type='button'
-        onClick={() => setSelectedIndex(index)}
-        {...handlers}
-        styles={{
-          root: {
-            width: SLOT_SIZE,
-            height: SLOT_SIZE,
-            padding: 0,
-            borderRadius: 10,
-            background: bg,
-            color,
-            border: isSelected ? '2px solid var(--mantine-color-orange-7)' : '1px solid var(--mantine-color-gray-4)',
-            fontSize: OP_FONT,
-            fontWeight: 700,
-            boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
-            userSelect: 'none',
-            touchAction: 'manipulation'
-          }
-        }}
-        variant='filled'
-      >
-        {value ?? ''}
-      </Button>
-    );
-  };
+export default function Make12Page() {
+  useEffect(() => {
+    document.title = 'Make12';
+  }, []);
+
+  const {
+    numbers,
+    operators,
+    selectedIndex,
+    judged,
+    currentResult,
+    setSelectedIndex,
+    setOpToSelected,
+    clearOpSlot,
+    check,
+    regenerate,
+    revealSolution
+  } = useMake12Game();
 
   const palette: OperatorSymbol[] = ['+', '-', '×', '÷'];
-
-  const Rule = () => {
-    return (
-      <>
-        <Alert color='green' variant='light'>
-          ルール
-          <List>
-            <List.Item>演算子を組み合わせて合計値12を作るゲームです。</List.Item>
-            <List.Item>整数のみ、小数点、分数不可</List.Item>
-            <List.Item>演算の評価順は×,÷が先で+,-が後</List.Item>
-            <List.Item>例: 9,4,6,8 → 9 + 4 × 6 ÷ 8</List.Item>
-          </List>
-        </Alert>
-      </>
-    );
-  };
 
   return (
     <MantineProvider theme={theme}>
@@ -190,11 +232,26 @@ export default function Make12Page() {
           >
             <Group gap='sm' justify='center' wrap='nowrap'>
               <NumberCard value={numbers[0]} />
-              <OpSlot index={0} />
+              <OpSlot
+                value={operators[0]}
+                isSelected={selectedIndex === 0}
+                onClick={() => setSelectedIndex(0)}
+                onClear={() => clearOpSlot(0)}
+              />
               <NumberCard value={numbers[1]} />
-              <OpSlot index={1} />
+              <OpSlot
+                value={operators[1]}
+                isSelected={selectedIndex === 1}
+                onClick={() => setSelectedIndex(1)}
+                onClear={() => clearOpSlot(1)}
+              />
               <NumberCard value={numbers[2]} />
-              <OpSlot index={2} />
+              <OpSlot
+                value={operators[2]}
+                isSelected={selectedIndex === 2}
+                onClick={() => setSelectedIndex(2)}
+                onClear={() => clearOpSlot(2)}
+              />
               <NumberCard value={numbers[3]} />
             </Group>
           </Box>
@@ -232,14 +289,14 @@ export default function Make12Page() {
 
             {/* アクションエリア */}
             <Stack justify='center' gap='md' mt={'xl'}>
-              <Rule />
-              <Button onClick={handleCheck}>☑️ チェック！</Button>
-              <Button variant='outline' onClick={handleRegenerate}>
+              <Button onClick={check}>☑️ チェック！</Button>
+              <Button variant='outline' onClick={regenerate}>
                 ♻️ 別の問題にする
               </Button>
-              <Button variant='outline' color='red' onClick={handleRevealSolution}>
+              <Button variant='outline' color='red' onClick={revealSolution}>
                 解答表示
               </Button>
+              <Rule />
             </Stack>
           </Box>
         </Stack>
