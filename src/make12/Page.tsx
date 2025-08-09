@@ -1,145 +1,246 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Group,
-  MantineProvider,
-  Paper,
-  Radio,
-  Stack,
-  Text,
-  Title
-} from '@mantine/core';
-import { useMemo, useState } from 'react';
+import { Alert, Box, Button, Center, Container, Group, MantineProvider, Stack, Title } from '@mantine/core';
+import { useListState, useTimeout } from '@mantine/hooks';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { theme } from '../theme';
-import { type Operator, evalExpression, findMake12Expressions, operators } from './calcMake12';
+import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
 
-// 1~9の4つの数字で12が作れる組み合わせをランダムに出題
-function generateQuestion(): number[] {
-  while (true) {
-    const nums = Array.from({ length: 4 }, () => Math.floor(Math.random() * 9) + 1);
-    if (findMake12Expressions(nums).length > 0) return nums;
-  }
-}
+// UI用のサイズ（スマホで2段に崩れないよう clamp で可変）
+const NUM_SIZE = 'clamp(40px, 11vw, 72px)'; // 数字ブロック
+const SLOT_SIZE = 'clamp(32px, 9vw, 56px)'; // 演算子スロット
+const NUM_FONT = 'clamp(20px, 8vw, 36px)';
+const OP_FONT = 'clamp(16px, 7vw, 28px)';
+
+// StrictMode対策: 初期生成の回答例ログをモジュールスコープで1回に抑止
+let didLogInitialSolution = false;
 
 export default function Make12Page() {
-  const [question, setQuestion] = useState<number[]>(() => generateQuestion());
-  const [ops, setOps] = useState<[Operator, Operator, Operator]>(['+', '+', '+']);
-  const [answer, setAnswer] = useState<string | null>(null);
-  const [result, setResult] = useState<null | { correct: boolean; model: string }>(null);
+  // タイトル設定
+  useEffect(() => {
+    document.title = 'Make12';
+  }, []);
 
-  // 模範解答
-  const modelAnswers = useMemo(() => findMake12Expressions(question), [question]);
+  // 問題初期生成（少なくとも1解あり）
+  const initial = useMemo(() => generateMake12Problem(), []);
+  const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
 
-  // 数字と演算子から式を組み立て
-  function buildUserExpr(): string {
-    const [a, b, c, d] = question;
-    const [o1, o2, o3] = ops;
-    // デフォルトは (a o1 b) o2 (c o3 d)
-    return `(${a}${o1}${b})${o2}(${c}${o3}${d})`;
-  }
+  // デバッグ: 問題作成時に回答例を1回だけ文字列で出力（StrictMode対応）
+  useEffect(() => {
+    if (!didLogInitialSolution) {
+      console.log(initial.solution.expression);
+      didLogInitialSolution = true;
+    }
+  }, [initial]);
 
-  function handleSubmit() {
-    const expr = buildUserExpr();
-    setAnswer(expr);
-    const val = evalExpression(expr);
-    // 12に一致するか
-    const correct = Math.abs(val - 12) < 1e-6;
-    // 模範解答にも同じ式が含まれるか
-    const model = modelAnswers[0] || '';
-    setResult({ correct, model });
-  }
+  // 3つの演算子スロット（nullは未選択）
+  const [operators, operatorsHandlers] = useListState<OperatorSymbol | null>([null, null, null]);
 
-  function handleReset() {
-    setQuestion(generateQuestion());
-    setOps(['+', '+', '+']);
-    setAnswer(null);
-    setResult(null);
-  }
+  // 選択中スロット index（0,1,2）/ 未選択は null
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  // 正解メッセージ表示制御
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  // 「別の問題にする」連打デバウンス（一定時間押下無効化）
+  const [regenDisabled, setRegenDisabled] = useState(false);
+  const regenTimeout = useTimeout(() => setRegenDisabled(false), 500);
+
+  // スロット長押しでクリアするためのタイマー
+  const pressTimersRef = useRef<Record<number, number | undefined>>({});
+
+  // 現在の評価値（3つ揃っていなければ null）
+  const currentResult = useMemo(() => {
+    if (operators.every((o): o is OperatorSymbol => o !== null)) {
+      return evaluateExpression(numbers, operators as [OperatorSymbol, OperatorSymbol, OperatorSymbol]);
+    }
+    return null;
+  }, [numbers, operators]);
+
+  // デバッグログと正解判定
+  useEffect(() => {
+    // デバッグ: 評価値は常にログ出力（未完成は null）
+    // 可能なら式文字列も出力
+    if (operators.every((o): o is OperatorSymbol => o !== null)) {
+      const ops = operators as [OperatorSymbol, OperatorSymbol, OperatorSymbol];
+      console.log('expr:', formatExpression(numbers, ops));
+      console.log('value:', currentResult);
+    } else {
+      console.log('value:', null);
+    }
+
+    setIsCorrect(currentResult === 12);
+  }, [numbers, operators, currentResult]);
+
+  // スロットへ演算子を設定
+  const setOpToSelected = (op: OperatorSymbol) => {
+    if (selectedIndex === null) return;
+    operatorsHandlers.setItem(selectedIndex, op);
+  };
+
+  // スロット長押しでクリア
+  const startLongPress = (index: number) => {
+    clearLongPress(index);
+    pressTimersRef.current[index] = window.setTimeout(() => {
+      operatorsHandlers.setItem(index, null);
+    }, 500); // 500ms長押しでクリア
+  };
+  const clearLongPress = (index: number) => {
+    const t = pressTimersRef.current[index];
+    if (t) {
+      clearTimeout(t);
+      pressTimersRef.current[index] = undefined;
+    }
+  };
+
+  // 別の問題にする（デバウンス込み）
+  const handleRegenerate = () => {
+    if (regenDisabled) return;
+    setRegenDisabled(true);
+    regenTimeout.start();
+
+    const next = generateMake12Problem();
+    console.log(next.solution.expression); // デバッグ: 回答例を1回だけ文字列で出力
+    setNumbers(next.numbers);
+    operatorsHandlers.setState([null, null, null]);
+    setSelectedIndex(null);
+    setIsCorrect(false);
+  };
+
+  // 表示用コンポーネント: 数字ブロック（タップ不可）
+  const NumberCard = ({ value }: { value: number }) => (
+    <Center
+      style={{
+        width: NUM_SIZE,
+        height: NUM_SIZE,
+        borderRadius: 12,
+        background: 'var(--mantine-color-gray-0)',
+        border: '1px solid var(--mantine-color-gray-4)',
+        fontSize: NUM_FONT,
+        fontWeight: 700,
+        userSelect: 'none',
+        touchAction: 'manipulation'
+      }}
+    >
+      {value}
+    </Center>
+  );
+
+  // 表示用コンポーネント: 演算子スロット
+  const OpSlot = ({ index }: { index: number }) => {
+    const value = operators[index];
+    const isSelected = selectedIndex === index;
+    const bg = isSelected ? 'var(--mantine-color-orange-6)' : 'var(--mantine-color-gray-1)';
+    const color = isSelected ? 'white' : 'var(--mantine-color-dark-7)';
+    return (
+      <Center
+        component='button'
+        type='button'
+        aria-label={`operator-slot-${index + 1}`}
+        onClick={() => setSelectedIndex(index)}
+        // 長押しでクリア
+        onPointerDown={() => startLongPress(index)}
+        onPointerUp={() => clearLongPress(index)}
+        onPointerCancel={() => clearLongPress(index)}
+        onPointerLeave={() => clearLongPress(index)}
+        style={{
+          width: SLOT_SIZE,
+          height: SLOT_SIZE,
+          borderRadius: 10,
+          background: bg,
+          color,
+          border: isSelected ? '2px solid var(--mantine-color-orange-7)' : '1px solid var(--mantine-color-gray-4)',
+          fontSize: OP_FONT,
+          fontWeight: 700,
+          boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
+          userSelect: 'none',
+          touchAction: 'manipulation',
+          transition: 'background 120ms ease, border-color 120ms ease, box-shadow 120ms ease'
+        }}
+        title='タップで選択 / 長押しでクリア'
+      >
+        {value ?? ''}
+      </Center>
+    );
+  };
+
+  const palette: OperatorSymbol[] = ['+', '-', '×', '÷'];
 
   return (
     <MantineProvider theme={theme}>
-      <Container maw={400}>
-        <Title mt={'sm'} order={2}>
-          パスワード一括生成ツール
-        </Title>
-        <Title order={6} mb={'sm'} c={'dimmed'}>
-          安全なパスワードを一括で作成します。
-        </Title>
-        <Paper shadow='md' p='xl' maw={400} w='100%'>
-          <Stack gap='md'>
-            <Text size='lg' ta='center' fw={700} mb='xs'>
-              make12 - 四則演算で12を作ろう
-            </Text>
-            <Group justify='center' gap='lg' mb='xs'>
-              {question.map((n, i) => (
-                <Box
-                  key={i}
-                  p='md'
-                  bg='blue.0'
-                  c='blue.8'
-                  fz='xl'
-                  fw={700}
-                  style={{ borderRadius: 8, minWidth: 40, textAlign: 'center' }}
+      <Container id='container' maw={560} p='md'>
+        <Stack gap='xs'>
+          {/* ヘッダー */}
+          <Title order={2} mt='sm'>
+            Make12
+          </Title>
+
+          {/* 正解フィードバック */}
+          {isCorrect && (
+            <Alert color='green' variant='light'>
+              正解です
+            </Alert>
+          )}
+
+          {/* 問題表示（1行固定、折り返さない） */}
+          <Box
+            aria-label='problem-area'
+            style={{
+              width: '100%',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            <Group gap='sm' justify='center' wrap='nowrap'>
+              <NumberCard value={numbers[0]} />
+              <OpSlot index={0} />
+              <NumberCard value={numbers[1]} />
+              <OpSlot index={1} />
+              <NumberCard value={numbers[2]} />
+              <OpSlot index={2} />
+              <NumberCard value={numbers[3]} />
+            </Group>
+          </Box>
+
+          {/* 下部固定パレット + アクションエリア */}
+          <Box
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              padding: '12px',
+              background: 'var(--mantine-color-body)',
+              borderTop: '1px solid var(--mantine-color-gray-3)',
+              zIndex: 10
+            }}
+          >
+            {/* 演算子パレット */}
+            <Group justify='center' gap='md'>
+              {palette.map((op) => (
+                <Button
+                  key={op}
+                  size='lg'
+                  radius='md'
+                  onClick={() => setOpToSelected(op)}
+                  disabled={selectedIndex === null}
+                  variant='filled'
+                  color='blue'
+                  styles={{
+                    root: {
+                      minWidth: 64
+                    }
+                  }}
                 >
-                  {n}
-                </Box>
+                  {op}
+                </Button>
               ))}
             </Group>
-            {/* 3行の演算子選択 */}
-            {[0, 1, 2].map((idx) => (
-              <Radio.Group
-                key={idx}
-                value={ops[idx]}
-                onChange={(v) =>
-                  setOps((prev) => {
-                    const next = [...prev] as [Operator, Operator, Operator];
-                    next[idx] = v as Operator;
-                    return next;
-                  })
-                }
-                name={`op${idx}`}
-                label={`演算子${idx + 1}`}
-                withAsterisk
-                mt={idx === 0 ? 'md' : 0}
-              >
-                <Group gap='md'>
-                  {operators.map((op) => (
-                    <Radio key={op} value={op} label={op} />
-                  ))}
-                </Group>
-              </Radio.Group>
-            ))}
-            <Center>
-              <Button color='blue' size='md' onClick={handleSubmit} disabled={!!result}>
-                解答
+
+            {/* アクションエリア */}
+            <Group justify='center' mt='sm'>
+              <Button variant='light' color='gray' onClick={handleRegenerate} disabled={regenDisabled}>
+                別の問題にする
               </Button>
-              <Button variant='light' ml='md' onClick={handleReset}>
-                リセット
-              </Button>
-            </Center>
-            {/* 判定表示 */}
-            {result && (
-              <Box mt='md' ta='center'>
-                {result.correct ? (
-                  <Text c='green.7' fw={700}>
-                    正解！ {answer} = 12
-                  </Text>
-                ) : (
-                  <>
-                    <Text c='red.7' fw={700}>
-                      不正解… あなたの式: {answer} = {evalExpression(answer ?? '')}
-                    </Text>
-                    <Text c='gray.7' mt='xs'>
-                      模範解答例: {result.model} = 12
-                    </Text>
-                  </>
-                )}
-              </Box>
-            )}
-          </Stack>
-        </Paper>
+            </Group>
+          </Box>
+        </Stack>
       </Container>
     </MantineProvider>
   );
