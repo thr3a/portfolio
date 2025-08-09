@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Center, Container, Group, List, MantineProvider, Stack, Title } from '@mantine/core';
-import { useDisclosure, useListState, useLongPress } from '@mantine/hooks';
+import { useListState, useLongPress } from '@mantine/hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
 import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
@@ -14,8 +14,6 @@ export default function Make12Page() {
   useEffect(() => {
     document.title = 'Make12';
   }, []);
-
-  const [opened, { toggle }] = useDisclosure(false);
 
   const initial = useMemo(() => generateMake12Problem(), []);
   const [numbers, setNumbers] = useState<[number, number, number, number]>(initial.numbers);
