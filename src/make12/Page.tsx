@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Center, Container, Group, MantineProvider, Stack, Title } from '@mantine/core';
-import { useListState, useLongPress, useTimeout } from '@mantine/hooks';
+import { useListState, useLongPress } from '@mantine/hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
 import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
@@ -32,10 +32,6 @@ export default function Make12Page() {
 
   // 判定結果の表示制御（null: 未判定, true: 正解, false: 間違い）
   const [judged, setJudged] = useState<null | boolean>(null);
-
-  // 「別の問題にする」連打デバウンス（一定時間押下無効化）
-  const [regenDisabled, setRegenDisabled] = useState(false);
-  const regenTimeout = useTimeout(() => setRegenDisabled(false), 500);
 
   // 現在の評価値（3つ揃っていなければ null）
   const currentResult = useMemo(() => {
@@ -73,12 +69,8 @@ export default function Make12Page() {
     setJudged(null);
   };
 
-  // 別の問題にする（デバウンス込み）
+  // 別の問題にする
   const handleRegenerate = () => {
-    if (regenDisabled) return;
-    setRegenDisabled(true);
-    regenTimeout.start();
-
     const next = generateMake12Problem();
     console.log(next.solution.expression);
     setNumbers(next.numbers);
@@ -170,7 +162,7 @@ export default function Make12Page() {
           )}
           {judged === false && (
             <Alert color='red' variant='light'>
-              残念、違います。
+              残念、{currentResult}なので違います。
             </Alert>
           )}
 
@@ -227,10 +219,10 @@ export default function Make12Page() {
             {/* アクションエリア */}
             <Stack justify='center' gap='md' mt={'xl'}>
               <Button onClick={handleCheck}>☑️ チェック！</Button>
-              <Button variant='outline' onClick={handleRegenerate} disabled={regenDisabled}>
+              <Button variant='outline' onClick={handleRegenerate}>
                 ♻️ 別の問題にする
               </Button>
-              <Button variant='outline' color='red' disabled={regenDisabled} onClick={handleRevealSolution}>
+              <Button variant='outline' color='red' onClick={handleRevealSolution}>
                 解答表示
               </Button>
             </Stack>
