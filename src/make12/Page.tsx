@@ -138,7 +138,6 @@ export default function Make12Page() {
             boxShadow: isSelected ? '0 0 0 2px var(--mantine-color-orange-2) inset' : 'none',
             userSelect: 'none',
             touchAction: 'manipulation'
-            // transition: 'background 120ms ease, border-color 120ms ease, box-shadow 120ms ease'
           }
         }}
         variant='filled'
@@ -223,14 +222,15 @@ export default function Make12Page() {
             </Group>
 
             {/* アクションエリア */}
-            <Group justify='center' mt='xl'>
+            <Stack h={300} bg='var(--mantine-color-body)' align='stretch' justify='center' gap='md' mt={'xl'}>
+              <Button>チェック！</Button>
               <Button variant='outline' onClick={handleRegenerate} disabled={regenDisabled}>
                 ♻️ 別の問題にする
               </Button>
               <Button variant='outline' color='red' disabled={regenDisabled} onClick={handleRevealSolution}>
                 😭 解答表示
               </Button>
-            </Group>
+            </Stack>
           </Box>
         </Stack>
       </Container>
