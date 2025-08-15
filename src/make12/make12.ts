@@ -73,19 +73,18 @@ export function formatExpression(
 }
 
 /**
- * 与えられた4つの数字で、評価結果が指定した目標値になる演算子3つの組み合わせを1つ見つける
+ * 与えられた4つの数字で、評価結果がちょうど12になる演算子3つの組み合わせを1つ見つける
  * 見つからなければ null
  */
 export function findAnySolution(
-  nums: readonly [number, number, number, number],
-  target: number
+  nums: readonly [number, number, number, number]
 ): { operators: [OperatorSymbol, OperatorSymbol, OperatorSymbol]; expression: string } | null {
   for (const op1 of OPS) {
     for (const op2 of OPS) {
       for (const op3 of OPS) {
         const ops: [OperatorSymbol, OperatorSymbol, OperatorSymbol] = [op1, op2, op3];
         const result = evaluateExpression(nums, ops);
-        if (result === target) {
+        if (result === 12) {
           return {
             operators: ops,
             expression: formatExpression(nums, ops)
@@ -110,14 +109,12 @@ export function randomNumbers(): [number, number, number, number] {
  * 仕様: 「使用数字は1〜9からランダムに4つ」だが、失敗時のフォールバックとして全探索を行い、必ず返す
  */
 export function generateMake12Problem(options?: {
-  target?: number;
   strategy?: 'random-first' | 'deterministic';
   maxAttempts?: number;
 }): {
   numbers: [number, number, number, number];
   solution: { operators: [OperatorSymbol, OperatorSymbol, OperatorSymbol]; expression: string };
 } {
-  const target = options?.target ?? 12;
   const strategy = options?.strategy ?? 'random-first';
   const maxAttempts = options?.maxAttempts ?? 20000;
 
@@ -125,7 +122,7 @@ export function generateMake12Problem(options?: {
   if (strategy === 'random-first') {
     for (let i = 0; i < maxAttempts; i++) {
       const nums = randomNumbers();
-      const sol = findAnySolution(nums, target);
+      const sol = findAnySolution(nums);
       if (sol) {
         return { numbers: nums, solution: sol };
       }
@@ -139,7 +136,7 @@ export function generateMake12Problem(options?: {
       for (let c = 1; c <= 9; c++) {
         for (let d = 1; d <= 9; d++) {
           const nums: [number, number, number, number] = [a, b, c, d];
-          const sol = findAnySolution(nums, target);
+          const sol = findAnySolution(nums);
           if (sol) {
             return { numbers: nums, solution: sol };
           }
@@ -151,3 +148,7 @@ export function generateMake12Problem(options?: {
   // 理論上ここには到達しない（12を作れる組み合わせは存在する）が、型の都合で最後に例外
   throw new Error('解のある問題を生成できませんでした');
 }
+
+// Webアプリから使いやすいエクスポート（デフォルト）
+// - 4つの数字と、その数字で作れる回答例を1つ返す
+export default generateMake12Problem;

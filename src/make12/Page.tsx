@@ -2,7 +2,7 @@ import { Alert, Box, Button, Center, Container, Group, List, MantineProvider, St
 import { useListState, useLongPress } from '@mantine/hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
-import { type OperatorSymbol, evaluateExpression, formatExpression, generateMake12Problem } from './make12';
+import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
 
 // UI用のサイズ（スマホで2段に崩れないよう clamp で可変）
 const NUM_SIZE = 'clamp(40px, 11vw, 72px)'; // 数字ブロック

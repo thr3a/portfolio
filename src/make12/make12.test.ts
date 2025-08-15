@@ -8,6 +8,8 @@ import {
   randomNumbers
 } from './make12';
 
+// 日本語コメントでテストを記述
+
 describe('evaluateExpression: 通常の優先順位(×・÷を先に, +・-を後に)で評価する', () => {
   test('例: 9 − 1 × 4 − 3 = 2', () => {
     const nums: [number, number, number, number] = [9, 1, 4, 3];
@@ -61,10 +63,10 @@ describe('formatExpression', () => {
   });
 });
 
-describe('findAnySolution: 指定の4数字の順序で目標値を作れる演算子組み合わせを1つ返す', () => {
-  test('12を作る: 解が存在するケース（6,3,2,1 は + + + で 12）', () => {
+describe('findAnySolution: 指定の4数字の順序で12を作れる演算子組み合わせを1つ返す', () => {
+  test('解が存在するケース（6,3,2,1 は + + + で 12）', () => {
     const nums: [number, number, number, number] = [6, 3, 2, 1];
-    const solution = findAnySolution(nums, 12);
+    const solution = findAnySolution(nums);
     expect(solution).not.toBeNull();
     if (solution) {
       const val = evaluateExpression(nums, solution.operators);
@@ -72,19 +74,9 @@ describe('findAnySolution: 指定の4数字の順序で目標値を作れる演�
     }
   });
 
-  test('10を作る: 解が存在するケース（1,2,3,4 は 1+2+3+4=10）', () => {
-    const nums: [number, number, number, number] = [1, 2, 3, 4];
-    const solution = findAnySolution(nums, 10);
-    expect(solution).not.toBeNull();
-    if (solution) {
-      const val = evaluateExpression(nums, solution.operators);
-      expect(val).toBe(10);
-    }
-  });
-
-  test('12を作る: 解が存在しないケース（1,1,1,1）', () => {
+  test('解が存在しないケース（1,1,1,1）', () => {
     const nums: [number, number, number, number] = [1, 1, 1, 1];
-    const solution = findAnySolution(nums, 12);
+    const solution = findAnySolution(nums);
     expect(solution).toBeNull();
   });
 });
@@ -102,8 +94,8 @@ describe('randomNumbers: 1..9 の4つを返す', () => {
 });
 
 describe('generateMake12Problem: 4つの数字と、その数字で作れる回答例を1つ返す', () => {
-  test('12を作る: deterministic 戦略（テストで再現性重視）', () => {
-    const { numbers, solution } = generateMake12Problem({ target: 12, strategy: 'deterministic' });
+  test('deterministic 戦略（テストで再現性重視）', () => {
+    const { numbers, solution } = generateMake12Problem({ strategy: 'deterministic' });
     // 数字は 1..9 の4つ
     expect(numbers).toHaveLength(4);
     numbers.forEach((n) => {
@@ -122,9 +114,9 @@ describe('generateMake12Problem: 4つの数字と、その数字で作れる回�
     );
   });
 
-  test('10を作る: random-first 戦略', () => {
-    const { numbers, solution } = generateMake12Problem({ target: 10, strategy: 'random-first', maxAttempts: 5000 });
+  test('random-first 戦略（一定回数でほぼ必ず見つかる）', () => {
+    const { numbers, solution } = generateMake12Problem({ strategy: 'random-first', maxAttempts: 5000 });
     const val = evaluateExpression(numbers, solution.operators);
-    expect(val).toBe(10);
+    expect(val).toBe(12);
   });
 });
