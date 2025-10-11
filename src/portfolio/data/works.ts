@@ -52,7 +52,7 @@ export const WorkData: WorkProps[] = [
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
     description: '文字列のLLMトークン数をカウントするツール',
-    group: 'dev'
+    group: 'old'
   },
   {
     title: 'LibreChat質問部屋',
@@ -94,7 +94,7 @@ export const WorkData: WorkProps[] = [
     title: 'Amazon banana',
     url: 'https://chromewebstore.google.com/detail/amazon-banana/bimgbejbhnlaeapccdejdgnjfcembnjj?authuser=0&hl=ja',
     description: 'Amazon販売ページのウザい表示を抹消するChrome拡張機能',
-    group: 'tool'
+    group: 'old'
   },
   {
     title: 'ポケポケ ガチャシュミレーター',
@@ -130,7 +130,7 @@ export const WorkData: WorkProps[] = [
     title: 'AI討論コロシアム',
     url: 'https://ai.turai.work/arena/',
     description: 'ChatGPT Vs ChatGPT',
-    group: 'ai'
+    group: 'old'
   },
   {
     title: 'AI大阪弁変換くん',

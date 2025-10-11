@@ -7,13 +7,13 @@ favorites:
   languages:
     - Ruby
     - TypeScript
-  animal: cat
-  game: Splatoon 🦑
+  animal: 猫
+  game: スプラトゥーン
   foods:
-    - sushi
-    - sweets
+    - お寿司
+    - 甘いもの全般
 hobbies:
-  - western painting
+  - 西洋絵画
 links:
   - Twitter: https://twitter.com/amanekey
   - Blog: https://blog.turai.work
