@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
+import Example from './example/Page';
 import Make12Page from './make12/Page';
 import Password from './password/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
@@ -16,6 +17,7 @@ export default function App() {
         <Route path='/password' element={<Password />} />
         <Route path='/make12' element={<Make12Page />} />
         <Route path='/paypay-shinagawa' element={<PayPayShinagawa />} />
+        <Route path='/example' element={<Example />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
