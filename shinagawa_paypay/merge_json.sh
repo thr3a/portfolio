@@ -14,7 +14,8 @@ common_dir="$SCRIPT_DIR/../../data/shinagawa_paypay_common"
 senyou_dir="$SCRIPT_DIR/../../data/shinagawa_paypay_senyou"
 
 shopt -s nullglob
-json_files=("$common_dir"/list*.json "$senyou_dir"/list*.json)
+# json_files=("$common_dir"/list*.json "$senyou_dir"/list*.json)
+json_files=("$senyou_dir"/list*.json)
 shopt -u nullglob
 
 if [ "${#json_files[@]}" -eq 0 ]; then
