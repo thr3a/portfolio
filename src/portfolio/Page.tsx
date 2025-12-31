@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Header } from './Header';
 import { Profile } from './Profile';
 import { Title as MyTitle } from './Title';
-import { WorkGroup } from './WorkGroup';
 import { theme } from './theme';
+import { WorkGroup } from './WorkGroup';
 
 export default function Portfolio() {
   const [workGroup, setworkGroup] = useState('all');

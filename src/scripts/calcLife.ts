@@ -11,10 +11,10 @@ function format(num: number): string {
 }
 
 const speed = currentAge / referenceAge;
-const livedCurrent = currentAge * Math.log(currentAge / consciousAge);
-const livedStandard = referenceAge * Math.log(currentAge / consciousAge);
-const lifeCurrent = currentAge * Math.log(lifespan / consciousAge);
-const lifeStandard = referenceAge * Math.log(lifespan / consciousAge);
+const _livedCurrent = currentAge * Math.log(currentAge / consciousAge);
+const _livedStandard = referenceAge * Math.log(currentAge / consciousAge);
+const _lifeCurrent = currentAge * Math.log(lifespan / consciousAge);
+const _lifeStandard = referenceAge * Math.log(lifespan / consciousAge);
 const percent = (Math.log(currentAge / consciousAge) / Math.log(lifespan / consciousAge)) * 100;
 const turningPoint = Math.sqrt(consciousAge * lifespan);
 const isPastHalf = percent >= 50;

@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Flex, Group, Input, Paper, Select, Stack, Text, rem } from '@mantine/core';
+import { Box, Button, Checkbox, Flex, Group, Input, Paper, rem, Select, Stack, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useCallback, useState } from 'react';
 import { ButtonCopy } from './ButtonCopy';

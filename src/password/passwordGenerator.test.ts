@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { generatePassword, getCharset } from './passwordGenerator';
 import type { PasswordOptions } from './passwordGenerator';
+import { generatePassword, getCharset } from './passwordGenerator';
 
 describe('passwordGenerator', () => {
   const defaultOptions: PasswordOptions = {

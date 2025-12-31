@@ -2,7 +2,7 @@ import { Alert, Box, Button, Center, Container, Group, List, MantineProvider, St
 import { useListState, useLongPress } from '@mantine/hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { theme } from '../theme';
-import generateMake12Problem, { type OperatorSymbol, evaluateExpression, formatExpression } from './make12';
+import generateMake12Problem, { evaluateExpression, formatExpression, type OperatorSymbol } from './make12';
 
 // UI用のサイズ（スマホで2段に崩れないよう clamp で可変）
 const NUM_SIZE = 'clamp(40px, 11vw, 72px)'; // 数字ブロック
@@ -165,16 +165,14 @@ const OpSlot = ({
 
 const Rule = () => {
   return (
-    <>
-      <Alert color='green' variant='light'>
-        <List>
-          <List.Item>演算子を組み合わせて合計値12を作るゲームです。</List.Item>
-          <List.Item>整数のみ、小数点、分数不可</List.Item>
-          <List.Item>演算の評価順は×,÷が先で+,-が後</List.Item>
-          <List.Item>例: 9,4,6,8 → 9 + 4 × 6 ÷ 8</List.Item>
-        </List>
-      </Alert>
-    </>
+    <Alert color='green' variant='light'>
+      <List>
+        <List.Item>演算子を組み合わせて合計値12を作るゲームです。</List.Item>
+        <List.Item>整数のみ、小数点、分数不可</List.Item>
+        <List.Item>演算の評価順は×,÷が先で+,-が後</List.Item>
+        <List.Item>例: 9,4,6,8 → 9 + 4 × 6 ÷ 8</List.Item>
+      </List>
+    </Alert>
   );
 };
 

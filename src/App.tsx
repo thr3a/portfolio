@@ -1,8 +1,8 @@
 import '@mantine/core/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NotFound from './NotFound';
 import Example from './example/Page';
 import Make12Page from './make12/Page';
+import NotFound from './NotFound';
 import Password from './password/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
 import Portfolio from './portfolio/Page';

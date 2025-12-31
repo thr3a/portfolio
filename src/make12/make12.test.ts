@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
 import {
-  type OperatorSymbol,
   evaluateExpression,
   findAnySolution,
   formatExpression,
   generateMake12Problem,
+  type OperatorSymbol,
   randomNumbers
 } from './make12';
 

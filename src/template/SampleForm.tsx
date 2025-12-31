@@ -1,6 +1,5 @@
 import { Button, Group, NumberInput, TextInput } from '@mantine/core';
-import { hasLength, isEmail, isInRange, isNotEmpty, matches } from '@mantine/form';
-import { createFormContext } from '@mantine/form';
+import { createFormContext, hasLength, isEmail, isInRange, isNotEmpty, matches } from '@mantine/form';
 
 // Definition of form values is required
 type formProps = {

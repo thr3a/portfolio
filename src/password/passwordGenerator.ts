@@ -27,7 +27,7 @@ function getRandomValues(array: Uint8Array): Uint8Array {
   try {
     const nodeCrypto = require('node:crypto');
     return nodeCrypto.getRandomValues(array);
-  } catch (e) {
+  } catch (_e) {
     throw new Error('Crypto.getRandomValues is not supported in this environment');
   }
 }
