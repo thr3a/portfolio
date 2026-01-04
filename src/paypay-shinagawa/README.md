@@ -59,3 +59,4 @@ storesの配列ではネストはしない
 
 重複削除
 cat result.json | jq --compact-output '.stores |= unique_by(.title)' > result_uniq.json
+
