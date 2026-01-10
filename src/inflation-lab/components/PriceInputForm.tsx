@@ -28,7 +28,7 @@ export function PriceInputForm({
   return (
     <Paper withBorder p='md'>
       <Stack>
-        <Text size='sm'>比較したい商品の価格を入力</Text>
+        <Text size='sm'>比較したい商品の価格を入力してください。</Text>
         <Group align='flex-end'>
           <Box style={{ flex: 1 }}>
             <Text size='sm' fw={500} mb={4}>

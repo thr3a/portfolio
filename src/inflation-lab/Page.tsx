@@ -78,7 +78,7 @@ export default function InflationLab() {
         <Stack gap={4} py='md'>
           <Title order={2}>インフレーションラボ</Title>
           <Text size='sm' c='dimmed'>
-            経済感覚の「答え合わせ」と「再発見」
+            あなたが高いは妥当なのか、経済感覚の「答え合わせ」
           </Text>
         </Stack>
 
