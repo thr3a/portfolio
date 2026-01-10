@@ -1,4 +1,5 @@
 import { Box, Button, Group, NumberInput, Paper, Select, Stack, Text } from '@mantine/core';
+import { PresetButtons } from './PresetButtons';
 
 const YEARS = Array.from({ length: 26 }, (_, i) => 2000 + i);
 
@@ -31,9 +32,7 @@ export function PriceInputForm({
         <Text size='sm'>比較したい商品の価格を入力してください。</Text>
         <Group align='flex-end'>
           <Box style={{ flex: 1 }}>
-            <Text size='sm' fw={500} mb={4}>
-              昔
-            </Text>
+            <Text size='sm'>昔</Text>
             <Group>
               <Select
                 data={YEARS.map((y) => ({ value: y.toString(), label: `${y}年` }))}
@@ -54,9 +53,7 @@ export function PriceInputForm({
           </Box>
 
           <Box style={{ flex: 1 }}>
-            <Text size='sm' fw={500} mb={4}>
-              現在
-            </Text>
+            <Text size='sm'>現在</Text>
             <Group>
               <Select
                 data={YEARS.map((y) => ({ value: y.toString(), label: `${y}年` }))}
@@ -78,6 +75,15 @@ export function PriceInputForm({
             </Group>
           </Box>
         </Group>
+
+        <PresetButtons
+          onPresetClick={(preset) => {
+            setPastYear(preset.pastYear);
+            setPastPrice(preset.pastPrice);
+            setCurrentYear(preset.currentYear);
+            setCurrentPrice(preset.currentPrice);
+          }}
+        />
 
         <Button onClick={onCalculate} fullWidth>
           診断する

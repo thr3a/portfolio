@@ -16,8 +16,8 @@ export default function InflationLab() {
 
   const [pastYear, setPastYear] = useState<number | null>(2000);
   const [currentYear, setCurrentYear] = useState<number | null>(2025);
-  const [pastPrice, setPastPrice] = useState<number | null>(50);
-  const [currentPrice, setCurrentPrice] = useState<number | null>(85);
+  const [pastPrice, setPastPrice] = useState<number | null>(0);
+  const [currentPrice, setCurrentPrice] = useState<number | null>(0);
   const [result, setResult] = useState<InflationResult | null>(null);
 
   const calculate = () => {
@@ -78,7 +78,7 @@ export default function InflationLab() {
         <Stack gap={4} py='md'>
           <Title order={2}>インフレーションラボ</Title>
           <Text size='sm' c='dimmed'>
-            あなたが高いは妥当なのか、経済感覚の「答え合わせ」
+            あなたが高いは妥当なのか 経済感覚の「答え合わせ」
           </Text>
         </Stack>
 
