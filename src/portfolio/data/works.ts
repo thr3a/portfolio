@@ -52,26 +52,26 @@ export const WorkData: WorkProps[] = [
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
     description: '文字列のLLMトークン数をカウントするツール',
-    group: 'old'
-  },
-  {
-    title: 'LibreChat質問部屋',
-    url: 'https://ai.turai.work/docs-librechat/',
-    description: '公式ドキュメントに基づいてAIがLibreChatをサポート',
     group: 'dev'
   },
-  {
-    title: 'mise質問部屋',
-    url: 'https://ai.turai.work/docs-mise/',
-    description: '公式ドキュメントに基づいてAIがmiseをサポート',
-    group: 'dev'
-  },
-  {
-    title: 'Kamal質問部屋',
-    url: 'https://ai.turai.work/docs-kamal/',
-    description: '公式ドキュメントに基づいてAIがKamalサポート',
-    group: 'dev'
-  },
+  // {
+  //   title: 'LibreChat質問部屋',
+  //   url: 'https://ai.turai.work/docs-librechat/',
+  //   description: '公式ドキュメントに基づいてAIがLibreChatをサポート',
+  //   group: 'dev'
+  // },
+  // {
+  //   title: 'mise質問部屋',
+  //   url: 'https://ai.turai.work/docs-mise/',
+  //   description: '公式ドキュメントに基づいてAIがmiseをサポート',
+  //   group: 'dev'
+  // },
+  // {
+  //   title: 'Kamal質問部屋',
+  //   url: 'https://ai.turai.work/docs-kamal/',
+  //   description: '公式ドキュメントに基づいてAIがKamalサポート',
+  //   group: 'dev'
+  // },
   {
     title: 'repo-to-text',
     url: 'https://github.com/thr3a/repo-to-text',
@@ -90,12 +90,12 @@ export const WorkData: WorkProps[] = [
     description: 'プレスリリースの最終更新日時が深夜ってことは…？',
     group: 'tool'
   },
-  {
-    title: 'Amazon banana',
-    url: 'https://chromewebstore.google.com/detail/amazon-banana/bimgbejbhnlaeapccdejdgnjfcembnjj?authuser=0&hl=ja',
-    description: 'Amazon販売ページのウザい表示を抹消するChrome拡張機能',
-    group: 'old'
-  },
+  // {
+  //   title: 'Amazon banana',
+  //   url: 'https://chromewebstore.google.com/detail/amazon-banana/bimgbejbhnlaeapccdejdgnjfcembnjj?authuser=0&hl=ja',
+  //   description: 'Amazon販売ページのウザい表示を抹消するChrome拡張機能',
+  //   group: 'old'
+  // },
   {
     title: 'ポケポケ ガチャシュミレーター',
     url: 'https://gacha.turai.work/pokepoke.html',
@@ -114,42 +114,42 @@ export const WorkData: WorkProps[] = [
     description: '生成AIにエビフライ学習させてみた',
     group: 'book'
   },
-  {
-    title: 'ビジネスフレームワーク提案くん',
-    url: 'https://ai.turai.work/business-framework/',
-    description: '最適なビジネスフレームワークを教えてくれる',
-    group: 'ai'
-  },
+  // {
+  //   title: 'ビジネスフレームワーク提案くん',
+  //   url: 'https://ai.turai.work/business-framework/',
+  //   description: '最適なビジネスフレームワークを教えてくれる',
+  //   group: 'ai'
+  // },
   {
     title: '無知フクロウ二次創作ジェネレーター',
     url: 'https://ai.turai.work/muchifuku/',
     description: 'AIなんも分かんないプー',
     group: 'ai'
   },
-  {
-    title: 'AI討論コロシアム',
-    url: 'https://ai.turai.work/arena/',
-    description: 'ChatGPT Vs ChatGPT',
-    group: 'old'
-  },
+  // {
+  //   title: 'AI討論コロシアム',
+  //   url: 'https://ai.turai.work/arena/',
+  //   description: 'ChatGPT Vs ChatGPT',
+  //   group: 'old'
+  // },
   {
     title: 'AI大阪弁変換くん',
     url: 'https://ai.turai.work/kansai/',
     description: 'えらいこっちゃ、AIがなんやら大阪弁しゃべりよる！',
     group: 'ai'
   },
-  {
-    title: 'クソリプジェネレーター',
-    url: 'https://ai.turai.work/kusoreply/',
-    description: 'ChatGPTの無駄遣い',
-    group: 'ai'
-  },
-  {
-    title: 'ダジャレべた褒めジェネレーター',
-    url: 'https://ai.turai.work/owen-reply/',
-    description: 'ダジャレxAIで自己肯定感を高めるソリューション',
-    group: 'ai'
-  },
+  // {
+  //   title: 'クソリプジェネレーター',
+  //   url: 'https://ai.turai.work/kusoreply/',
+  //   description: 'ChatGPTの無駄遣い',
+  //   group: 'ai'
+  // },
+  // {
+  //   title: 'ダジャレべた褒めジェネレーター',
+  //   url: 'https://ai.turai.work/owen-reply/',
+  //   description: 'ダジャレxAIで自己肯定感を高めるソリューション',
+  //   group: 'ai'
+  // },
   {
     title: 'Terraform code builder',
     url: 'https://ai.turai.work/terraform/',
@@ -186,12 +186,12 @@ export const WorkData: WorkProps[] = [
     description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
     group: 'ai'
   },
-  {
-    title: '言い換えAI',
-    url: 'https://ai.turai.work/paraphrase/',
-    description: '単語/文章をシチュエーションに合わせてChatGPTが変換',
-    group: 'ai'
-  },
+  // {
+  //   title: '言い換えAI',
+  //   url: 'https://ai.turai.work/paraphrase/',
+  //   description: '単語/文章をシチュエーションに合わせてChatGPTが変換',
+  //   group: 'ai'
+  // },
   {
     title: '英語でググり隊',
     url: 'https://ai.turai.work/ggr-en',
@@ -222,12 +222,12 @@ export const WorkData: WorkProps[] = [
     description: 'ツイッター検索を便利にしてくれるやつ',
     group: 'tool'
   },
-  {
-    title: 'ポケモンタイプ相性チェッカー',
-    url: 'https://poketype.turai.work/',
-    description: 'フェアリーしか勝たん',
-    group: 'tool'
-  },
+  // {
+  //   title: 'ポケモンタイプ相性チェッカー',
+  //   url: 'https://poketype.turai.work/',
+  //   description: 'フェアリーしか勝たん',
+  //   group: 'tool'
+  // },
   {
     title: 'ガチャシュミレーター',
     url: 'https://gacha.turai.work/',
@@ -246,18 +246,18 @@ export const WorkData: WorkProps[] = [
   //   description: 'スプラ 洗濯機 消す方法 [検索]',
   //   group: 'old'
   // },
-  {
-    title: 'メルカリ除外キーワード',
-    url: 'https://chromewebstore.google.com/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl',
-    description: 'メルカリで除外キーワードを使えるようにするChrome拡張機能',
-    group: 'old'
-  },
-  {
-    title: 'Mantine Components Gallery',
-    url: 'https://thr3a.github.io/mantine-cheatsheets/',
-    description: 'Mantineはいいぞ',
-    group: 'old'
-  },
+  // {
+  //   title: 'メルカリ除外キーワード',
+  //   url: 'https://chromewebstore.google.com/detail/%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E9%99%A4%E5%A4%96%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89/edagpkikgijeoeaijgohpojmihffhljl',
+  //   description: 'メルカリで除外キーワードを使えるようにするChrome拡張機能',
+  //   group: 'old'
+  // },
+  // {
+  //   title: 'Mantine Components Gallery',
+  //   url: 'https://thr3a.github.io/mantine-cheatsheets/',
+  //   description: 'Mantineはいいぞ',
+  //   group: 'old'
+  // },
   // {
   //   "title": "Twitter Profile Auto Generator",
   //   "url": "https://github.com/thr3a/twitter-profile-auto-generator",
