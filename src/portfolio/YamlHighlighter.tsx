@@ -29,7 +29,7 @@ const linkify = (text: string): (string | JSX.Element)[] => {
 // YAMLのキーとリストのハイフンにスタイルを適用する関数
 const highlightYaml = (line: string, colorScheme: 'light' | 'dark', colors: MantineTheme['colors']) => {
   const isDarkMode = colorScheme === 'dark';
-  const keyColor = isDarkMode ? colors.blue[4] : colors.blue[7];
+  const keyColor = isDarkMode ? colors.green[4] : colors.green[7];
   const hyphenColor = isDarkMode ? colors.grape[4] : colors.grape[7];
 
   const leadingSpace = line.match(/^(\s*)/)?.[0] ?? '';
@@ -88,11 +88,7 @@ export const YamlHighlighter: React.FC<{ code: string }> = ({ code }) => {
   const lines = code.trim().split('\n');
 
   return (
-    <Box
-      component='pre'
-      ff='monospace'
-      style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}
-    >
+    <Box component='pre' ff='monospace' style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}>
       {lines.map((line, index) => (
         <Box key={index}>{highlightYaml(line, computedColorScheme, theme.colors)}</Box>
       ))}
