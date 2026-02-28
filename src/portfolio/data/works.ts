@@ -9,6 +9,20 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'cloudflare-tui',
+    url: 'https://github.com/thr3a/cloudflare-tui',
+    description: 'Cloudflare Tunnel設定をターミナルで設定',
+    group: 'dev',
+    emoji: '🟠'
+  },
+  {
+    title: '音質当てクイズ',
+    url: 'https://audio-quality-quiz.turai.work/',
+    description: '自分の耳にいざ挑戦',
+    group: 'tool',
+    emoji: '🎧'
+  },
+  {
     title: 'レストランメニュー解説くん',
     url: 'https://ai.turai.work/describe-menu/',
     description: '海外旅行もこれで安心',
@@ -48,7 +62,8 @@ export const WorkData: WorkProps[] = [
     url: 'https://turai.work/password/',
     description: '安全なパスワードを一括で作成します。',
     group: 'dev',
-    emoji: '🔐'
+    emoji: '🔐',
+    featured: true
   },
   {
     title: 'E-Paper Image tool',
@@ -154,7 +169,7 @@ export const WorkData: WorkProps[] = [
     url: 'https://ai.turai.work/kansai/',
     description: 'えらいこっちゃ、AIがなんやら大阪弁しゃべりよる！',
     group: 'ai',
-    emoji: '🗣️'
+    emoji: '🍬'
   },
   // {
   //   title: 'クソリプジェネレーター',
@@ -200,14 +215,16 @@ export const WorkData: WorkProps[] = [
     url: 'https://ai.turai.work/improve-prompt/',
     description: 'プロンプト改善もAIにやらせよう',
     group: 'ai',
-    emoji: '✨'
+    emoji: '✨',
+    featured: true
   },
   {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
     description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
     group: 'ai',
-    emoji: '😤'
+    emoji: '😤',
+    featured: true
   },
   // {
   //   title: '言い換えAI',
@@ -233,7 +250,8 @@ export const WorkData: WorkProps[] = [
     url: 'https://ai.turai.work/meimei/',
     description: '変数名をAIをつけてくれるやつ',
     group: 'ai',
-    emoji: '💡'
+    emoji: '💡',
+    featured: true
   },
   // {
   //   title: 'ブログ記事おたすけくん',
@@ -246,7 +264,8 @@ export const WorkData: WorkProps[] = [
     url: 'https://t.turai.work/',
     description: 'ツイッター検索を便利にしてくれるやつ',
     group: 'tool',
-    emoji: '🐦'
+    emoji: '🐦',
+    featured: true
   },
   // {
   //   title: 'ポケモンタイプ相性チェッカー',
@@ -259,14 +278,16 @@ export const WorkData: WorkProps[] = [
     url: 'https://gacha.turai.work/',
     description: 'スマホゲームなどのガチャ確率計算機',
     group: 'tool',
-    emoji: '🎰'
+    emoji: '🎰',
+    featured: true
   },
   {
     title: 'どっちお得くん',
     url: 'https://otoku.turai.work/',
     description: '物価上昇を耐え抜け',
     group: 'tool',
-    emoji: '💰'
+    emoji: '💰',
+    featured: true
   },
   // {
   //   title: 'スプラトゥーン3 射程比較表',
