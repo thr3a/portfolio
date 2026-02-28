@@ -1,3 +1,4 @@
+import { Paper } from '@mantine/core';
 import { YamlHighlighter } from './YamlHighlighter';
 
 const yaml = /* yaml */ `
@@ -15,11 +16,15 @@ favorites:
 hobbies:
   - 西洋絵画
 links:
-  - Twitter: https://twitter.com/amanekey
-  - Blog: https://blog.turai.work
-  - GitHub: https://github.com/thr3a
+  - Twitter: [@Amanekey](https://x.com/amanekey)
+  - Blog: [https://blog.turai.work](https://blog.turai.work/)
+  - GitHub: [@thr3a](https://github.com/thr3a)
 `;
 
 export const Profile = () => {
-  return <YamlHighlighter code={yaml} />;
+  return (
+    <Paper p='md' withBorder shadow='xs'>
+      <YamlHighlighter code={yaml} />
+    </Paper>
+  );
 };
