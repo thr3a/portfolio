@@ -27,9 +27,9 @@ export const Header = () => {
       <Flex justify='flex-end'>
         <ColorSchemeToggle />
       </Flex>
-      <Flex align={'center'} justify='center' gap={'lg'} mt={'lg'} mb={'lg'}>
-        <Image h={'12vh'} w='auto' radius={'xs'} fit={'contain'} src='./icon.jpg' alt='cute cat!' />
-        <Text component='div' className={classes.title} fw={'bold'}>
+      <Flex align='center' justify='center' gap='lg' my='lg' direction={{ base: 'column', sm: 'row' }}>
+        <Image h='12vh' w='auto' radius='100%' fit='contain' src='./icon.jpg' alt='cute cat!' />
+        <Text component='div' className={classes.title} fw='bold' ta={{ base: 'center', sm: 'left' }}>
           tur
           <Text component='span' variant='gradient' gradient={{ from: randomColor(), to: randomColor() }} inherit>
             ai
