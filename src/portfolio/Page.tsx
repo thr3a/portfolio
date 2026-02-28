@@ -11,7 +11,7 @@ export default function Portfolio() {
   return (
     <MantineProvider theme={theme} defaultColorScheme='auto'>
       <ColorSchemeScript defaultColorScheme='auto' />
-      <Container mt={'md'} mb={'md'}>
+      <Container my='md'>
         <Header />
         <MyTitle title='Profile' />
         <Profile />

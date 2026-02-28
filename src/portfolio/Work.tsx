@@ -14,8 +14,8 @@ export const Work = ({ title, description, url, emoji }: WorkProps) => {
       c='var(--mantine-primary-color-8)'
       style={{ textDecoration: 'none', display: 'block' }}
     >
-      <Stack gap='0'>
-        <Text ta='center' fz='h1' component='span' mb={'lg'}>
+      <Stack gap='sm'>
+        <Text ta='center' fz='h1' component='span'>
           {emoji}
         </Text>
         <Text fw='bold' fz={'xl'} component='span'>
