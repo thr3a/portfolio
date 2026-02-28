@@ -4,6 +4,7 @@ import { themeToVars } from '@mantine/vanilla-extract';
 export const theme = createTheme({
   defaultRadius: 'xs',
   fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
-  primaryColor: 'cyan'
+  primaryColor: 'pink',
+  primaryShade: 8
 });
 export const vars = themeToVars(theme);
