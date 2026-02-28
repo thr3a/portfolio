@@ -4,6 +4,7 @@ export type WorkProps = {
   description: string;
   group: 'ai' | 'tool' | 'dev' | 'old' | 'book';
   emoji: string;
+  featured?: boolean;
 };
 
 export const WorkData: WorkProps[] = [

@@ -7,7 +7,7 @@ import { theme } from './theme';
 import { WorkGroup } from './WorkGroup';
 
 export default function Portfolio() {
-  const [workGroup, setworkGroup] = useState('all');
+  const [workGroup, setworkGroup] = useState('featured');
   return (
     <MantineProvider theme={theme} defaultColorScheme='auto'>
       <ColorSchemeScript defaultColorScheme='auto' />
