@@ -15,6 +15,7 @@ favorites:
     - 甘いもの全般
 hobbies:
   - 西洋絵画
+  - LLM
 links:
   - Twitter: [@Amanekey](https://x.com/amanekey)
   - Blog: [https://blog.turai.work](https://blog.turai.work/)
@@ -23,7 +24,7 @@ links:
 
 export const Profile = () => {
   return (
-    <Paper p='md' withBorder shadow='xs'>
+    <Paper p='md' withBorder bd='1px solid pink.5'>
       <YamlHighlighter code={yaml} />
     </Paper>
   );

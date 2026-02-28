@@ -5,14 +5,13 @@ import { text } from './Work.css';
 export const Work = ({ title, description, url, emoji }: WorkProps) => {
   return (
     <Paper
-      shadow='xs'
-      withBorder
-      p='lg'
+      bd='1px solid var(--mantine-primary-color-5)'
+      p='md'
       component='a'
       radius={0}
       target='_blank'
       href={url}
-      c='var(--mantine-color-anchor)'
+      c='var(--mantine-primary-color-8)'
       style={{ textDecoration: 'none', display: 'block' }}
     >
       <Stack gap='0'>
