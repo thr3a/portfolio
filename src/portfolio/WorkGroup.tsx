@@ -10,6 +10,9 @@ type props = {
 
 export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
   const filteredGroups = (): WorkProps[] => {
+    if (workGroup === 'featured') {
+      return WorkData.filter((x: WorkProps) => x.featured);
+    }
     if (workGroup === 'all') {
       return WorkData.filter((x: WorkProps) => x.group !== 'old');
     }
@@ -25,6 +28,7 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
         onChange={setworkGroup}
         size='md'
         data={[
+          { label: '注目', value: 'featured' },
           { label: 'すべて', value: 'all' },
           { label: 'AI', value: 'ai' },
           { label: '便利', value: 'tool' },
