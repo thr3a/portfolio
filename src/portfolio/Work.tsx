@@ -5,13 +5,14 @@ import { text } from './Work.css';
 export const Work = ({ title, description, url, emoji }: WorkProps) => {
   return (
     <Paper
-      shadow='md'
+      shadow='xs'
       withBorder
       p='lg'
       component='a'
       radius={0}
       target='_blank'
       href={url}
+      c='var(--mantine-color-anchor)'
       style={{ textDecoration: 'none', display: 'block' }}
     >
       <Stack gap='0'>
@@ -21,7 +22,7 @@ export const Work = ({ title, description, url, emoji }: WorkProps) => {
         <Text fw='bold' fz={'xl'} component='span'>
           {title}
         </Text>
-        <Text size='sm' className={text} component='span'>
+        <Text size='xs' className={text} component='span'>
           {description}
         </Text>
       </Stack>
