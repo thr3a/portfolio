@@ -1,4 +1,4 @@
-import { SegmentedControl, Stack, useMantineTheme } from '@mantine/core';
+import { SegmentedControl, SimpleGrid, useMantineTheme } from '@mantine/core';
 import type { WorkProps } from './data/works';
 import { WorkData } from './data/works';
 import { Work } from './Work';
@@ -34,11 +34,11 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
         ]}
         mb={'xs'}
       />
-      <Stack gap={'xs'}>
+      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing='md'>
         {filteredGroups().map((props) => (
           <Work key={props.url} {...props} />
         ))}
-      </Stack>
+      </SimpleGrid>
     </>
   );
 };

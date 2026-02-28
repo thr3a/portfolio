@@ -3,6 +3,7 @@ export type WorkProps = {
   url: string;
   description: string;
   group: 'ai' | 'tool' | 'dev' | 'old' | 'book';
+  emoji: string;
 };
 
 export const WorkData: WorkProps[] = [
@@ -10,49 +11,57 @@ export const WorkData: WorkProps[] = [
     title: 'レストランメニュー解説くん',
     url: 'https://ai.turai.work/describe-menu/',
     description: '海外旅行もこれで安心',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   {
     title: 'rubocop-rspec_enforce_description',
     url: 'https://github.com/thr3a/rubocop-rspec_enforce_description',
     description: 'RSpecの説明が「〜こと」で終わっていること',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'EPUBテキスト変換ツール',
     url: 'https://epub.turai.work/',
     description: 'EPUBをテキストに必要な章だけダウンロード',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   {
     title: '神話4択クイズ',
     url: 'https://ai.turai.work/art-quiz/',
     description: '４択クイズで絵画知識を学ぼう',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   {
     title: 'TailwindCSS UI生成ツール',
     url: 'https://ai.turai.work/html-ui/',
     description: 'TailwindCSS対応のHTMLを作れるよ',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'パスワード一括生成ツール',
     url: 'https://turai.work/password/',
     description: '安全なパスワードを一括で作成します。',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'E-Paper Image tool',
     url: 'https://epaper.turai.work/',
     description: '電子ペーパー用の画像に変換ツール',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
     description: '文字列のLLMトークン数をカウントするツール',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   // {
   //   title: 'LibreChat質問部屋',
@@ -76,19 +85,22 @@ export const WorkData: WorkProps[] = [
     title: 'repo-to-text',
     url: 'https://github.com/thr3a/repo-to-text',
     description: 'LLM用にソースコードをテキストに変換するツール',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'remove-markdown-links',
     url: 'https://github.com/thr3a/remove-markdown-links',
     description: 'LLM用にリンクを除去するMarkdown整形ツール',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'PDFメタデータビューアー',
     url: 'https://pdf-metadata.turai.work/',
     description: 'プレスリリースの最終更新日時が深夜ってことは…？',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   // {
   //   title: 'Amazon banana',
@@ -100,19 +112,22 @@ export const WorkData: WorkProps[] = [
     title: 'ポケポケ ガチャシュミレーター',
     url: 'https://gacha.turai.work/pokepoke.html',
     description: 'ミューツーexください😭',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   {
     title: 'sie; TechBook vol.2',
     url: 'https://techbookfest.org/product/jECrnrUCE2sW1Sg9Xn1KrY',
     description: '格安感熱式プリンターで遊ぶ',
-    group: 'book'
+    group: 'book',
+    emoji: '💤'
   },
   {
     title: 'sie; TechBook vol.1',
     url: 'https://techbookfest.org/product/i0PDp1UKf9jMPXN4JRDCj0?productVariantID=i5cQdNGaWEmXvz75J7jFdm',
     description: '生成AIにエビフライ学習させてみた',
-    group: 'book'
+    group: 'book',
+    emoji: '💤'
   },
   // {
   //   title: 'ビジネスフレームワーク提案くん',
@@ -124,7 +139,8 @@ export const WorkData: WorkProps[] = [
     title: '無知フクロウ二次創作ジェネレーター',
     url: 'https://ai.turai.work/muchifuku/',
     description: 'AIなんも分かんないプー',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: 'AI討論コロシアム',
@@ -136,7 +152,8 @@ export const WorkData: WorkProps[] = [
     title: 'AI大阪弁変換くん',
     url: 'https://ai.turai.work/kansai/',
     description: 'えらいこっちゃ、AIがなんやら大阪弁しゃべりよる！',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: 'クソリプジェネレーター',
@@ -154,19 +171,22 @@ export const WorkData: WorkProps[] = [
     title: 'Terraform code builder',
     url: 'https://ai.turai.work/terraform/',
     description: 'Terraformのコードをつくってくれるやつ',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   {
     title: 'Anime Remove Background',
     url: 'https://huggingface.co/spaces/thr3a/anime-remove-background',
     description: '2次元画像の背景削除時に白色できるようにしたやつ',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   {
     title: 'Super-IOPaint',
     url: 'https://huggingface.co/spaces/thr3a/super-iopaint',
     description: '画像背景削除するやつ',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: 'JKヒス構文メーカー',
@@ -178,13 +198,15 @@ export const WorkData: WorkProps[] = [
     title: 'プロンプト改善くん',
     url: 'https://ai.turai.work/improve-prompt/',
     description: 'プロンプト改善もAIにやらせよう',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
     description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: '言い換えAI',
@@ -196,7 +218,8 @@ export const WorkData: WorkProps[] = [
     title: '英語でググり隊',
     url: 'https://ai.turai.work/ggr-en',
     description: '英語でググりたいときにいい感じに翻訳',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: 'AI言論コロシアム',
@@ -208,7 +231,8 @@ export const WorkData: WorkProps[] = [
     title: '命名先生',
     url: 'https://ai.turai.work/meimei/',
     description: '変数名をAIをつけてくれるやつ',
-    group: 'ai'
+    group: 'ai',
+    emoji: '💤'
   },
   // {
   //   title: 'ブログ記事おたすけくん',
@@ -220,7 +244,8 @@ export const WorkData: WorkProps[] = [
     title: 'Twitter検索ヘルパー',
     url: 'https://t.turai.work/',
     description: 'ツイッター検索を便利にしてくれるやつ',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   // {
   //   title: 'ポケモンタイプ相性チェッカー',
@@ -232,13 +257,15 @@ export const WorkData: WorkProps[] = [
     title: 'ガチャシュミレーター',
     url: 'https://gacha.turai.work/',
     description: 'スマホゲームなどのガチャ確率計算機',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   {
     title: 'どっちお得くん',
     url: 'https://otoku.turai.work/',
     description: '物価上昇を耐え抜け',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   },
   // {
   //   title: 'スプラトゥーン3 射程比較表',
@@ -267,19 +294,22 @@ export const WorkData: WorkProps[] = [
     title: 'バグ文字コピペセンター',
     url: 'https://thr3a.github.io/invalid-char-collections/',
     description: 'エラー処理していないアプリをバグらせていこう',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'docker-build-station',
     url: 'https://github.com/thr3a/docker-build-station',
     description: '毎日新鮮なイメージをお届けします',
-    group: 'dev'
+    group: 'dev',
+    emoji: '💤'
   },
   {
     title: 'はてなブログ芝生',
     url: 'https://hatena.turai.work/',
     description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
-    group: 'tool'
+    group: 'tool',
+    emoji: '💤'
   }
   // {
   //   title: 'アートWiki',
