@@ -151,6 +151,33 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     isDrawingRef.current = false;
   }, []);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      handleStart(touch.clientX, touch.clientY);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      handleMove(touch.clientX, touch.clientY);
+    };
+    const onTouchEnd = () => handleEnd();
+
+    canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+    canvas.addEventListener('touchend', onTouchEnd);
+
+    return () => {
+      canvas.removeEventListener('touchstart', onTouchStart);
+      canvas.removeEventListener('touchmove', onTouchMove);
+      canvas.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [handleStart, handleMove, handleEnd]);
+
   useImperativeHandle(
     ref,
     () => ({
@@ -193,17 +220,6 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
       onMouseMove={(e) => handleMove(e.clientX, e.clientY)}
       onMouseUp={handleEnd}
       onMouseLeave={handleEnd}
-      onTouchStart={(e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        handleStart(touch.clientX, touch.clientY);
-      }}
-      onTouchMove={(e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        handleMove(touch.clientX, touch.clientY);
-      }}
-      onTouchEnd={handleEnd}
     />
   );
 };
