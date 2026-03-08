@@ -10,7 +10,7 @@ export default defineConfig({
     vanillaExtractPlugin(),
     vitePrerenderPlugin({
       prerenderScript: path.resolve('./src/prerender.ts'),
-      additionalPrerenderRoutes: ['/image-editor'],
+      additionalPrerenderRoutes: ['/image-editor', '/password'],
       renderTarget: '#root'
     })
   ]
