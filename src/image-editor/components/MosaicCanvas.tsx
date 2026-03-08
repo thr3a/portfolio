@@ -80,28 +80,26 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   }, []);
 
   // (clientX, clientY) を中心にズームする共通処理
-  const zoomAt = useCallback(
-    (clientX: number, clientY: number, scaleDelta: number) => {
-      const wrapper = wrapperRef.current;
-      if (!wrapper) return;
-      const wrapperRect = wrapper.getBoundingClientRect();
-      const localX = clientX - wrapperRect.left;
-      const localY = clientY - wrapperRect.top;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: applyTransform/clampTranslate は [] で生成済みの安定 ref のため依存不要
+  const zoomAt = useCallback((clientX: number, clientY: number, scaleDelta: number) => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const localX = clientX - wrapperRect.left;
+    const localY = clientY - wrapperRect.top;
 
-      const oldScale = scaleRef.current;
-      const newScale = clamp(oldScale * scaleDelta, 1, 10);
-      const actualDelta = newScale / oldScale;
+    const oldScale = scaleRef.current;
+    const newScale = clamp(oldScale * scaleDelta, 1, 10);
+    const actualDelta = newScale / oldScale;
 
-      const newTx = localX - (localX - translateRef.current.x) * actualDelta;
-      const newTy = localY - (localY - translateRef.current.y) * actualDelta;
+    const newTx = localX - (localX - translateRef.current.x) * actualDelta;
+    const newTy = localY - (localY - translateRef.current.y) * actualDelta;
 
-      const clamped = clampTranslate(newTx, newTy, newScale);
-      scaleRef.current = newScale;
-      translateRef.current = clamped;
-      applyTransform(newScale, clamped.x, clamped.y);
-    },
-    [applyTransform, clampTranslate]
-  );
+    const clamped = clampTranslate(newTx, newTy, newScale);
+    scaleRef.current = newScale;
+    translateRef.current = clamped;
+    applyTransform(newScale, clamped.x, clamped.y);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -122,6 +120,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   }, [imageSrc]);
 
   // wheelイベントは passive: false が必要なため useEffect で直接登録
+  // biome-ignore lint/correctness/useExhaustiveDependencies: zoomAt は [] で生成済みの安定 ref のため依存不要
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -131,7 +130,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     };
     canvas.addEventListener('wheel', handleWheel, { passive: false });
     return () => canvas.removeEventListener('wheel', handleWheel);
-  }, [zoomAt]);
+  }, []);
 
   const applyMosaicAt = useCallback((x: number, y: number) => {
     const canvas = canvasRef.current;
@@ -217,99 +216,95 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
 
   // Pointer Events API でマウス・タッチを統一処理
   // activePointersRef でアクティブポインターを追跡し、1本指=描画、2本指=ピンチズーム+パンを切り替える
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent<HTMLCanvasElement>) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: saveHistory/applyMosaicAt は [] で生成済みの安定 ref のため依存不要
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-      activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      e.currentTarget.setPointerCapture(e.pointerId);
+    activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    e.currentTarget.setPointerCapture(e.pointerId);
 
-      if (activePointersRef.current.size === 1) {
-        isDrawingRef.current = true;
-        saveHistory();
-        const point = getCanvasPoint(canvas, e.clientX, e.clientY);
-        applyMosaicAt(point.x, point.y);
-      } else if (activePointersRef.current.size === 2) {
-        // ピンチモードに移行: 進行中の描画ストロークをキャンセル
-        if (isDrawingRef.current) {
-          isDrawingRef.current = false;
-          const ctx = canvas.getContext('2d');
-          if (ctx && historyRef.current.length > 0) {
-            const prev = historyRef.current.pop();
-            if (prev) {
-              ctx.putImageData(prev, 0, 0);
-              onHistoryChangeRef.current(historyRef.current.length > 0);
-            }
+    if (activePointersRef.current.size === 1) {
+      isDrawingRef.current = true;
+      saveHistory();
+      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
+      applyMosaicAt(point.x, point.y);
+    } else if (activePointersRef.current.size === 2) {
+      // ピンチモードに移行: 進行中の描画ストロークをキャンセル
+      if (isDrawingRef.current) {
+        isDrawingRef.current = false;
+        const ctx = canvas.getContext('2d');
+        if (ctx && historyRef.current.length > 0) {
+          const prev = historyRef.current.pop();
+          if (prev) {
+            ctx.putImageData(prev, 0, 0);
+            onHistoryChangeRef.current(historyRef.current.length > 0);
           }
         }
-        const [p1, p2] = [...activePointersRef.current.values()];
-        pinchStateRef.current = {
-          dist: pointerDist(p1, p2),
-          midX: (p1.x + p2.x) / 2,
-          midY: (p1.y + p2.y) / 2
-        };
       }
-    },
-    [saveHistory, applyMosaicAt]
-  );
+      const [p1, p2] = [...activePointersRef.current.values()];
+      pinchStateRef.current = {
+        dist: pointerDist(p1, p2),
+        midX: (p1.x + p2.x) / 2,
+        midY: (p1.y + p2.y) / 2
+      };
+    }
+  }, []);
 
-  const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLCanvasElement>) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: applyMosaicAt/applyTransform/clampTranslate は [] で生成済みの安定 ref のため依存不要
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-      activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      const size = activePointersRef.current.size;
+    activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const size = activePointersRef.current.size;
 
-      if (size === 1 && isDrawingRef.current) {
-        const point = getCanvasPoint(canvas, e.clientX, e.clientY);
-        applyMosaicAt(point.x, point.y);
+    if (size === 1 && isDrawingRef.current) {
+      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
+      applyMosaicAt(point.x, point.y);
+      return;
+    }
+
+    if (size >= 2) {
+      const [p1, p2] = [...activePointersRef.current.values()];
+      const currentDist = pointerDist(p1, p2);
+      const currentMidX = (p1.x + p2.x) / 2;
+      const currentMidY = (p1.y + p2.y) / 2;
+
+      if (!pinchStateRef.current) {
+        pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
         return;
       }
 
-      if (size >= 2) {
-        const [p1, p2] = [...activePointersRef.current.values()];
-        const currentDist = pointerDist(p1, p2);
-        const currentMidX = (p1.x + p2.x) / 2;
-        const currentMidY = (p1.y + p2.y) / 2;
+      const { dist: prevDist, midX: prevMidX, midY: prevMidY } = pinchStateRef.current;
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      const wrapperRect = wrapper.getBoundingClientRect();
 
-        if (!pinchStateRef.current) {
-          pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
-          return;
-        }
+      // インクリメンタル方式: 前フレームからのスケール変化量を算出
+      const oldScale = scaleRef.current;
+      const newScale = clamp(oldScale * (currentDist / prevDist), 1, 10);
+      const actualDelta = newScale / oldScale;
 
-        const { dist: prevDist, midX: prevMidX, midY: prevMidY } = pinchStateRef.current;
-        const wrapper = wrapperRef.current;
-        if (!wrapper) return;
-        const wrapperRect = wrapper.getBoundingClientRect();
+      // 現在の中点（ローカル座標）を中心にズーム
+      const localMidX = currentMidX - wrapperRect.left;
+      const localMidY = currentMidY - wrapperRect.top;
+      let newTx = localMidX - (localMidX - translateRef.current.x) * actualDelta;
+      let newTy = localMidY - (localMidY - translateRef.current.y) * actualDelta;
 
-        // インクリメンタル方式: 前フレームからのスケール変化量を算出
-        const oldScale = scaleRef.current;
-        const newScale = clamp(oldScale * (currentDist / prevDist), 1, 10);
-        const actualDelta = newScale / oldScale;
+      // 中点の移動量をパンとして加算
+      newTx += currentMidX - prevMidX;
+      newTy += currentMidY - prevMidY;
 
-        // 現在の中点（ローカル座標）を中心にズーム
-        const localMidX = currentMidX - wrapperRect.left;
-        const localMidY = currentMidY - wrapperRect.top;
-        let newTx = localMidX - (localMidX - translateRef.current.x) * actualDelta;
-        let newTy = localMidY - (localMidY - translateRef.current.y) * actualDelta;
+      const clamped = clampTranslate(newTx, newTy, newScale);
+      scaleRef.current = newScale;
+      translateRef.current = clamped;
+      applyTransform(newScale, clamped.x, clamped.y);
 
-        // 中点の移動量をパンとして加算
-        newTx += currentMidX - prevMidX;
-        newTy += currentMidY - prevMidY;
-
-        const clamped = clampTranslate(newTx, newTy, newScale);
-        scaleRef.current = newScale;
-        translateRef.current = clamped;
-        applyTransform(newScale, clamped.x, clamped.y);
-
-        // 今フレームの状態を次フレームの基準として保存
-        pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
-      }
-    },
-    [applyMosaicAt, applyTransform, clampTranslate]
-  );
+      // 今フレームの状態を次フレームの基準として保存
+      pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
+    }
+  }, []);
 
   const handlePointerEnd = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!activePointersRef.current.has(e.pointerId)) return;
