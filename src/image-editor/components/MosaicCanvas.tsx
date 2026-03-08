@@ -355,14 +355,14 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         if (!canvas) return;
 
         const blob = await new Promise<Blob | null>((resolve) => {
-          canvas.toBlob(resolve, 'image/jpeg', 0.92);
+          canvas.toBlob(resolve, 'image/jpeg', 0.8);
         });
         if (!blob) return;
 
         const file = new File([blob], 'mosaic-image.jpg', { type: 'image/jpeg' });
 
         // Web Share API でファイル共有が可能かチェック（iOS Safari 15+ など）
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        if (navigator.canShare?.({ files: [file] })) {
           await navigator.share({ files: [file] });
           return;
         }
