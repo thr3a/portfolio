@@ -3,7 +3,7 @@ import { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 export type MosaicCanvasHandle = {
   undo: () => void;
   reset: () => void;
-  save: () => void;
+  save: () => Promise<void>;
   resetZoom: () => void;
 };
 
@@ -350,13 +350,30 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         historyRef.current = [];
         onHistoryChangeRef.current(false);
       },
-      save: () => {
+      save: async () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
+
+        const blob = await new Promise<Blob | null>((resolve) => {
+          canvas.toBlob(resolve, 'image/png');
+        });
+        if (!blob) return;
+
+        const file = new File([blob], 'mosaic-image.png', { type: 'image/png' });
+
+        // Web Share API でファイル共有が可能かチェック（iOS Safari 15+ など）
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file] });
+          return;
+        }
+
+        // フォールバック：従来の <a download> 方式
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.download = 'mosaic-image.png';
-        link.href = canvas.toDataURL('image/png');
+        link.href = url;
         link.click();
+        URL.revokeObjectURL(url);
       },
       resetZoom: () => {
         scaleRef.current = 1;

@@ -149,7 +149,15 @@ export default function ImageEditorPage() {
             </Button>
             <Button
               leftSection={<IconDeviceFloppy size={16} />}
-              onClick={() => canvasRef.current?.save()}
+              onClick={async () => {
+                try {
+                  await canvasRef.current?.save();
+                } catch (err) {
+                  // ユーザーがシェアをキャンセルした場合は無視
+                  if (err instanceof Error && err.name === 'AbortError') return;
+                  throw err;
+                }
+              }}
               disabled={!imageSrc}
               size='sm'
             >
