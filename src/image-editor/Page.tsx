@@ -118,6 +118,15 @@ export default function ImageEditorPage() {
           <SimpleGrid cols={{ base: 1, sm: 4 }}>
             <Button
               variant='default'
+              leftSection={<IconZoomReset size={16} />}
+              onClick={() => canvasRef.current?.resetZoom()}
+              disabled={!imageSrc}
+              size='sm'
+            >
+              ズームリセット
+            </Button>
+            <Button
+              variant='default'
               leftSection={<IconArrowBackUp size={16} />}
               onClick={() => canvasRef.current?.undo()}
               disabled={!canUndo}
@@ -126,7 +135,8 @@ export default function ImageEditorPage() {
               1つ戻す
             </Button>
             <Button
-              variant='default'
+              variant='outline'
+              color='yellow'
               leftSection={<IconTrash size={16} />}
               onClick={() => {
                 if (window.confirm('変更をリセットしますか？')) {
@@ -137,15 +147,6 @@ export default function ImageEditorPage() {
               size='sm'
             >
               変更リセット
-            </Button>
-            <Button
-              variant='default'
-              leftSection={<IconZoomReset size={16} />}
-              onClick={() => canvasRef.current?.resetZoom()}
-              disabled={!imageSrc}
-              size='sm'
-            >
-              ズームリセット
             </Button>
             <Button
               leftSection={<IconDeviceFloppy size={16} />}
