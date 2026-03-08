@@ -1,5 +1,5 @@
-// ビルド時プリレンダリング用スクリプト
 // vite-prerender-plugin が呼び出し、各ルートの静的HTMLとhead要素を生成する
+// 重要: パスを追加した場合はvite.config.tsにも追記必要!
 
 type HeadElement = {
   type: string;
@@ -27,7 +27,6 @@ const PASSWORD_TITLE = 'パスワード生成ツール';
 const PASSWORD_DESCRIPTION = '文字数・大文字・小文字・数字・記号を指定して安全なパスワードを生成できる無料ツール';
 const PASSWORD_URL = 'https://turai.work/password';
 
-// ルートごとのhead設定マップ
 const routeHeadMap: Record<string, PrerenderResult['head']> = {
   '/password': {
     title: PASSWORD_TITLE,
