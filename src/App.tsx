@@ -1,6 +1,7 @@
 import '@mantine/core/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Example from './example/Page';
+import ImageEditorPage from './image-editor/Page';
 import InflationLab from './inflation-lab/Page';
 import Make12Page from './make12/Page';
 import NotFound from './NotFound';
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/paypay-shinagawa' element={<PayPayShinagawa />} />
         <Route path='/example' element={<Example />} />
         <Route path='/inflation-lab' element={<InflationLab />} />
+        <Route path='/image-editor' element={<ImageEditorPage />} />
         <Route path='/roleplay' element={<RoleplayPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
