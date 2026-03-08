@@ -9,6 +9,14 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'モザイク加工ツール',
+    url: 'https://turai.work/image-editor/',
+    description: 'なぞった箇所を簡単モザイク',
+    group: 'tool',
+    emoji: '🎨',
+    featured: true
+  },
+  {
     title: 'cloudflare-tui',
     url: 'https://github.com/thr3a/cloudflare-tui',
     description: 'Cloudflare Tunnel設定をターミナルで設定',
