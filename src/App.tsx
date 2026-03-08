@@ -9,14 +9,12 @@ import Password from './password/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
 import Portfolio from './portfolio/Page';
 import RoleplayPage from './roleplay/Page';
-import Template from './template/Page';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Portfolio />} />
-        <Route path='/template' element={<Template />} />
         <Route path='/password' element={<Password />} />
         <Route path='/make12' element={<Make12Page />} />
         <Route path='/paypay-shinagawa' element={<PayPayShinagawa />} />
