@@ -1,15 +1,11 @@
 # 1. 全体方針・コミュニケーション
 
-- ユーザーは日本人です。
-  - 思考過程や途中経過の説明：英語
-  - コード内コメント・最終出力メッセージ・ユーザーへの質問：日本語
+- ユーザーは日本人です。コード内コメント・最終出力メッセージ・ユーザーへの質問は日本語でお願いします。
 - 既存のコードコメントは、明示的な指示がない限り変更しない。
-- AI のモデル名（例：`gpt-4o`）は、ユーザーから指示があるまで勝手に変更しない。
 - `npm run build` は実行しない。
+- `src/scripts` 以下の TypeScript コードを実行するときは `node --import tsx ./src/scripts/hello.ts`
+- 指示されるまではAIのモデル名(gpt-4oなど)は勝手に変更しないこと
 - https://deepwiki.com/mantinedev/mantine
-- `src/scripts` 以下の TypeScript コードを実行するときは、次のコマンドを使う：
-  - `node --import tsx ./src/scripts/hello.ts`
-- 特に指示がなければ、上記形式でのスクリプト実行は 自動で行ってよい。
 
 ライブラリ概要
 
@@ -17,6 +13,8 @@
 - UI: React v19 / Mantine v8
 - hook: Mantine の hook を使用
 - Lint: biome v2
+- ルーティング: react-router-dom（`BrowserRouter` + `Routes` + `Route`）を使用。ルート定義は `src/App.tsx`
+- メタデータ注入: `src/prerender.ts` でルートごとの `<title>` や OGP / Twitter Card などの `<meta>` タグを定義し、`vite-prerender-plugin` がビルド時に静的 HTML へ注入する
 
 # 2. TypeScript / コーディングスタイル
 
