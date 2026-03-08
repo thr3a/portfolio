@@ -3,9 +3,9 @@ import {
   Button,
   Container,
   FileButton,
-  Group,
   MantineProvider,
   SegmentedControl,
+  SimpleGrid,
   Stack,
   Text,
   Title
@@ -41,114 +41,119 @@ export default function ImageEditorPage() {
 
   return (
     <MantineProvider theme={theme}>
-      <Box style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
-        <Container size='sm' px='sm' py='sm' style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Stack gap='sm' style={{ flex: 1 }}>
-            <Title order={2}>モザイクエディター</Title>
+      <Container size={'md'}>
+        <Stack gap={4} py='md'>
+          <Title order={2}>モザイクエディター</Title>
+          <Text size='sm' c='dimmed'>
+            画像のなぞったところにモザイクをかけます。
+          </Text>
+        </Stack>
 
-            {/* 画像選択 */}
-            <FileButton onChange={handleFileChange} accept='image/*'>
-              {(props) => (
-                <Button {...props} leftSection={<IconPhoto size={18} />} variant='outline' fullWidth>
-                  画像を選択
-                </Button>
-              )}
-            </FileButton>
+        <Stack gap='sm' style={{ flex: 1, width: '100%' }}>
+          <Title order={2}></Title>
 
-            {/* キャンバス */}
-            {imageSrc ? (
-              <Box bd='1px solid var(--mantine-color-gray-3)' style={{ overflow: 'hidden' }}>
-                <MosaicCanvas
-                  ref={canvasRef}
-                  imageSrc={imageSrc}
-                  brushSize={brushSize}
-                  mosaicSize={mosaicSize}
-                  onHistoryChange={setCanUndo}
-                />
-              </Box>
-            ) : (
-              <Box
-                h={200}
-                bd='2px dashed var(--mantine-color-gray-4)'
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                <Text c='dimmed' size='sm'>
-                  画像を選択してください
-                </Text>
-              </Box>
+          {/* 画像選択 */}
+          <FileButton onChange={handleFileChange} accept='image/*'>
+            {(props) => (
+              <Button {...props} leftSection={<IconPhoto size={18} />} variant='outline' fullWidth>
+                画像を選択
+              </Button>
             )}
+          </FileButton>
 
-            {/* ツール設定 */}
-            <Stack gap='xs'>
-              <Text size='xs' c='dimmed' fw='bold'>
-                モザイクの粗さ
-              </Text>
-              <SegmentedControl
-                value={String(mosaicSize)}
-                onChange={(v) => {
-                  const found = MOSAIC_SIZES.find((s) => String(s.value) === v);
-                  if (found) setMosaicSize(found.value);
-                }}
-                data={MOSAIC_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
-                fullWidth
-                size='xs'
+          {/* キャンバス */}
+          {imageSrc ? (
+            <Box bd='1px solid var(--mantine-color-gray-3)' style={{ overflow: 'hidden' }}>
+              <MosaicCanvas
+                ref={canvasRef}
+                imageSrc={imageSrc}
+                brushSize={brushSize}
+                mosaicSize={mosaicSize}
+                onHistoryChange={setCanUndo}
               />
-              <Text size='xs' c='dimmed' fw='bold'>
-                ブラシサイズ
+            </Box>
+          ) : (
+            <Box
+              h={200}
+              bd='2px dashed var(--mantine-color-gray-4)'
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <Text c='dimmed' size='sm'>
+                画像を選択してください
               </Text>
-              <SegmentedControl
-                value={String(brushSize)}
-                onChange={(v) => {
-                  const found = BRUSH_SIZES.find((s) => String(s.value) === v);
-                  if (found) setBrushSize(found.value);
-                }}
-                data={BRUSH_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
-                fullWidth
-                size='xs'
-              />
-            </Stack>
+            </Box>
+          )}
 
-            {/* アクションボタン */}
-            <Group grow>
-              <Button
-                variant='default'
-                leftSection={<IconArrowBackUp size={16} />}
-                onClick={() => canvasRef.current?.undo()}
-                disabled={!canUndo}
-                size='sm'
-              >
-                1つ戻す
-              </Button>
-              <Button
-                variant='default'
-                leftSection={<IconTrash size={16} />}
-                onClick={() => canvasRef.current?.reset()}
-                disabled={!imageSrc}
-                size='sm'
-              >
-                変更破棄
-              </Button>
-              <Button
-                variant='default'
-                leftSection={<IconZoomReset size={16} />}
-                onClick={() => canvasRef.current?.resetZoom()}
-                disabled={!imageSrc}
-                size='sm'
-              >
-                ズームリセット
-              </Button>
-              <Button
-                leftSection={<IconDeviceFloppy size={16} />}
-                onClick={() => canvasRef.current?.save()}
-                disabled={!imageSrc}
-                size='sm'
-              >
-                保存
-              </Button>
-            </Group>
+          {/* ツール設定 */}
+          <Stack gap='xs'>
+            <Text size='xs' c='dimmed' fw='bold'>
+              モザイクの粗さ
+            </Text>
+            <SegmentedControl
+              value={String(mosaicSize)}
+              onChange={(v) => {
+                const found = MOSAIC_SIZES.find((s) => String(s.value) === v);
+                if (found) setMosaicSize(found.value);
+              }}
+              data={MOSAIC_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
+              fullWidth
+              size='xs'
+            />
+            <Text size='xs' c='dimmed' fw='bold'>
+              ブラシサイズ
+            </Text>
+            <SegmentedControl
+              value={String(brushSize)}
+              onChange={(v) => {
+                const found = BRUSH_SIZES.find((s) => String(s.value) === v);
+                if (found) setBrushSize(found.value);
+              }}
+              data={BRUSH_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
+              fullWidth
+              size='xs'
+            />
           </Stack>
-        </Container>
-      </Box>
+
+          {/* アクションボタン */}
+          <SimpleGrid cols={{ base: 1, sm: 4 }}>
+            <Button
+              variant='default'
+              leftSection={<IconArrowBackUp size={16} />}
+              onClick={() => canvasRef.current?.undo()}
+              disabled={!canUndo}
+              size='sm'
+            >
+              1つ戻す
+            </Button>
+            <Button
+              variant='default'
+              leftSection={<IconTrash size={16} />}
+              onClick={() => canvasRef.current?.reset()}
+              disabled={!imageSrc}
+              size='sm'
+            >
+              変更リセット
+            </Button>
+            <Button
+              variant='default'
+              leftSection={<IconZoomReset size={16} />}
+              onClick={() => canvasRef.current?.resetZoom()}
+              disabled={!imageSrc}
+              size='sm'
+            >
+              ズームリセット
+            </Button>
+            <Button
+              leftSection={<IconDeviceFloppy size={16} />}
+              onClick={() => canvasRef.current?.save()}
+              disabled={!imageSrc}
+              size='sm'
+            >
+              保存
+            </Button>
+          </SimpleGrid>
+        </Stack>
+      </Container>
     </MantineProvider>
   );
 }
