@@ -1,3 +1,4 @@
+import { useOs } from '@mantine/hooks';
 import { useCallback, useEffect, useImperativeHandle, useRef } from 'react';
 
 export type MosaicCanvasHandle = {
@@ -53,6 +54,10 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   brushSizeRef.current = brushSize;
   mosaicSizeRef.current = mosaicSize;
   onHistoryChangeRef.current = onHistoryChange;
+
+  const os = useOs();
+  const osRef = useRef(os);
+  osRef.current = os;
 
   // ズーム・パン状態（re-renderなしでimperativeに管理）
   const scaleRef = useRef(1);
@@ -356,8 +361,8 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
 
         const file = new File([blob], 'mosaic-image.jpg', { type: 'image/jpeg' });
 
-        // Web Share API でファイル共有が可能かチェック（iOS Safari 15+ など）
-        if (navigator.canShare?.({ files: [file] })) {
+        // iOSはnavigator.share を使用
+        if (osRef.current === 'ios') {
           await navigator.share({ files: [file] });
           return;
         }
