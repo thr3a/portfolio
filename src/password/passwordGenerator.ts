@@ -14,30 +14,21 @@ export type PasswordOptions = {
 };
 
 // 暗号学的に安全な乱数を生成する関数
-function getRandomValues(array: Uint8Array): Uint8Array {
-  // ブラウザ環境
-  if (typeof window !== 'undefined' && window.crypto) {
-    return window.crypto.getRandomValues(array);
-  }
-  // Node.js環境 (グローバルスコープ)
-  if (typeof global !== 'undefined' && global.crypto) {
-    return global.crypto.getRandomValues(array);
-  }
-  // Node.js環境 (モジュール)
-  try {
-    const nodeCrypto = require('node:crypto');
-    return nodeCrypto.getRandomValues(array);
-  } catch (_e) {
+const getRandomValues = (array: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> => {
+  if (typeof globalThis.crypto === 'undefined') {
     throw new Error('Crypto.getRandomValues is not supported in this environment');
   }
-}
+
+  globalThis.crypto.getRandomValues(array);
+  return array;
+};
 
 // 暗号学的に安全な方法で、0からmax-1までのランダムな整数を生成する
-function secureRandomIndex(max: number): number {
+const secureRandomIndex = (max: number): number => {
   // 剰余バイアスを避けるための閾値
   const threshold = 256 - (256 % max);
   while (true) {
-    const randomBytes = new Uint8Array(1);
+    const randomBytes = new Uint8Array(new ArrayBuffer(1));
     getRandomValues(randomBytes);
     const randomValue = randomBytes[0];
 
@@ -45,10 +36,10 @@ function secureRandomIndex(max: number): number {
       return randomValue % max;
     }
   }
-}
+};
 
 // 指定されたオプションから文字セットを生成
-export function getCharset(options: PasswordOptions): string {
+export const getCharset = (options: PasswordOptions): string => {
   let chars = '';
   if (options.lower) chars += LOWER;
   if (options.upper) chars += UPPER;
@@ -56,9 +47,9 @@ export function getCharset(options: PasswordOptions): string {
   if (options.symbol) chars += SYMBOL;
   if (options.excludeSimilar) chars = chars.replace(SIMILAR, '');
   return chars;
-}
+};
 
-export function generatePassword(options: PasswordOptions): string {
+export const generatePassword = (options: PasswordOptions): string => {
   const charset = getCharset(options);
   if (charset.length === 0) {
     return '';
@@ -117,4 +108,4 @@ export function generatePassword(options: PasswordOptions): string {
   }
 
   return passwordArray.join('');
-}
+};
