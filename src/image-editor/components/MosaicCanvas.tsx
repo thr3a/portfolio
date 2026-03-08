@@ -14,16 +14,29 @@ type Props = {
   onHistoryChange: (canUndo: boolean) => void;
 };
 
+// clientX/clientY をキャンバス論理座標に変換するユーティリティ（コンポーネント外で定義することで毎レンダリングの再生成・メモ化コストを排除）
+const getCanvasPoint = (canvas: HTMLCanvasElement, clientX: number, clientY: number) => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (clientX - rect.left) * scaleX,
+    y: (clientY - rect.top) * scaleY,
+  };
+};
+
 export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryChange }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageDataRef = useRef<ImageData | null>(null);
   const historyRef = useRef<ImageData[]>([]);
   const isDrawingRef = useRef(false);
-  // brushSize/mosaicSize を useEffect の依存関係にせず ref 経由で参照するため
+  // brushSize/mosaicSize/onHistoryChange を useCallback・useEffect の依存関係にせず ref 経由で参照するため
   const brushSizeRef = useRef(brushSize);
   const mosaicSizeRef = useRef(mosaicSize);
+  const onHistoryChangeRef = useRef(onHistoryChange);
   brushSizeRef.current = brushSize;
   mosaicSizeRef.current = mosaicSize;
+  onHistoryChangeRef.current = onHistoryChange;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,22 +51,10 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
       ctx.drawImage(img, 0, 0);
       originalImageDataRef.current = ctx.getImageData(0, 0, canvas.width, canvas.height);
       historyRef.current = [];
-      onHistoryChange(false);
+      onHistoryChangeRef.current(false);
     };
     img.src = imageSrc;
-  }, [imageSrc, onHistoryChange]);
-
-  const getCanvasPoint = useCallback((clientX: number, clientY: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    return {
-      x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY
-    };
-  }, []);
+  }, [imageSrc]);
 
   const applyMosaicAt = useCallback((x: number, y: number) => {
     const canvas = canvasRef.current;
@@ -133,29 +134,32 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     historyRef.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    onHistoryChange(true);
-  }, [onHistoryChange]);
+    onHistoryChangeRef.current(true);
+  }, []);
 
   // Pointer Events API でマウス・タッチを統一処理
   // setPointerCapture によりキャンバス外にドラッグしてもイベントが継続する
   const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
       e.currentTarget.setPointerCapture(e.pointerId);
       isDrawingRef.current = true;
       saveHistory();
-      const point = getCanvasPoint(e.clientX, e.clientY);
+      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
-    [saveHistory, getCanvasPoint, applyMosaicAt]
+    [saveHistory, applyMosaicAt]
   );
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
-      if (!isDrawingRef.current) return;
-      const point = getCanvasPoint(e.clientX, e.clientY);
+      const canvas = canvasRef.current;
+      if (!isDrawingRef.current || !canvas) return;
+      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
-    [getCanvasPoint, applyMosaicAt]
+    [applyMosaicAt]
   );
 
   const handlePointerUp = useCallback(() => {
@@ -173,7 +177,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         const prev = historyRef.current.pop();
         if (!prev) return;
         ctx.putImageData(prev, 0, 0);
-        onHistoryChange(historyRef.current.length > 0);
+        onHistoryChangeRef.current(historyRef.current.length > 0);
       },
       reset: () => {
         const canvas = canvasRef.current;
@@ -182,7 +186,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         if (!ctx) return;
         ctx.putImageData(originalImageDataRef.current, 0, 0);
         historyRef.current = [];
-        onHistoryChange(false);
+        onHistoryChangeRef.current(false);
       },
       save: () => {
         const canvas = canvasRef.current;
@@ -193,7 +197,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         link.click();
       }
     }),
-    [onHistoryChange]
+    []
   );
 
   return (
