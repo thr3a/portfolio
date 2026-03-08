@@ -12,16 +12,46 @@ import {
 } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { IconArrowBackUp, IconDeviceFloppy, IconPhoto, IconTrash, IconZoomReset } from '@tabler/icons-react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { theme } from '../theme';
 import { MosaicCanvas, type MosaicCanvasHandle } from './components/MosaicCanvas';
 import { ShareButton } from './components/ShareButton';
 import { BRUSH_SIZES, type BrushSize, MOSAIC_SIZES, type MosaicSize } from './types';
 
 const TITLE = 'モザイク加工ツール';
+const DESCRIPTION = '画像のなぞったところにモザイクをかけます。プライバシー保護に便利な無料の画像モザイクツール。';
+const PAGE_URL = 'https://turai.work/image-editor';
+
+const setMetaTag = (property: string, content: string) => {
+  const selector = property.startsWith('twitter:')
+    ? `meta[name="${property}"]`
+    : `meta[property="${property}"]`;
+  let el = document.querySelector<HTMLMetaElement>(selector);
+  if (!el) {
+    el = document.createElement('meta');
+    if (property.startsWith('twitter:')) {
+      el.setAttribute('name', property);
+    } else {
+      el.setAttribute('property', property);
+    }
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+};
 
 export default function ImageEditorPage() {
   useDocumentTitle(TITLE);
+
+  useEffect(() => {
+    setMetaTag('og:title', TITLE);
+    setMetaTag('og:description', DESCRIPTION);
+    setMetaTag('og:url', PAGE_URL);
+    setMetaTag('og:type', 'website');
+    setMetaTag('og:site_name', 'turai.work');
+    setMetaTag('twitter:card', 'summary');
+    setMetaTag('twitter:title', TITLE);
+    setMetaTag('twitter:description', DESCRIPTION);
+  }, []);
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [brushSize, setBrushSize] = useState<BrushSize>(40);
