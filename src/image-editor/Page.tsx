@@ -11,7 +11,7 @@ import {
   Title
 } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
-import { IconArrowBackUp, IconDeviceFloppy, IconPhoto, IconTrash } from '@tabler/icons-react';
+import { IconArrowBackUp, IconDeviceFloppy, IconPhoto, IconTrash, IconZoomReset } from '@tabler/icons-react';
 import { useCallback, useRef, useState } from 'react';
 import { theme } from '../theme';
 import { MosaicCanvas, type MosaicCanvasHandle } from './components/MosaicCanvas';
@@ -127,6 +127,15 @@ export default function ImageEditorPage() {
                 size='sm'
               >
                 変更破棄
+              </Button>
+              <Button
+                variant='default'
+                leftSection={<IconZoomReset size={16} />}
+                onClick={() => canvasRef.current?.resetZoom()}
+                disabled={!imageSrc}
+                size='sm'
+              >
+                ズームリセット
               </Button>
               <Button
                 leftSection={<IconDeviceFloppy size={16} />}

@@ -4,6 +4,7 @@ export type MosaicCanvasHandle = {
   undo: () => void;
   reset: () => void;
   save: () => void;
+  resetZoom: () => void;
 };
 
 type Props = {
@@ -21,12 +22,27 @@ const getCanvasPoint = (canvas: HTMLCanvasElement, clientX: number, clientY: num
   const scaleY = canvas.height / rect.height;
   return {
     x: (clientX - rect.left) * scaleX,
-    y: (clientY - rect.top) * scaleY,
+    y: (clientY - rect.top) * scaleY
   };
+};
+
+const pointerDist = (p1: { x: number; y: number }, p2: { x: number; y: number }) => {
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+};
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+type PinchState = {
+  dist: number;
+  midX: number; // clientX
+  midY: number; // clientY
 };
 
 export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryChange }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const originalImageDataRef = useRef<ImageData | null>(null);
   const historyRef = useRef<ImageData[]>([]);
   const isDrawingRef = useRef(false);
@@ -37,6 +53,55 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   brushSizeRef.current = brushSize;
   mosaicSizeRef.current = mosaicSize;
   onHistoryChangeRef.current = onHistoryChange;
+
+  // ズーム・パン状態（re-renderなしでimperativeに管理）
+  const scaleRef = useRef(1);
+  const translateRef = useRef({ x: 0, y: 0 });
+  const activePointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const pinchStateRef = useRef<PinchState | null>(null);
+
+  const applyTransform = useCallback((s: number, tx: number, ty: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+    canvas.style.transformOrigin = '0 0';
+  }, []);
+
+  const clampTranslate = useCallback((tx: number, ty: number, scale: number) => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return { x: tx, y: ty };
+    const cw = wrapper.offsetWidth;
+    const ch = wrapper.offsetHeight;
+    // scale >= 1 を前提に、キャンバスが常にコンテナを覆うよう制約
+    return {
+      x: clamp(tx, cw * (1 - scale), 0),
+      y: clamp(ty, ch * (1 - scale), 0)
+    };
+  }, []);
+
+  // (clientX, clientY) を中心にズームする共通処理
+  const zoomAt = useCallback(
+    (clientX: number, clientY: number, scaleDelta: number) => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const localX = clientX - wrapperRect.left;
+      const localY = clientY - wrapperRect.top;
+
+      const oldScale = scaleRef.current;
+      const newScale = clamp(oldScale * scaleDelta, 1, 10);
+      const actualDelta = newScale / oldScale;
+
+      const newTx = localX - (localX - translateRef.current.x) * actualDelta;
+      const newTy = localY - (localY - translateRef.current.y) * actualDelta;
+
+      const clamped = clampTranslate(newTx, newTy, newScale);
+      scaleRef.current = newScale;
+      translateRef.current = clamped;
+      applyTransform(newScale, clamped.x, clamped.y);
+    },
+    [applyTransform, clampTranslate]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,6 +121,18 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     img.src = imageSrc;
   }, [imageSrc]);
 
+  // wheelイベントは passive: false が必要なため useEffect で直接登録
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.1 : 0.9);
+    };
+    canvas.addEventListener('wheel', handleWheel, { passive: false });
+    return () => canvas.removeEventListener('wheel', handleWheel);
+  }, [zoomAt]);
+
   const applyMosaicAt = useCallback((x: number, y: number) => {
     const canvas = canvasRef.current;
     if (!canvas || !originalImageDataRef.current) return;
@@ -65,9 +142,10 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     const origData = originalImageDataRef.current;
     const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-    // 表示サイズ→論理サイズのスケール係数を計算し、表示ピクセルを論理ピクセルに変換
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
+    // CSS transform(ズーム)に依存しない表示→論理スケール係数を計算
+    // wrapperRef.offsetWidth はズームの影響を受けないコンテナの実幅
+    const displayWidth = wrapperRef.current ? wrapperRef.current.offsetWidth : canvas.width;
+    const scaleX = canvas.width / displayWidth;
     const brushSize = brushSizeRef.current * scaleX;
     const mosaicSize = Math.max(1, Math.round(mosaicSizeRef.current * scaleX));
     const halfBrush = brushSize / 2;
@@ -138,16 +216,40 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   }, []);
 
   // Pointer Events API でマウス・タッチを統一処理
-  // setPointerCapture によりキャンバス外にドラッグしてもイベントが継続する
+  // activePointersRef でアクティブポインターを追跡し、1本指=描画、2本指=ピンチズーム+パンを切り替える
   const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
+
+      activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
       e.currentTarget.setPointerCapture(e.pointerId);
-      isDrawingRef.current = true;
-      saveHistory();
-      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
-      applyMosaicAt(point.x, point.y);
+
+      if (activePointersRef.current.size === 1) {
+        isDrawingRef.current = true;
+        saveHistory();
+        const point = getCanvasPoint(canvas, e.clientX, e.clientY);
+        applyMosaicAt(point.x, point.y);
+      } else if (activePointersRef.current.size === 2) {
+        // ピンチモードに移行: 進行中の描画ストロークをキャンセル
+        if (isDrawingRef.current) {
+          isDrawingRef.current = false;
+          const ctx = canvas.getContext('2d');
+          if (ctx && historyRef.current.length > 0) {
+            const prev = historyRef.current.pop();
+            if (prev) {
+              ctx.putImageData(prev, 0, 0);
+              onHistoryChangeRef.current(historyRef.current.length > 0);
+            }
+          }
+        }
+        const [p1, p2] = [...activePointersRef.current.values()];
+        pinchStateRef.current = {
+          dist: pointerDist(p1, p2),
+          midX: (p1.x + p2.x) / 2,
+          midY: (p1.y + p2.y) / 2
+        };
+      }
     },
     [saveHistory, applyMosaicAt]
   );
@@ -155,15 +257,75 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   const handlePointerMove = useCallback(
     (e: React.PointerEvent<HTMLCanvasElement>) => {
       const canvas = canvasRef.current;
-      if (!isDrawingRef.current || !canvas) return;
-      const point = getCanvasPoint(canvas, e.clientX, e.clientY);
-      applyMosaicAt(point.x, point.y);
+      if (!canvas) return;
+
+      activePointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      const size = activePointersRef.current.size;
+
+      if (size === 1 && isDrawingRef.current) {
+        const point = getCanvasPoint(canvas, e.clientX, e.clientY);
+        applyMosaicAt(point.x, point.y);
+        return;
+      }
+
+      if (size >= 2) {
+        const [p1, p2] = [...activePointersRef.current.values()];
+        const currentDist = pointerDist(p1, p2);
+        const currentMidX = (p1.x + p2.x) / 2;
+        const currentMidY = (p1.y + p2.y) / 2;
+
+        if (!pinchStateRef.current) {
+          pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
+          return;
+        }
+
+        const { dist: prevDist, midX: prevMidX, midY: prevMidY } = pinchStateRef.current;
+        const wrapper = wrapperRef.current;
+        if (!wrapper) return;
+        const wrapperRect = wrapper.getBoundingClientRect();
+
+        // インクリメンタル方式: 前フレームからのスケール変化量を算出
+        const oldScale = scaleRef.current;
+        const newScale = clamp(oldScale * (currentDist / prevDist), 1, 10);
+        const actualDelta = newScale / oldScale;
+
+        // 現在の中点（ローカル座標）を中心にズーム
+        const localMidX = currentMidX - wrapperRect.left;
+        const localMidY = currentMidY - wrapperRect.top;
+        let newTx = localMidX - (localMidX - translateRef.current.x) * actualDelta;
+        let newTy = localMidY - (localMidY - translateRef.current.y) * actualDelta;
+
+        // 中点の移動量をパンとして加算
+        newTx += currentMidX - prevMidX;
+        newTy += currentMidY - prevMidY;
+
+        const clamped = clampTranslate(newTx, newTy, newScale);
+        scaleRef.current = newScale;
+        translateRef.current = clamped;
+        applyTransform(newScale, clamped.x, clamped.y);
+
+        // 今フレームの状態を次フレームの基準として保存
+        pinchStateRef.current = { dist: currentDist, midX: currentMidX, midY: currentMidY };
+      }
     },
-    [applyMosaicAt]
+    [applyMosaicAt, applyTransform, clampTranslate]
   );
 
-  const handlePointerUp = useCallback(() => {
-    isDrawingRef.current = false;
+  const handlePointerEnd = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!activePointersRef.current.has(e.pointerId)) return;
+    activePointersRef.current.delete(e.pointerId);
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+
+    const size = activePointersRef.current.size;
+    if (size === 0) {
+      isDrawingRef.current = false;
+      pinchStateRef.current = null;
+    } else if (size === 1) {
+      // 1本指に戻ってもピンチ状態をリセット（次のpointerdownまで描画しない）
+      pinchStateRef.current = null;
+    }
   }, []);
 
   useImperativeHandle(
@@ -195,20 +357,30 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         link.download = 'mosaic-image.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+      },
+      resetZoom: () => {
+        scaleRef.current = 1;
+        translateRef.current = { x: 0, y: 0 };
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        canvas.style.transform = '';
+        canvas.style.transformOrigin = '';
       }
     }),
     []
   );
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{ width: '100%', touchAction: 'none', cursor: 'crosshair', display: 'block' }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-    />
+    <div ref={wrapperRef} style={{ overflow: 'hidden', position: 'relative' }}>
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', touchAction: 'none', cursor: 'crosshair', display: 'block' }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerLeave={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
+      />
+    </div>
   );
 };
