@@ -19,6 +19,11 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
   const originalImageDataRef = useRef<ImageData | null>(null);
   const historyRef = useRef<ImageData[]>([]);
   const isDrawingRef = useRef(false);
+  // brushSize/mosaicSize を useEffect の依存関係にせず ref 経由で参照するため
+  const brushSizeRef = useRef(brushSize);
+  const mosaicSizeRef = useRef(mosaicSize);
+  brushSizeRef.current = brushSize;
+  mosaicSizeRef.current = mosaicSize;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,74 +55,73 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     };
   }, []);
 
-  const applyMosaicAt = useCallback(
-    (x: number, y: number) => {
-      const canvas = canvasRef.current;
-      if (!canvas || !originalImageDataRef.current) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+  const applyMosaicAt = useCallback((x: number, y: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas || !originalImageDataRef.current) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-      const origData = originalImageDataRef.current;
-      const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const halfBrush = brushSize / 2;
+    const origData = originalImageDataRef.current;
+    const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const brushSize = brushSizeRef.current;
+    const mosaicSize = mosaicSizeRef.current;
+    const halfBrush = brushSize / 2;
 
-      // ブラシ円と交差するモザイクブロックを列挙
-      const startBlockX = Math.floor(Math.max(0, x - halfBrush) / mosaicSize) * mosaicSize;
-      const startBlockY = Math.floor(Math.max(0, y - halfBrush) / mosaicSize) * mosaicSize;
-      const endBlockX = Math.min(canvas.width, x + halfBrush);
-      const endBlockY = Math.min(canvas.height, y + halfBrush);
+    // ブラシ円と交差するモザイクブロックを列挙
+    const startBlockX = Math.floor(Math.max(0, x - halfBrush) / mosaicSize) * mosaicSize;
+    const startBlockY = Math.floor(Math.max(0, y - halfBrush) / mosaicSize) * mosaicSize;
+    const endBlockX = Math.min(canvas.width, x + halfBrush);
+    const endBlockY = Math.min(canvas.height, y + halfBrush);
 
-      for (let blockY = startBlockY; blockY < endBlockY; blockY += mosaicSize) {
-        for (let blockX = startBlockX; blockX < endBlockX; blockX += mosaicSize) {
-          const bx2 = Math.min(blockX + mosaicSize, canvas.width);
-          const by2 = Math.min(blockY + mosaicSize, canvas.height);
+    for (let blockY = startBlockY; blockY < endBlockY; blockY += mosaicSize) {
+      for (let blockX = startBlockX; blockX < endBlockX; blockX += mosaicSize) {
+        const bx2 = Math.min(blockX + mosaicSize, canvas.width);
+        const by2 = Math.min(blockY + mosaicSize, canvas.height);
 
-          // ブロックとブラシ円の交差チェック（最近点で判定）
-          const nearX = Math.max(blockX, Math.min(x, bx2));
-          const nearY = Math.max(blockY, Math.min(y, by2));
-          const dx = nearX - x;
-          const dy = nearY - y;
-          if (dx * dx + dy * dy > halfBrush * halfBrush) continue;
+        // ブロックとブラシ円の交差チェック（最近点で判定）
+        const nearX = Math.max(blockX, Math.min(x, bx2));
+        const nearY = Math.max(blockY, Math.min(y, by2));
+        const dx = nearX - x;
+        const dy = nearY - y;
+        if (dx * dx + dy * dy > halfBrush * halfBrush) continue;
 
-          // オリジナル画像からブロック内の平均色を算出
-          let r = 0;
-          let g = 0;
-          let b = 0;
-          let a = 0;
-          let count = 0;
-          for (let py = blockY; py < by2; py++) {
-            for (let px = blockX; px < bx2; px++) {
-              const idx = (py * canvas.width + px) * 4;
-              r += origData.data[idx];
-              g += origData.data[idx + 1];
-              b += origData.data[idx + 2];
-              a += origData.data[idx + 3];
-              count++;
-            }
+        // オリジナル画像からブロック内の平均色を算出
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        let a = 0;
+        let count = 0;
+        for (let py = blockY; py < by2; py++) {
+          for (let px = blockX; px < bx2; px++) {
+            const idx = (py * canvas.width + px) * 4;
+            r += origData.data[idx];
+            g += origData.data[idx + 1];
+            b += origData.data[idx + 2];
+            a += origData.data[idx + 3];
+            count++;
           }
-          if (count === 0) continue;
-          const avgR = Math.round(r / count);
-          const avgG = Math.round(g / count);
-          const avgB = Math.round(b / count);
-          const avgA = Math.round(a / count);
+        }
+        if (count === 0) continue;
+        const avgR = Math.round(r / count);
+        const avgG = Math.round(g / count);
+        const avgB = Math.round(b / count);
+        const avgA = Math.round(a / count);
 
-          // ブロック全体を平均色で塗りつぶす
-          for (let py = blockY; py < by2; py++) {
-            for (let px = blockX; px < bx2; px++) {
-              const idx = (py * canvas.width + px) * 4;
-              currentData.data[idx] = avgR;
-              currentData.data[idx + 1] = avgG;
-              currentData.data[idx + 2] = avgB;
-              currentData.data[idx + 3] = avgA;
-            }
+        // ブロック全体を平均色で塗りつぶす
+        for (let py = blockY; py < by2; py++) {
+          for (let px = blockX; px < bx2; px++) {
+            const idx = (py * canvas.width + px) * 4;
+            currentData.data[idx] = avgR;
+            currentData.data[idx + 1] = avgG;
+            currentData.data[idx + 2] = avgB;
+            currentData.data[idx + 3] = avgA;
           }
         }
       }
+    }
 
-      ctx.putImageData(currentData, 0, 0);
-    },
-    [brushSize, mosaicSize],
-  );
+    ctx.putImageData(currentData, 0, 0);
+  }, []);
 
   const saveHistory = useCallback(() => {
     const canvas = canvasRef.current;
@@ -128,55 +132,31 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     onHistoryChange(true);
   }, [onHistoryChange]);
 
-  const handleStart = useCallback(
-    (clientX: number, clientY: number) => {
+  // Pointer Events API でマウス・タッチを統一処理
+  // setPointerCapture によりキャンバス外にドラッグしてもイベントが継続する
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent<HTMLCanvasElement>) => {
+      e.currentTarget.setPointerCapture(e.pointerId);
       isDrawingRef.current = true;
       saveHistory();
-      const point = getCanvasPoint(clientX, clientY);
+      const point = getCanvasPoint(e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
     [saveHistory, getCanvasPoint, applyMosaicAt],
   );
 
-  const handleMove = useCallback(
-    (clientX: number, clientY: number) => {
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLCanvasElement>) => {
       if (!isDrawingRef.current) return;
-      const point = getCanvasPoint(clientX, clientY);
+      const point = getCanvasPoint(e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
     [getCanvasPoint, applyMosaicAt],
   );
 
-  const handleEnd = useCallback(() => {
+  const handlePointerUp = useCallback(() => {
     isDrawingRef.current = false;
   }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const onTouchStart = (e: TouchEvent) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      handleStart(touch.clientX, touch.clientY);
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      handleMove(touch.clientX, touch.clientY);
-    };
-    const onTouchEnd = () => handleEnd();
-
-    canvas.addEventListener('touchstart', onTouchStart, { passive: false });
-    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
-    canvas.addEventListener('touchend', onTouchEnd);
-
-    return () => {
-      canvas.removeEventListener('touchstart', onTouchStart);
-      canvas.removeEventListener('touchmove', onTouchMove);
-      canvas.removeEventListener('touchend', onTouchEnd);
-    };
-  }, [handleStart, handleMove, handleEnd]);
 
   useImperativeHandle(
     ref,
@@ -216,10 +196,11 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     <canvas
       ref={canvasRef}
       style={{ width: '100%', touchAction: 'none', cursor: 'crosshair', display: 'block' }}
-      onMouseDown={(e) => handleStart(e.clientX, e.clientY)}
-      onMouseMove={(e) => handleMove(e.clientX, e.clientY)}
-      onMouseUp={handleEnd}
-      onMouseLeave={handleEnd}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     />
   );
 };
