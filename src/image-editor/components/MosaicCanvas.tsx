@@ -51,7 +51,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
     const scaleY = canvas.height / rect.height;
     return {
       x: (clientX - rect.left) * scaleX,
-      y: (clientY - rect.top) * scaleY,
+      y: (clientY - rect.top) * scaleY
     };
   }, []);
 
@@ -63,8 +63,12 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
 
     const origData = originalImageDataRef.current;
     const currentData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const brushSize = brushSizeRef.current;
-    const mosaicSize = mosaicSizeRef.current;
+
+    // 表示サイズ→論理サイズのスケール係数を計算し、表示ピクセルを論理ピクセルに変換
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const brushSize = brushSizeRef.current * scaleX;
+    const mosaicSize = Math.max(1, Math.round(mosaicSizeRef.current * scaleX));
     const halfBrush = brushSize / 2;
 
     // ブラシ円と交差するモザイクブロックを列挙
@@ -142,7 +146,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
       const point = getCanvasPoint(e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
-    [saveHistory, getCanvasPoint, applyMosaicAt],
+    [saveHistory, getCanvasPoint, applyMosaicAt]
   );
 
   const handlePointerMove = useCallback(
@@ -151,7 +155,7 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
       const point = getCanvasPoint(e.clientX, e.clientY);
       applyMosaicAt(point.x, point.y);
     },
-    [getCanvasPoint, applyMosaicAt],
+    [getCanvasPoint, applyMosaicAt]
   );
 
   const handlePointerUp = useCallback(() => {
@@ -187,9 +191,9 @@ export const MosaicCanvas = ({ ref, imageSrc, brushSize, mosaicSize, onHistoryCh
         link.download = 'mosaic-image.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
-      },
+      }
     }),
-    [onHistoryChange],
+    [onHistoryChange]
   );
 
   return (

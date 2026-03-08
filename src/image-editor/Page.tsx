@@ -15,25 +15,14 @@ import { IconArrowBackUp, IconDeviceFloppy, IconPhoto, IconTrash } from '@tabler
 import { useCallback, useRef, useState } from 'react';
 import { theme } from '../theme';
 import { MosaicCanvas, type MosaicCanvasHandle } from './components/MosaicCanvas';
-
-const BRUSH_SIZES = [
-  { label: '小', value: '20' },
-  { label: '中', value: '40' },
-  { label: '大', value: '60' }
-];
-
-const MOSAIC_SIZES = [
-  { label: '細かい', value: '4' },
-  { label: '普通', value: '8' },
-  { label: '粗い', value: '16' }
-];
+import { BRUSH_SIZES, type BrushSize, MOSAIC_SIZES, type MosaicSize } from './types';
 
 export default function ImageEditorPage() {
   useDocumentTitle('モザイクエディター');
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [brushSize, setBrushSize] = useState('40');
-  const [mosaicSize, setMosaicSize] = useState('8');
+  const [brushSize, setBrushSize] = useState<BrushSize>(40);
+  const [mosaicSize, setMosaicSize] = useState<MosaicSize>(8);
   const [canUndo, setCanUndo] = useState(false);
   const canvasRef = useRef<MosaicCanvasHandle>(null);
 
@@ -72,8 +61,8 @@ export default function ImageEditorPage() {
                 <MosaicCanvas
                   ref={canvasRef}
                   imageSrc={imageSrc}
-                  brushSize={Number(brushSize)}
-                  mosaicSize={Number(mosaicSize)}
+                  brushSize={brushSize}
+                  mosaicSize={mosaicSize}
                   onHistoryChange={setCanUndo}
                 />
               </Box>
@@ -94,11 +83,29 @@ export default function ImageEditorPage() {
               <Text size='xs' c='dimmed' fw='bold'>
                 モザイクの粗さ
               </Text>
-              <SegmentedControl value={mosaicSize} onChange={setMosaicSize} data={MOSAIC_SIZES} fullWidth size='xs' />
+              <SegmentedControl
+                value={String(mosaicSize)}
+                onChange={(v) => {
+                  const found = MOSAIC_SIZES.find((s) => String(s.value) === v);
+                  if (found) setMosaicSize(found.value);
+                }}
+                data={MOSAIC_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
+                fullWidth
+                size='xs'
+              />
               <Text size='xs' c='dimmed' fw='bold'>
                 ブラシサイズ
               </Text>
-              <SegmentedControl value={brushSize} onChange={setBrushSize} data={BRUSH_SIZES} fullWidth size='xs' />
+              <SegmentedControl
+                value={String(brushSize)}
+                onChange={(v) => {
+                  const found = BRUSH_SIZES.find((s) => String(s.value) === v);
+                  if (found) setBrushSize(found.value);
+                }}
+                data={BRUSH_SIZES.map((s) => ({ label: s.label, value: String(s.value) }))}
+                fullWidth
+                size='xs'
+              />
             </Stack>
 
             {/* アクションボタン */}
