@@ -128,7 +128,11 @@ export default function ImageEditorPage() {
             <Button
               variant='default'
               leftSection={<IconTrash size={16} />}
-              onClick={() => canvasRef.current?.reset()}
+              onClick={() => {
+                if (window.confirm('変更をリセットしますか？')) {
+                  canvasRef.current?.reset();
+                }
+              }}
               disabled={!imageSrc}
               size='sm'
             >
