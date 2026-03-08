@@ -15,10 +15,13 @@ import { IconArrowBackUp, IconDeviceFloppy, IconPhoto, IconTrash, IconZoomReset 
 import { useCallback, useRef, useState } from 'react';
 import { theme } from '../theme';
 import { MosaicCanvas, type MosaicCanvasHandle } from './components/MosaicCanvas';
+import { ShareButton } from './components/ShareButton';
 import { BRUSH_SIZES, type BrushSize, MOSAIC_SIZES, type MosaicSize } from './types';
 
+const TITLE = 'モザイク加工ツール';
+
 export default function ImageEditorPage() {
-  useDocumentTitle('モザイクエディター');
+  useDocumentTitle(TITLE);
 
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [brushSize, setBrushSize] = useState<BrushSize>(40);
@@ -43,7 +46,7 @@ export default function ImageEditorPage() {
     <MantineProvider theme={theme}>
       <Container size={'md'}>
         <Stack gap={4} py='md'>
-          <Title order={2}>モザイクエディター</Title>
+          <Title order={2}>{TITLE}</Title>
           <Text size='sm' c='dimmed'>
             画像のなぞったところにモザイクをかけます。
           </Text>
@@ -166,6 +169,11 @@ export default function ImageEditorPage() {
             </Button>
           </SimpleGrid>
         </Stack>
+
+        {/* シェアボタン */}
+        <Box ta='center' py='lg'>
+          <ShareButton title={TITLE} />
+        </Box>
       </Container>
     </MantineProvider>
   );
