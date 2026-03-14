@@ -9,6 +9,13 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'vscode-hatenablog',
+    url: 'https://marketplace.visualstudio.com/items?itemName=thr3a.vscode-hatenablog',
+    description: 'VSCodeからはてなブログへMarkdownファイルを直接投稿',
+    group: 'tool',
+    emoji: '❔'
+  },
+  {
     title: 'モザイク加工ツール',
     url: 'https://turai.work/image-editor/',
     description: 'なぞった箇所を簡単モザイク',
