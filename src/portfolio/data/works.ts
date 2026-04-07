@@ -9,6 +9,13 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'ウミガメのスープAI',
+    url: 'https://ai.turai.work/umigame/',
+    description: 'あなたが考えた問題をAIに出題させよう!',
+    group: 'ai',
+    emoji: '🐢'
+  },
+  {
     title: 'vscode-hatenablog',
     url: 'https://marketplace.visualstudio.com/items?itemName=thr3a.vscode-hatenablog',
     description: 'VSCodeからはてなブログへMarkdownファイルを直接投稿',
