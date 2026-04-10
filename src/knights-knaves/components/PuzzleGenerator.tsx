@@ -20,7 +20,7 @@ export const PuzzleGenerator = () => {
   const maxPersons = level === 'easy' ? 9 : 50;
   const numPersonsOptions = Array.from({ length: maxPersons - 2 }, (_, i) => ({
     value: String(i + 3),
-    label: `${i + 3}人`,
+    label: `${i + 3}人`
   }));
 
   const handleLevelChange = (v: string | null) => {
@@ -54,11 +54,13 @@ export const PuzzleGenerator = () => {
             <ThemeIcon color='yellow.6' variant='transparent' size='sm'>
               <IconInfoCircle size={16} />
             </ThemeIcon>
-            <Text size='sm' fw='bold' c='dark.6'>ルール</Text>
+            <Text size='sm' fw='bold' c='dark.6'>
+              ルール
+            </Text>
           </Group>
           <Text size='sm' c='dimmed'>
-            この島には正直者（Knight）と嘘つき者（Knave）が住んでいる。正直者は常に真実を語り、嘘つき者は常に嘘をつく。
-            彼らの発言から、誰が正直者で誰が嘘つき者かを見抜け。
+            この島には正直者と嘘つき者が住んでいます。正直者は常に真実を語り、嘘つき者は常に嘘をつきます。
+            彼らの発言から、誰が正直者かを見抜いてください。
           </Text>
         </Stack>
       </Paper>
