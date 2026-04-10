@@ -2,7 +2,6 @@
 
 - ユーザーは日本人です。コード内コメント・最終出力メッセージ・ユーザーへの質問は日本語でお願いします。
 - 既存のコードコメントは、明示的な指示がない限り変更しない。
-- `npm run build` は実行しない。
 - `src/scripts` 以下の TypeScript コードを実行するときは `node --import tsx ./src/scripts/hello.ts`
 - 指示されるまではAIのモデル名(gpt-4oなど)は勝手に変更しないこと
 - https://deepwiki.com/mantinedev/mantine
