@@ -13,6 +13,7 @@ type Props = {
 export const PuzzleBoard = ({ puzzle, onReset }: Props) => {
   const [answers, setAnswers] = useState<UserAnswers>(Object.fromEntries(puzzle.persons.map((p) => [p, null])));
   const [showResult, setShowResult] = useState(false);
+  const [gaveUp, setGaveUp] = useState(false);
 
   const allAnswered = puzzle.persons.every((p) => answers[p] !== null);
 
@@ -21,6 +22,11 @@ export const PuzzleBoard = ({ puzzle, onReset }: Props) => {
   };
 
   const handleCheck = () => {
+    setShowResult(true);
+  };
+
+  const handleGiveUp = () => {
+    setGaveUp(true);
     setShowResult(true);
   };
 
@@ -62,14 +68,21 @@ export const PuzzleBoard = ({ puzzle, onReset }: Props) => {
       </Stack>
 
       {!showResult ? (
-        <Button color='green' disabled={!allAnswered} onClick={handleCheck}>
-          答え合わせ
-        </Button>
+        <Stack gap='xs'>
+          <Button color='green' disabled={!allAnswered} onClick={handleCheck}>
+            答え合わせ
+          </Button>
+          <Button variant='subtle' color='gray' size='sm' onClick={handleGiveUp}>
+            答えを見る（ギブアップ）
+          </Button>
+        </Stack>
       ) : (
         <Stack gap='sm'>
-          <Alert color={isAllCorrect ? 'green' : 'orange'} title={isAllCorrect ? '正解！' : '残念...'}>
-            {puzzle.persons.length}人中{correctCount}人正解
-            {isAllCorrect && ' 全問正解です！'}
+          <Alert
+            color={gaveUp ? 'gray' : isAllCorrect ? 'green' : 'orange'}
+            title={gaveUp ? 'ギブアップ' : isAllCorrect ? '正解！' : '残念...'}
+          >
+            {gaveUp ? '正解を確認してください。' : `${puzzle.persons.length}人中${correctCount}人正解${isAllCorrect ? ' 全問正解です！' : ''}`}
           </Alert>
           <Group>
             <Button variant='outline' onClick={onReset} flex={1}>

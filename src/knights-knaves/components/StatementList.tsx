@@ -11,11 +11,14 @@ const parseQuote = (text: string): string => {
   return match ? match[1] : text;
 };
 
+const replaceRoleLabel = (text: string): string =>
+  text.replace(/騎士/g, '正直者').replace(/悪党/g, '嘘つき者');
+
 export const StatementListTestimony = ({ statements, statementsText }: Props) => (
   <Stack gap='xs'>
     {statementsText.map((text, i) => {
       const speaker = statements[i]?.speaker ?? '';
-      const quote = parseQuote(text);
+      const quote = replaceRoleLabel(parseQuote(text));
       return (
         <Paper
           key={i}

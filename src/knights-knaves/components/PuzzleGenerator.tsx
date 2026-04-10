@@ -1,27 +1,9 @@
-import { Button, Group, Paper, Select, Stack, Text, ThemeIcon } from '@mantine/core';
+import { Alert, Button, Group, Paper, Select, Stack, Text, ThemeIcon } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useState } from 'react';
+import { usePuzzleGenerate } from '../hooks/usePuzzleGenerate';
 import type { Level, PuzzleResponse } from '../types';
 import { PuzzleBoard } from './PuzzleBoard';
-
-// モックデータ（APIコール実装前の確認用）
-const MOCK_PUZZLE: PuzzleResponse = {
-  version: '1.0',
-  level: 'easy',
-  num_persons: 3,
-  persons: ['Aさん', 'Bさん', 'Cさん'],
-  statements: [
-    { type: 'accusation', speaker: 'Aさん', target: 'Bさん' },
-    { type: 'affirmation', speaker: 'Bさん', target: 'Cさん' },
-    { type: 'accusation', speaker: 'Cさん', target: 'Aさん' }
-  ],
-  solution: { Aさん: 'knight', Bさん: 'knave', Cさん: 'knave' },
-  statements_text: [
-    'Aさんは言った: 「Bさんは嘘つき者だ。」',
-    'Bさんは言った: 「Cさんは正直者だ。」',
-    'Cさんは言った: 「Aさんは嘘つき者だ。」'
-  ]
-};
 
 const LEVEL_OPTIONS = [
   { value: 'easy', label: 'かんたん' },
@@ -33,7 +15,7 @@ export const PuzzleGenerator = () => {
   const [numPersons, setNumPersons] = useState<number>(3);
   const [level, setLevel] = useState<Level>('easy');
   const [puzzle, setPuzzle] = useState<PuzzleResponse | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { generate, loading, error } = usePuzzleGenerate();
 
   const maxPersons = level === 'easy' ? 9 : 50;
   const numPersonsOptions = Array.from({ length: maxPersons - 2 }, (_, i) => ({
@@ -49,13 +31,11 @@ export const PuzzleGenerator = () => {
     }
   };
 
-  const handleGenerate = () => {
-    setLoading(true);
-    // モック: 少し遅延させてローディング感を演出
-    setTimeout(() => {
-      setPuzzle(MOCK_PUZZLE);
-      setLoading(false);
-    }, 600);
+  const handleGenerate = async () => {
+    const result = await generate({ num_persons: numPersons, level });
+    if (result) {
+      setPuzzle(result);
+    }
   };
 
   const handleReset = () => {
@@ -101,6 +81,12 @@ export const PuzzleGenerator = () => {
       <Button onClick={handleGenerate} loading={loading} color='blue' size='md'>
         挑戦する
       </Button>
+
+      {error && (
+        <Alert color='red' title='エラー'>
+          {error}
+        </Alert>
+      )}
     </Stack>
   );
 };
