@@ -9,6 +9,13 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: '正直者と嘘つき者パズル',
+    url: 'https://turai.work/knights-knaves/',
+    description: '誰かが真実を語り、誰かが嘘を重ねる。信じるべきは誰か？',
+    group: 'tool',
+    emoji: '🎭'
+  },
+  {
     title: 'ウミガメのスープAI',
     url: 'https://ai.turai.work/umigame/',
     description: 'あなたが考えた問題をAIに出題させよう!',
