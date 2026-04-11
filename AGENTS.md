@@ -9,7 +9,7 @@
 ライブラリ概要
 
 - 言語: TypeScript
-- UI: React v19 / Mantine v8
+- UI: React v19 / Mantine v9
 - hook: Mantine の hook を使用
 - Lint: biome v2
 - ルーティング: react-router-dom（`BrowserRouter` + `Routes` + `Route`）を使用。ルート定義は `src/App.tsx`

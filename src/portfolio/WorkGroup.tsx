@@ -33,8 +33,8 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
           { label: 'AI', value: 'ai' },
           { label: '便利', value: 'tool' },
           { label: '開発', value: 'dev' },
-          { label: '本', value: 'book' },
-          { label: '🪦', value: 'old' }
+          { label: '本', value: 'book' }
+          // { label: '🪦', value: 'old' }
         ]}
         mb={'xs'}
       />
