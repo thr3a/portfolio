@@ -11,7 +11,7 @@ const LEVEL_OPTIONS = [
   { value: 'hard', label: 'むずかしい' }
 ];
 
-console.log('正直者パズル');
+console.log('正直者パズルのコンソールログ');
 
 export const PuzzleGenerator = () => {
   const [numPersons, setNumPersons] = useState<number>(3);
