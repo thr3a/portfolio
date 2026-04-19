@@ -7,10 +7,10 @@ import KnightsKnavesPage from './knights-knaves/Page';
 import Make12Page from './make12/Page';
 import NotFound from './NotFound';
 import Password from './password/Page';
-import TwitterSearchHelper from './twitter/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
 import Portfolio from './portfolio/Page';
 import RoleplayPage from './roleplay/Page';
+import TwitterSearchHelper from './twitter/Page';
 
 export default function App() {
   return (

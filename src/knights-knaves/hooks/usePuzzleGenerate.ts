@@ -20,7 +20,7 @@ export const usePuzzleGenerate = (): UsePuzzleGenerateReturn => {
       const response = await fetch(`${API_BASE_URL}/puzzle/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(request),
+        body: JSON.stringify(request)
       });
       if (!response.ok) {
         const errorData = await response.json();

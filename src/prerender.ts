@@ -19,7 +19,8 @@ type PrerenderData = {
 };
 
 const KNIGHTS_KNAVES_TITLE = '正直者と嘘つき者パズル';
-const KNIGHTS_KNAVES_DESCRIPTION = '正直者と嘘つき者が混在する島のパズル。全員の発言から誰が正直者かを推理する無料の論理パズルゲーム';
+const KNIGHTS_KNAVES_DESCRIPTION =
+  '正直者と嘘つき者が混在する島のパズル。全員の発言から誰が正直者かを推理する無料の論理パズルゲーム';
 const KNIGHTS_KNAVES_URL = 'https://turai.work/knights-knaves';
 
 const IMAGE_EDITOR_TITLE = 'モザイク加工ツール';

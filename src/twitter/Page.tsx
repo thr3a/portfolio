@@ -3,7 +3,7 @@ import { theme } from '../theme';
 import { SearchForm } from './components/SearchForm';
 import { PageProvider } from './PageContext';
 
-export default function TwitterSearchHelper() {
+const TwitterSearchHelper = () => {
   document.title = 'Twitter検索ヘルパー';
   return (
     <MantineProvider theme={theme}>
@@ -20,4 +20,6 @@ export default function TwitterSearchHelper() {
       </Container>
     </MantineProvider>
   );
-}
+};
+
+export default TwitterSearchHelper;

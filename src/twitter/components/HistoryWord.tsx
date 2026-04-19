@@ -14,16 +14,11 @@ export const HistoryWord = ({ word, onDelete }: Props) => {
       <ActionIcon
         variant='default'
         size='md'
-        onClick={() => form.setFieldValue('word', word)}
-        style={{
-          fontWeight: 'normal',
-          fontSize: 'var(--mantine-font-size-sm)',
-          minWidth: 'auto',
-          padding: '0 8px',
-          width: 'auto'
-        }}
+        fz='sm'
+        miw='auto'
         w='auto'
         px='sm'
+        onClick={() => form.setFieldValue('word', word)}
       >
         {word}
       </ActionIcon>

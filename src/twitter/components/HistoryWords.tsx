@@ -20,8 +20,8 @@ export const HistoryWords = () => {
   return (
     <>
       <Group gap='xs' mt='xs'>
-        {searchWords.map((word, index) => (
-          <HistoryWord key={index} word={word} onDelete={deleteHistory} />
+        {searchWords.map((word) => (
+          <HistoryWord key={word} word={word} onDelete={deleteHistory} />
         ))}
       </Group>
       <Group gap='xs' mt='xs'>

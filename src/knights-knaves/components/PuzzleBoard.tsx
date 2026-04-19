@@ -82,7 +82,9 @@ export const PuzzleBoard = ({ puzzle, onReset }: Props) => {
             color={gaveUp ? 'gray' : isAllCorrect ? 'green' : 'orange'}
             title={gaveUp ? 'ギブアップ' : isAllCorrect ? '正解！' : '残念...'}
           >
-            {gaveUp ? '正解を確認してください。' : `${puzzle.persons.length}人中${correctCount}人正解${isAllCorrect ? ' 全問正解です！' : ''}`}
+            {gaveUp
+              ? '正解を確認してください。'
+              : `${puzzle.persons.length}人中${correctCount}人正解${isAllCorrect ? ' 全問正解です！' : ''}`}
           </Alert>
           <Group>
             <Button variant='outline' onClick={onReset} flex={1}>
