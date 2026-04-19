@@ -1,18 +1,68 @@
-import { Button, Center, Stack } from '@mantine/core';
+import { ActionIcon, Button, Center, Checkbox, Group, Radio, Stack, TextInput } from '@mantine/core';
+import { DateInput } from '@mantine/dates';
+import { IconAt, IconX } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { SearchFormProvider, useSearchForm } from '../form-context';
+import { SearchFormProvider, useSearchForm, useSearchFormContext } from '../form-context';
 import { usePageContext } from '../PageContext';
 import type { SearchProps } from '../types';
-import { EndDateInput } from './EndDateInput';
-import { ExcludeWordInput } from './ExcludeWordInput';
-import { HistoryWords } from './HistoryWords';
-import { MediaTypeSelect } from './MediaTypeSelect';
-import { OnlyFollowerCheckbox } from './OnlyFollowerCheckbox';
-import { OnlyJapaneseCheckbox } from './OnlyJapaneseCheckbox';
-import { PopularTypeSelect } from './PopularTypeSelect';
-import { RecentTwoYearsCheckbox } from './RecentTwoYearsCheckbox';
-import { UsernameInput } from './UserNameInput';
-import { WordInput } from './WordInput';
+
+type HistoryWordProps = {
+  word: string;
+  onDelete: (word: string) => void;
+};
+
+const HistoryWord = ({ word, onDelete }: HistoryWordProps) => {
+  const form = useSearchFormContext();
+  return (
+    <Group gap={2}>
+      <ActionIcon
+        variant='default'
+        size='md'
+        fz='sm'
+        miw='auto'
+        w='auto'
+        px='sm'
+        onClick={() => form.setFieldValue('word', word)}
+      >
+        {word}
+      </ActionIcon>
+      <ActionIcon variant='subtle' color='gray' size='md' onClick={() => onDelete(word)}>
+        <IconX size={12} />
+      </ActionIcon>
+    </Group>
+  );
+};
+
+const HistoryWords = () => {
+  const { searchWords, setSearchWords } = usePageContext();
+
+  const deleteHistory = (word: string) => {
+    setSearchWords((prev) => prev.filter((w) => w !== word));
+  };
+
+  const clearHistory = () => {
+    if (window.confirm('全削除しますか？')) {
+      setSearchWords([]);
+    }
+  };
+
+  if (searchWords.length === 0) return null;
+
+  return (
+    <>
+      <Group gap='xs' mt='xs'>
+        {searchWords.map((word) => (
+          <HistoryWord key={word} word={word} onDelete={deleteHistory} />
+        ))}
+      </Group>
+      <Group gap='xs' mt='xs'>
+        <Button color='yellow' size='compact-md' onClick={clearHistory}>
+          検索履歴全削除
+        </Button>
+      </Group>
+    </>
+  );
+};
 
 export const SearchForm = () => {
   const { setSearchWords } = usePageContext();
@@ -79,16 +129,38 @@ export const SearchForm = () => {
     <SearchFormProvider form={form}>
       <form onSubmit={form.onSubmit(search)}>
         <Stack gap='sm'>
-          <WordInput />
+          <TextInput label='検索ワード' {...form.getInputProps('word')} />
           <HistoryWords />
-          <ExcludeWordInput />
-          <UsernameInput />
-          <MediaTypeSelect />
-          <PopularTypeSelect />
-          <EndDateInput />
-          <OnlyFollowerCheckbox />
-          <OnlyJapaneseCheckbox />
-          <RecentTwoYearsCheckbox />
+          <TextInput label='除外ワード' {...form.getInputProps('excludeWord')} />
+          <TextInput
+            maw={400}
+            label='特定ユーザーからのみ'
+            leftSection={<IconAt size={14} />}
+            {...form.getInputProps('username')}
+          />
+          <Radio.Group label='メディア' {...form.getInputProps('mediaType')}>
+            <Stack gap='xs' mt='xs'>
+              <Radio value='none' label='指定なし' />
+              <Radio value='image' label='画像のみ' />
+              <Radio value='movie' label='動画のみ' />
+              <Radio value='include_url' label='URL含む' />
+              <Radio value='exclude_url' label='URL除外' />
+            </Stack>
+          </Radio.Group>
+          <Radio.Group label='いいね数' {...form.getInputProps('popularType')}>
+            <Stack gap='xs' mt='xs'>
+              <Radio value='none' label='指定なし' />
+              <Radio value='5' label='5いいね以上' />
+              <Radio value='20' label='20いいね以上' />
+            </Stack>
+          </Radio.Group>
+          <DateInput label='この日より昔(当日を含まない)' {...form.getInputProps('endDate')} />
+          <Checkbox
+            label='フォローしているユーザーのみ'
+            {...form.getInputProps('onlyFollowerFlag', { type: 'checkbox' })}
+          />
+          <Checkbox label='日本語ツイートのみ' {...form.getInputProps('onlyJapanese', { type: 'checkbox' })} />
+          <Checkbox label='直近2年に絞る' {...form.getInputProps('recentTwoYears', { type: 'checkbox' })} />
         </Stack>
         <Center py='xl'>
           <Button type='submit' size='md'>
