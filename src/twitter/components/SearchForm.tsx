@@ -4,13 +4,13 @@ import { SearchFormProvider, useSearchForm } from '../form-context';
 import { usePageContext } from '../PageContext';
 import type { SearchProps } from '../types';
 import { EndDateInput } from './EndDateInput';
-import { ExcludeBlueCheckbox } from './ExcludeBlueCheckbox';
 import { ExcludeWordInput } from './ExcludeWordInput';
 import { HistoryWords } from './HistoryWords';
 import { MediaTypeSelect } from './MediaTypeSelect';
 import { OnlyFollowerCheckbox } from './OnlyFollowerCheckbox';
 import { OnlyJapaneseCheckbox } from './OnlyJapaneseCheckbox';
 import { PopularTypeSelect } from './PopularTypeSelect';
+import { RecentTwoYearsCheckbox } from './RecentTwoYearsCheckbox';
 import { UsernameInput } from './UserNameInput';
 import { WordInput } from './WordInput';
 
@@ -26,8 +26,8 @@ export const SearchForm = () => {
       popularType: 'none',
       onlyFollowerFlag: false,
       onlyJapanese: true,
-      excludeBlue: false,
-      endDate: ''
+      endDate: '',
+      recentTwoYears: true
     }
   });
 
@@ -62,12 +62,13 @@ export const SearchForm = () => {
     if (values.popularType !== 'none') {
       query.push(`min_faves:${values.popularType}`);
     }
+    if (values.recentTwoYears) {
+      const since = dayjs().subtract(2, 'year').startOf('year').format('YYYY-MM-DD');
+      query.push(`since:${since}`);
+    }
     if (values.endDate !== '') {
       const endDate = dayjs(values.endDate).format('YYYY-MM-DD');
       query.push(`until:${endDate}`);
-    }
-    if (values.excludeBlue) {
-      query.push('-filter:blue_verified');
     }
 
     const url = `https://x.com/search?f=live&q=${query.join(' ')}`;
@@ -87,7 +88,7 @@ export const SearchForm = () => {
           <EndDateInput />
           <OnlyFollowerCheckbox />
           <OnlyJapaneseCheckbox />
-          <ExcludeBlueCheckbox />
+          <RecentTwoYearsCheckbox />
         </Stack>
         <Center py='xl'>
           <Button type='submit' size='md'>
