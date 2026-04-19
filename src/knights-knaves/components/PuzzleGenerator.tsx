@@ -35,6 +35,33 @@ export const PuzzleGenerator = () => {
     const result = await generate({ num_persons: numPersons, level });
     if (result) {
       setPuzzle(result);
+
+      const solutionLines = Object.entries(result.solution)
+        .map(([name, type]) => `${name}: ${type === 'knight' ? '正直者' : '嘘つき者'}`)
+        .join('\n');
+
+      console.log(
+        [
+          '=== Knights and Knaves パズル ===',
+          '【問題】',
+          'この島には正直者（Knight）と嘘つき者（Knave）が住んでいます。',
+          '以下の発言から、誰が正直者で誰が嘘つきかを当ててください。',
+          '',
+          '登場人物:',
+          result.persons.map((p) => `- ${p}`).join('\n'),
+          '',
+          '発言:',
+          result.statements_text.map((s) => `- ${s}`).join('\n'),
+          '',
+          '出力形式:',
+          'Aさん: 嘘つき者',
+          'Bさん: 正直者',
+          '.....',
+          '',
+          '【正解】',
+          solutionLines
+        ].join('\n')
+      );
     }
   };
 
