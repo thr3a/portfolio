@@ -290,7 +290,7 @@ export const WorkData: WorkProps[] = [
   // },
   {
     title: 'Twitter検索ヘルパー',
-    url: 'https://t.turai.work/',
+    url: 'https://turai.work/twitter',
     description: 'ツイッター検索を便利にしてくれるやつ',
     group: 'tool',
     emoji: '🐦',
