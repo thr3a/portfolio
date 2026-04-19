@@ -88,9 +88,12 @@ export const YamlHighlighter: React.FC<{ code: string }> = ({ code }) => {
   const lines = code.trim().split('\n');
 
   return (
-    <Box component='pre' ff='monospace' style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}>
+    <Box component='pre' ff='monospace' lh={1.8} style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}>
       {lines.map((line, index) => (
-        <Box key={index}>{highlightYaml(line, computedColorScheme, theme.colors)}</Box>
+        <span key={index}>
+          {highlightYaml(line, computedColorScheme, theme.colors)}
+          {index < lines.length - 1 ? '\n' : ''}
+        </span>
       ))}
     </Box>
   );

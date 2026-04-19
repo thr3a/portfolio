@@ -18,7 +18,7 @@ hobbies:
   - LLM
 links:
   - Twitter: [@Amanekey](https://x.com/amanekey)
-  - Blog: [https://blog.turai.work](https://blog.turai.work/)
+  - Blog: [blog.turai.work](https://blog.turai.work/)
   - GitHub: [@thr3a](https://github.com/thr3a)
 `;
 
