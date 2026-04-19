@@ -16,6 +16,7 @@
     "@biomejs/biome": "^2.4.12",
     "@gfazioli/mantine-border-animate": "^2.0.1",
     "@mantine/core": "9.0.2",
+    "@mantine/dates": "^9.0.2",
     "@mantine/form": "^9.0.2",
     "@mantine/hooks": "9.0.2",
     "@mantine/vanilla-extract": "^9.0.2",

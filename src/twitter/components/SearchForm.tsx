@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { SearchFormProvider, useSearchForm } from '../form-context';
 import { usePageContext } from '../PageContext';
 import type { SearchProps } from '../types';
-import { DateInput } from './DateInput';
+import { EndDateInput } from './EndDateInput';
 import { ExcludeBlueCheckbox } from './ExcludeBlueCheckbox';
 import { ExcludeWordInput } from './ExcludeWordInput';
 import { HistoryWords } from './HistoryWords';
@@ -70,7 +70,7 @@ export const SearchForm = () => {
       query.push('-filter:blue_verified');
     }
 
-    const url = `https://twitter.com/search?f=live&q=${query.join(' ')}`;
+    const url = `https://x.com/search?f=live&q=${query.join(' ')}`;
     window.open(url);
   };
 
@@ -84,7 +84,7 @@ export const SearchForm = () => {
           <UsernameInput />
           <MediaTypeSelect />
           <PopularTypeSelect />
-          <DateInput />
+          <EndDateInput />
           <OnlyFollowerCheckbox />
           <OnlyJapaneseCheckbox />
           <ExcludeBlueCheckbox />

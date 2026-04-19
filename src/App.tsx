@@ -1,4 +1,5 @@
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Example from './example/Page';
 import ImageEditorPage from './image-editor/Page';
