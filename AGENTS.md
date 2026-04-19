@@ -14,6 +14,7 @@
 - Lint: biome v2
 - ルーティング: react-router-dom（`BrowserRouter` + `Routes` + `Route`）を使用。ルート定義は `src/App.tsx`
 - メタデータ注入: `src/prerender.ts` でルートごとの `<title>` や OGP / Twitter Card などの `<meta>` タグを定義し、`vite-prerender-plugin` がビルド時に静的 HTML へ注入する
+- ビルドはvite v8
 
 # 2. TypeScript / コーディングスタイル
 
