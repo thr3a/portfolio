@@ -7,6 +7,7 @@ import KnightsKnavesPage from './knights-knaves/Page';
 import Make12Page from './make12/Page';
 import NotFound from './NotFound';
 import Password from './password/Page';
+import TwitterSearchHelper from './twitter/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
 import Portfolio from './portfolio/Page';
 import RoleplayPage from './roleplay/Page';
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/image-editor' element={<ImageEditorPage />} />
         <Route path='/roleplay' element={<RoleplayPage />} />
         <Route path='/knights-knaves' element={<KnightsKnavesPage />} />
+        <Route path='/twitter' element={<TwitterSearchHelper />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
