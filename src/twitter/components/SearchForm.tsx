@@ -1,6 +1,7 @@
-import { ActionIcon, Button, Center, Checkbox, Group, Radio, Stack, TextInput } from '@mantine/core';
+import { Button, Center, Checkbox, Group, Radio, Stack, TextInput } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
-import { IconAt, IconX } from '@tabler/icons-react';
+import { useLongPress } from '@mantine/hooks';
+import { IconAt } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { SearchFormProvider, useSearchForm, useSearchFormContext } from '../form-context';
 import { usePageContext } from '../PageContext';
@@ -13,23 +14,11 @@ type HistoryWordProps = {
 
 const HistoryWord = ({ word, onDelete }: HistoryWordProps) => {
   const form = useSearchFormContext();
+  const handlers = useLongPress(() => onDelete(word));
   return (
-    <Group gap={2}>
-      <ActionIcon
-        variant='default'
-        size='md'
-        fz='sm'
-        miw='auto'
-        w='auto'
-        px='sm'
-        onClick={() => form.setFieldValue('word', word)}
-      >
-        {word}
-      </ActionIcon>
-      <ActionIcon variant='subtle' color='gray' size='md' onClick={() => onDelete(word)}>
-        <IconX size={12} />
-      </ActionIcon>
-    </Group>
+    <Button variant='default' size='compact-lg' onClick={() => form.setFieldValue('word', word)} {...handlers}>
+      {word}
+    </Button>
   );
 };
 
@@ -49,18 +38,18 @@ const HistoryWords = () => {
   if (searchWords.length === 0) return null;
 
   return (
-    <>
-      <Group gap='xs' mt='xs'>
+    <Stack gap='xs'>
+      <Group gap='xs'>
         {searchWords.map((word) => (
           <HistoryWord key={word} word={word} onDelete={deleteHistory} />
         ))}
       </Group>
-      <Group gap='xs' mt='xs'>
+      <Group gap='xs'>
         <Button color='yellow' size='compact-md' onClick={clearHistory}>
           検索履歴全削除
         </Button>
       </Group>
-    </>
+    </Stack>
   );
 };
 
@@ -121,7 +110,7 @@ export const SearchForm = () => {
       query.push(`until:${endDate}`);
     }
 
-    const url = `https://x.com/search?f=live&q=${query.join(' ')}`;
+    const url = `https://x.com/search?f=live&src=typed_query&q=${query.join(' ')}`;
     window.open(url);
   };
 
