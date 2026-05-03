@@ -11,7 +11,10 @@ type props = {
 export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
   const filteredGroups = (): WorkProps[] => {
     if (workGroup === 'featured') {
-      return WorkData.filter((x: WorkProps) => x.featured);
+      // featuredフラグと直近4サイト
+      const recentItems = WorkData.slice(0, 4);
+      const recentUrls = new Set(recentItems.map((x) => x.url));
+      return [...recentItems, ...WorkData.filter((x) => x.featured && !recentUrls.has(x.url))];
     }
     if (workGroup === 'all') {
       return WorkData.filter((x: WorkProps) => x.group !== 'old');
@@ -28,7 +31,7 @@ export const WorkGroup = ({ workGroup, setworkGroup }: props) => {
         onChange={setworkGroup}
         size='md'
         data={[
-          { label: '注目', value: 'featured' },
+          { label: '📌', value: 'featured' },
           { label: 'すべて', value: 'all' },
           { label: 'AI', value: 'ai' },
           { label: '便利', value: 'tool' },
