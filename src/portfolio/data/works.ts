@@ -9,6 +9,20 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'null-cart',
+    url: 'https://ai.turai.work/null-cart/',
+    description: '勝った気になって購入意欲発散',
+    group: 'tool',
+    emoji: '🛒'
+  },
+  {
+    title: 'サンリオ大賞ひすとりー',
+    url: 'https://sanrio-ranking.turai.work/',
+    description: 'サンリオ大賞 歴代順位の推移をグラフで可視化',
+    group: 'tool',
+    emoji: '🎀'
+  },
+  {
     title: '正直者と嘘つき者パズル',
     url: 'https://turai.work/knights-knaves/',
     description: '誰かが真実を語り、誰かが嘘を重ねる。信じるべきは誰か？',
