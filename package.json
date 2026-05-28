@@ -27,6 +27,7 @@
     "@vanilla-extract/vite-plugin": "^5.2.2",
     "@vitejs/plugin-react": "^6.0.2",
     "dayjs": "^1.11.21",
+    "html-to-image": "^1.11.13",
     "postcss": "^8.5.15",
     "postcss-preset-mantine": "1.18.0",
     "postcss-simple-vars": "^7.0.1",

@@ -32,6 +32,10 @@ const PASSWORD_TITLE = 'パスワード一括生成ツール';
 const PASSWORD_DESCRIPTION = '文字数や使える文字など、細かい条件を指定して安全なパスワードを一括作成できる無料ツール';
 const PASSWORD_URL = 'https://turai.work/password';
 
+const TABLE2IMAGE_TITLE = 'テーブル画像変換くん';
+const TABLE2IMAGE_DESCRIPTION = 'CSV・TSV・Markdownのテーブルを貼り付けるだけでPNG画像に変換できるツール note執筆に';
+const TABLE2IMAGE_URL = 'https://turai.work/table2image';
+
 const routeHeadMap: Record<string, PrerenderResult['head']> = {
   '/knights-knaves': {
     title: KNIGHTS_KNAVES_TITLE,
@@ -59,6 +63,20 @@ const routeHeadMap: Record<string, PrerenderResult['head']> = {
       { type: 'meta', props: { name: 'twitter:card', content: 'summary' } },
       { type: 'meta', props: { name: 'twitter:title', content: PASSWORD_TITLE } },
       { type: 'meta', props: { name: 'twitter:description', content: PASSWORD_DESCRIPTION } }
+    ])
+  },
+  '/table2image': {
+    title: TABLE2IMAGE_TITLE,
+    elements: new Set<HeadElement>([
+      { type: 'meta', props: { name: 'description', content: TABLE2IMAGE_DESCRIPTION } },
+      { type: 'meta', props: { property: 'og:title', content: TABLE2IMAGE_TITLE } },
+      { type: 'meta', props: { property: 'og:description', content: TABLE2IMAGE_DESCRIPTION } },
+      { type: 'meta', props: { property: 'og:url', content: TABLE2IMAGE_URL } },
+      { type: 'meta', props: { property: 'og:type', content: 'website' } },
+      { type: 'meta', props: { property: 'og:site_name', content: 'turai.work' } },
+      { type: 'meta', props: { name: 'twitter:card', content: 'summary' } },
+      { type: 'meta', props: { name: 'twitter:title', content: TABLE2IMAGE_TITLE } },
+      { type: 'meta', props: { name: 'twitter:description', content: TABLE2IMAGE_DESCRIPTION } }
     ])
   },
   '/image-editor': {

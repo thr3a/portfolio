@@ -10,7 +10,7 @@ export default defineConfig({
     vanillaExtractPlugin(),
     vitePrerenderPlugin({
       prerenderScript: path.resolve('./src/prerender.ts'),
-      additionalPrerenderRoutes: ['/image-editor', '/password', '/knights-knaves'],
+      additionalPrerenderRoutes: ['/image-editor', '/password', '/knights-knaves', '/table2image'],
       renderTarget: '#root'
     })
   ]
