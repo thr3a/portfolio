@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "feature-clarify": {
+      "source": "thr3a/Skills",
+      "sourceType": "github",
+      "skillPath": "feature-clarify/SKILL.md",
+      "computedHash": "10623ab98a589c15257e6f329ecb4cda1eed77c246bd31fb1a4c845e690f6949"
+    },
     "mantine-colors": {
       "source": "thr3a/Skills",
       "sourceType": "github",
