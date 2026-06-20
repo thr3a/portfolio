@@ -9,12 +9,33 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: 'テーブル画像変換くん',
+    url: 'https://turai.work/table2image/',
+    description: 'テーブルを画像に変換するシンプルツール',
+    group: 'tool',
+    emoji: '📊'
+  },
+  {
+    title: 'インフレーションラボ',
+    url: 'https://turai.work/inflation-lab',
+    description: 'インフレで物価がどれだけ変わったか計算',
+    group: 'tool',
+    emoji: '💸'
+  },
+  {
+    title: 'Pixel Aquarium',
+    url: 'https://aquarium.turai.work/',
+    description: 'ピクセルアートの水族館',
+    group: 'tool',
+    emoji: '🐠',
+    featured: true
+  },
+  {
     title: '株価変動率計算ツール',
     url: 'https://turai.work/stock-rate/',
     description: '基準株価を入れるだけで±各変動率の株価を一覧表示',
     group: 'tool',
-    emoji: '📈',
-    featured: true
+    emoji: '📈'
   },
   {
     title: 'null-cart',
