@@ -1,6 +1,6 @@
 ---
 name: mantine-colors
-description: Mantineのデフォルトカラーパレット一覧。dark/gray/red/pink/grape/violet/indigo/blue/cyan/teal/green/lime/yellow/orangeの各色について、0(最も明るい)〜9(最も暗い)のHEXカラーコードを掲載
+description: Mantineでcolor/bg/c propに色を指定するとき、UIの色選び・カラーコード確認に参照する。Mantine UIコンポーネントの実装・スタイリング時に自動参照。dark/gray/red/pink/grape/violet/indigo/blue/cyan/teal/green/lime/yellow/orangeの0〜9のHEXコード一覧。
 ---
 
 dark.0: #C9C9C9

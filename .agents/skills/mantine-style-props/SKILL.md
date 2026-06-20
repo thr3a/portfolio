@@ -1,6 +1,6 @@
 ---
 name: mantine-style-props
-description: MantineのスタイルPropsとCSSプロパティの対応表
+description: MantineコンポーネントにスタイルProps(m/p/w/h/bg/c/fzなど)を書くとき、省略名とCSSプロパティ・theme keyの対応を確認する。Mantine UIの実装・レイアウト調整時に自動参照。
 ---
 
 | Prop    | CSS Property         | Theme key         |
