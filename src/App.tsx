@@ -11,6 +11,7 @@ import Password from './password/Page';
 import PayPayShinagawa from './paypay-shinagawa/Page';
 import Portfolio from './portfolio/Page';
 import RoleplayPage from './roleplay/Page';
+import StockRatePage from './stock-rate/Page';
 import Table2ImagePage from './table2image/Page';
 import TwitterSearchHelper from './twitter/Page';
 
@@ -28,6 +29,7 @@ export default function App() {
         <Route path='/roleplay' element={<RoleplayPage />} />
         <Route path='/knights-knaves' element={<KnightsKnavesPage />} />
         <Route path='/twitter' element={<TwitterSearchHelper />} />
+        <Route path='/stock-rate' element={<StockRatePage />} />
         <Route path='/table2image' element={<Table2ImagePage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

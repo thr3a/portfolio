@@ -9,6 +9,14 @@ export type WorkProps = {
 
 export const WorkData: WorkProps[] = [
   {
+    title: '株価変動率計算ツール',
+    url: 'https://turai.work/stock-rate/',
+    description: '基準株価を入れるだけで±各変動率の株価を一覧表示',
+    group: 'tool',
+    emoji: '📈',
+    featured: true
+  },
+  {
     title: 'null-cart',
     url: 'https://ai.turai.work/null-cart/',
     description: '勝った気になって購入意欲発散',
