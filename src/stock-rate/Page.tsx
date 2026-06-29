@@ -14,6 +14,8 @@ export default function StockRatePage() {
   const [basePrice, setBasePrice] = useState<number | string>('');
   const [customRate, setCustomRate] = useState<number | string>('');
   const [targetPrice, setTargetPrice] = useState<number | string>('');
+  // PC はホバー、スマホはタップでアクティブにする行の変動率
+  const [activeRate, setActiveRate] = useState<number | null>(null);
 
   const base = typeof basePrice === 'number' && basePrice > 0 ? basePrice : 0;
   const custom = typeof customRate === 'number' ? customRate : null;
@@ -42,7 +44,7 @@ export default function StockRatePage() {
             thousandSeparator=','
           />
 
-          <Table striped withTableBorder>
+          <Table withTableBorder>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th c='red.7'>📈 上昇</Table.Th>
@@ -52,7 +54,15 @@ export default function StockRatePage() {
             </Table.Thead>
             <Table.Tbody>
               {PRESET_RATES.map((rate) => (
-                <Table.Tr key={rate}>
+                <Table.Tr
+                  key={rate}
+                  bg={activeRate === rate ? 'gray.1' : undefined}
+                  fw={activeRate === rate ? 'bold' : undefined}
+                  style={{ cursor: 'pointer' }}
+                  onMouseEnter={() => setActiveRate(rate)}
+                  onMouseLeave={() => setActiveRate(null)}
+                  onClick={() => setActiveRate(rate)}
+                >
                   <Table.Td c='red.7'>
                     {base > 0 ? (
                       <Stack gap={0}>
@@ -72,7 +82,7 @@ export default function StockRatePage() {
                     )}
                   </Table.Td>
                   <Table.Td>
-                    <Text fw={'bold'}>{rate}%</Text>
+                    <Text fw={activeRate === rate ? 'bold' : undefined}>{rate}%</Text>
                   </Table.Td>
                   <Table.Td c='blue.7'>
                     {base > 0 ? (
@@ -120,7 +130,7 @@ export default function StockRatePage() {
                     </Table.Td>
                     <Table.Td c={requiredRate >= 0 ? 'red.7' : 'blue.7'}>
                       <Stack gap={0}>
-                        <Text fw='bold'>
+                        <Text>
                           {requiredRate >= 0 ? '+' : ''}
                           {requiredRate}%
                         </Text>
