@@ -3,7 +3,7 @@ import { useDocumentTitle } from '@mantine/hooks';
 import { useState } from 'react';
 import { theme } from '../theme';
 
-const PRESET_RATES = [0.1, 0.3, 0.5, 0.8, 1, 2, 3, 4, 5, 8, 10, 20];
+const PRESET_RATES = [0.1, 0.3, 0.5, 0.8, 1, 2, 3, 4, 5, 8, 10, 15, 20];
 
 const calcPrice = (base: number, ratePercent: number): number => Math.round(base * (1 + ratePercent / 100) * 10) / 10;
 const calcDiff = (base: number, ratePercent: number): number => Math.round(base * (ratePercent / 100) * 10) / 10;
@@ -67,7 +67,7 @@ export default function StockRatePage() {
                     {base > 0 ? (
                       <Stack gap={0}>
                         <NumberFormatter value={calcPrice(base, rate)} thousandSeparator decimalScale={1} />
-                        <Text size='xs' c='red.4'>
+                        <Text size='xs' c='red.4' fw={activeRate === rate ? 'bold' : undefined}>
                           +
                           <NumberFormatter
                             value={calcDiff(base, rate)}
@@ -88,7 +88,7 @@ export default function StockRatePage() {
                     {base > 0 ? (
                       <Stack gap={0}>
                         <NumberFormatter value={calcPrice(base, -rate)} thousandSeparator decimalScale={1} />
-                        <Text size='xs' c='blue.4'>
+                        <Text size='xs' c='blue.4' fw={activeRate === rate ? 'bold' : undefined}>
                           -
                           <NumberFormatter
                             value={calcDiff(base, rate)}
