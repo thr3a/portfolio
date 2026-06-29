@@ -22,7 +22,7 @@ export default function StockRatePage() {
 
   return (
     <MantineProvider theme={theme}>
-      <Container size={'md'} mb={'lg'}>
+      <Container mb={'lg'} maw={500}>
         <Stack gap={4} py='md'>
           <Title order={2}>株価変動率計算ツール</Title>
           <Text size='sm' c='dimmed'>
@@ -32,7 +32,7 @@ export default function StockRatePage() {
 
         <Stack gap='xl'>
           <NumberInput
-            label='基準株価（円）'
+            label='基準株価'
             value={basePrice}
             onChange={setBasePrice}
             min={1}
@@ -45,33 +45,47 @@ export default function StockRatePage() {
           <Table striped withTableBorder>
             <Table.Thead>
               <Table.Tr>
+                <Table.Th c='red.7'>📈 上昇</Table.Th>
                 <Table.Th>変動率</Table.Th>
-                <Table.Th c='red.7'>上昇後（円）</Table.Th>
-                <Table.Th c='blue.7'>下落後（円）</Table.Th>
+                <Table.Th c='blue.7'>📉 下落</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {PRESET_RATES.map((rate) => (
                 <Table.Tr key={rate}>
-                  <Table.Td>{rate}%</Table.Td>
                   <Table.Td c='red.7'>
                     {base > 0 ? (
                       <Stack gap={0}>
                         <NumberFormatter value={calcPrice(base, rate)} thousandSeparator decimalScale={1} />
                         <Text size='xs' c='red.4'>
-                          +<NumberFormatter value={calcDiff(base, rate)} thousandSeparator decimalScale={1} /> 円
+                          +
+                          <NumberFormatter
+                            value={calcDiff(base, rate)}
+                            thousandSeparator
+                            decimalScale={1}
+                            suffix=' 円'
+                          />
                         </Text>
                       </Stack>
                     ) : (
                       '-'
                     )}
                   </Table.Td>
+                  <Table.Td>
+                    <Text fw={'bold'}>{rate}%</Text>
+                  </Table.Td>
                   <Table.Td c='blue.7'>
                     {base > 0 ? (
                       <Stack gap={0}>
                         <NumberFormatter value={calcPrice(base, -rate)} thousandSeparator decimalScale={1} />
                         <Text size='xs' c='blue.4'>
-                          -<NumberFormatter value={calcDiff(base, rate)} thousandSeparator decimalScale={1} /> 円
+                          -
+                          <NumberFormatter
+                            value={calcDiff(base, rate)}
+                            thousandSeparator
+                            decimalScale={1}
+                            suffix=' 円'
+                          />
                         </Text>
                       </Stack>
                     ) : (
@@ -86,7 +100,7 @@ export default function StockRatePage() {
           <Stack gap='sm'>
             <Title order={4}>目標株価からの変動率計算</Title>
             <NumberInput
-              label='目標株価（円）'
+              label='目標株価'
               value={targetPrice}
               onChange={setTargetPrice}
               min={1}
@@ -105,10 +119,21 @@ export default function StockRatePage() {
                       <NumberFormatter value={target ?? 0} thousandSeparator decimalScale={1} /> 円
                     </Table.Td>
                     <Table.Td c={requiredRate >= 0 ? 'red.7' : 'blue.7'}>
-                      <Text fw='bold'>
-                        {requiredRate >= 0 ? '+' : ''}
-                        {requiredRate}%
-                      </Text>
+                      <Stack gap={0}>
+                        <Text fw='bold'>
+                          {requiredRate >= 0 ? '+' : ''}
+                          {requiredRate}%
+                        </Text>
+                        <Text size='xs' c={requiredRate >= 0 ? 'red.4' : 'blue.4'}>
+                          {requiredRate >= 0 ? '+' : ''}
+                          <NumberFormatter
+                            value={Math.round(((target ?? 0) - base) * 10) / 10}
+                            thousandSeparator
+                            decimalScale={1}
+                          />{' '}
+                          円
+                        </Text>
+                      </Stack>
                     </Table.Td>
                   </Table.Tr>
                 </Table.Tbody>
