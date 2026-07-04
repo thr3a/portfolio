@@ -8,8 +8,8 @@ import * as css from './styles.css';
 import { COLORS, theme } from './theme';
 
 const GROUPS: { key: Work['group']; comment: string }[] = [
-  { key: 'ai', comment: '生成AI' },
-  { key: 'tool', comment: 'ちょっとでも便利に' },
+  { key: 'ai', comment: '生成AI系' },
+  { key: 'tool', comment: '日常を便利に' },
   { key: 'dev', comment: '開発者向け' },
   { key: 'book', comment: '技術同人誌' }
 ];
@@ -48,13 +48,13 @@ export default function NewPortfolio() {
 
             {/* プロフィール */}
             <Stack gap='md'>
-              <SectionKey name='profile' level={1} />
+              <SectionKey name='Profile' level={1} />
               <YamlProfile />
             </Stack>
 
             {/* 作品一覧 */}
             <Stack gap='xl'>
-              <SectionKey name='works' level={1} />
+              <SectionKey name='Works' level={1} />
 
               <WorkSection name='推し' items={featuredWorks} />
 

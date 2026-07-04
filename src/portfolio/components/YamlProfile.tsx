@@ -17,6 +17,7 @@ favorites:
 hobbies:
   - 西洋絵画
   - LLM
+  - クソ株集め
 links:
   - Twitter: [@amanekey](https://x.com/amanekey)
   - Blog: [blog.turai.work](https://blog.turai.work/)
