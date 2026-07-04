@@ -1,4 +1,4 @@
-export type WorkProps = {
+export type Work = {
   title: string;
   url: string;
   description: string;
@@ -7,7 +7,7 @@ export type WorkProps = {
   featured?: boolean;
 };
 
-export const WorkData: WorkProps[] = [
+export const works: Work[] = [
   {
     title: 'テーブル画像変換くん',
     url: 'https://turai.work/table2image/',
