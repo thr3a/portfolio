@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/charts/styles.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BigTechFinPage from './big-tech-fin/Page';
 import Example from './example/Page';
 import ImageEditorPage from './image-editor/Page';
 import InflationLab from './inflation-lab/Page';
@@ -32,6 +33,7 @@ export default function App() {
         <Route path='/twitter' element={<TwitterSearchHelper />} />
         <Route path='/stock-rate' element={<StockRatePage />} />
         <Route path='/table2image' element={<Table2ImagePage />} />
+        <Route path='/big-tech-fin' element={<BigTechFinPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

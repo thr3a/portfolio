@@ -41,7 +41,26 @@ const TABLE2IMAGE_TITLE = 'テーブル画像変換くん';
 const TABLE2IMAGE_DESCRIPTION = 'CSV・TSV・Markdownのテーブルを貼り付けるだけでPNG画像に変換できるツール note執筆に';
 const TABLE2IMAGE_URL = 'https://turai.work/table2image';
 
+const BIG_TECH_FIN_TITLE = '米ビッグテックのキャッシュフロー';
+const BIG_TECH_FIN_DESCRIPTION =
+  'Google・Meta・Microsoft・Amazon・OracleのOCF/FCF/Capex(TTM)推移をSEC EDGARデータで可視化。米ビッグテックの設備投資と稼ぐ力がひと目でわかる';
+const BIG_TECH_FIN_URL = 'https://turai.work/big-tech-fin';
+
 const routeHeadMap: Record<string, PrerenderResult['head']> = {
+  '/big-tech-fin': {
+    title: BIG_TECH_FIN_TITLE,
+    elements: new Set<HeadElement>([
+      { type: 'meta', props: { name: 'description', content: BIG_TECH_FIN_DESCRIPTION } },
+      { type: 'meta', props: { property: 'og:title', content: BIG_TECH_FIN_TITLE } },
+      { type: 'meta', props: { property: 'og:description', content: BIG_TECH_FIN_DESCRIPTION } },
+      { type: 'meta', props: { property: 'og:url', content: BIG_TECH_FIN_URL } },
+      { type: 'meta', props: { property: 'og:type', content: 'website' } },
+      { type: 'meta', props: { property: 'og:site_name', content: 'turai.work' } },
+      { type: 'meta', props: { name: 'twitter:card', content: 'summary' } },
+      { type: 'meta', props: { name: 'twitter:title', content: BIG_TECH_FIN_TITLE } },
+      { type: 'meta', props: { name: 'twitter:description', content: BIG_TECH_FIN_DESCRIPTION } }
+    ])
+  },
   '/stock-rate': {
     title: STOCK_RATE_TITLE,
     elements: new Set<HeadElement>([

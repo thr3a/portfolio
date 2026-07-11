@@ -71,19 +71,28 @@ async function loadCikMap(): Promise<Map<string, string>> {
   return map;
 }
 
-// 指定タグ群を順に試し、最初にヒットした USD 建て fact 配列を返す
+// 指定タグ群を全て取得してマージした USD 建て fact 配列を返す
+// (Amazon のように期の途中で報告タグを乗り換える会社があるため、単一タグでは
+//  期間が欠落する。優先順の低いタグから順に積み、同一期間は優先順の高いタグで上書きする)
 async function fetchConcept(cik: string, tags: string[]): Promise<{ tag: string; facts: RawFact[] } | null> {
-  for (const tag of tags) {
+  const hitTags: string[] = [];
+  const facts: RawFact[] = [];
+  // 優先順の低いものから積むことで、後勝ち(toQuarterly の重複排除)で高優先タグが勝つ
+  for (const tag of [...tags].reverse()) {
     const url = `https://data.sec.gov/api/xbrl/companyconcept/CIK${cik}/us-gaap/${tag}.json`;
     try {
       const data = await fetchJson<{ units: { USD?: RawFact[] } }>(url);
-      const facts = data.units?.USD;
-      if (facts && facts.length > 0) return { tag, facts };
+      const tagFacts = data.units?.USD;
+      if (tagFacts && tagFacts.length > 0) {
+        hitTags.unshift(tag);
+        facts.push(...tagFacts);
+      }
     } catch {
       // タグ未使用の会社は404。次の候補へ
     }
   }
-  return null;
+  if (facts.length === 0) return null;
+  return { tag: hitTags.join('+'), facts };
 }
 
 // YTD累計(3/6/9/12ヶ月混在)を、単一四半期(3ヶ月)の値に分解する
