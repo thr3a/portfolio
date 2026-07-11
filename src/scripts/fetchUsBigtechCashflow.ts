@@ -11,7 +11,7 @@ import { writeFileSync } from 'node:fs';
 const USER_AGENT = 'kabu-research mail@turai.work';
 
 // 取得対象。Google は持株会社 Alphabet。ティッカーから CIK を自動解決する
-const TICKERS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'ORCL'];
+const TICKERS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'ORCL', 'META'];
 
 // この期末日以降のデータのみ採用(暦ベース)
 const SINCE = '2019-03-01';
