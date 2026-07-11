@@ -8,7 +8,7 @@ import { writeFileSync } from 'node:fs';
 // ============================================================
 
 // SEC はコンタクト先付きの User-Agent を必須とする(無いと403)
-const USER_AGENT = 'kabu-research amanekey@gmail.com';
+const USER_AGENT = 'kabu-research mail@turai.work';
 
 // 取得対象。Google は持株会社 Alphabet。ティッカーから CIK を自動解決する
 const TICKERS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'ORCL'];
