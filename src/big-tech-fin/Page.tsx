@@ -1,6 +1,7 @@
 import { Container, Loader, MantineProvider, Stack, Text, Title } from '@mantine/core';
 import { useDocumentTitle } from '@mantine/hooks';
 import { theme } from '../theme';
+import { CapexStackedChart } from './components/CapexStackedChart';
 import { CompanyChart } from './components/CompanyChart';
 import { useCashflowData } from './hooks/useCashflowData';
 import type { CompanyConfig } from './types';
@@ -10,7 +11,8 @@ const COMPANIES: CompanyConfig[] = [
   { ticker: 'AMZN', name: 'Amazon', color: '#FF9900' },
   { ticker: 'MSFT', name: 'Microsoft', color: '#00188f' },
   { ticker: 'META', name: 'Meta', color: '#0866FF' },
-  { ticker: 'ORCL', name: 'Oracle', color: '#f80000' }
+  { ticker: 'ORCL', name: 'Oracle', color: '#f80000' },
+  // { ticker: 'AAPL', name: 'Apple', color: '#000000' }
 ];
 
 export default function BigTechFinPage() {
@@ -37,6 +39,7 @@ export default function BigTechFinPage() {
 
         {data && (
           <Stack gap='xl' mt='md'>
+            <CapexStackedChart companies={data.companies} configs={COMPANIES} />
             {COMPANIES.map((config) => {
               const company = data.companies.find((c) => c.ticker === config.ticker);
               if (!company) return null;
