@@ -14,17 +14,17 @@ const COMPANIES: CompanyConfig[] = [
 ];
 
 export default function BigTechFinPage() {
-  useDocumentTitle('米ビッグテックのキャッシュフロー');
+  useDocumentTitle('米ハイパースケーラーのキャッシュフローグラフ');
   const { data, error } = useCashflowData();
 
   return (
     <MantineProvider theme={theme}>
       <Container size='sm' py='md'>
         <Stack gap={4} py='md'>
-          <Title order={2}>米ビッグテックのキャッシュフロー</Title>
+          <Title order={2}>米ハイパースケーラーのキャッシュフローグラフ📈</Title>
           <Text size='sm' c='dimmed'>
-            SEC EDGARの提出データより。OCF(営業CF)・FCF(フリーCF)・Capex(設備投資)のTTM(直近4四半期合計)推移。単位はUSD
-            bn(10億ドル)。
+            米国主要ハイパースケーラー5社(Google、Amazon、Microsoft、Meta、Oracle)のOCF(営業CF)・FCF(フリーCF)・Capex(設備投資)を直近4四半期合計で比較するグラフです。
+            キャッシュ創出力と設備投資の規模・推移を把握できます。SEC EDGARの提出資料ベース、単位は10億米ドル（USD bn）
           </Text>
         </Stack>
 
