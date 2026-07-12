@@ -5,13 +5,12 @@ import { CompanyChart } from './components/CompanyChart';
 import { useCashflowData } from './hooks/useCashflowData';
 import type { CompanyConfig } from './types';
 
-// 表示する企業とブランドカラー(指定順に縦一列で並べる)
 const COMPANIES: CompanyConfig[] = [
   { ticker: 'GOOGL', name: 'Google', color: '#4285F4' },
   { ticker: 'AMZN', name: 'Amazon', color: '#FF9900' },
-  { ticker: 'MSFT', name: 'Microsoft', color: '#00A4EF' },
+  { ticker: 'MSFT', name: 'Microsoft', color: '#00188f' },
   { ticker: 'META', name: 'Meta', color: '#0866FF' },
-  { ticker: 'ORCL', name: 'Oracle', color: '#C74634' }
+  { ticker: 'ORCL', name: 'Oracle', color: '#f80000' }
 ];
 
 export default function BigTechFinPage() {
@@ -20,7 +19,7 @@ export default function BigTechFinPage() {
 
   return (
     <MantineProvider theme={theme}>
-      <Container size='sm' py='xl'>
+      <Container size='sm' py='md'>
         <Stack gap={4} py='md'>
           <Title order={2}>米ビッグテックのキャッシュフロー</Title>
           <Text size='sm' c='dimmed'>
