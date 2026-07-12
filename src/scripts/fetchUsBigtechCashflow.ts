@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs';
 // SEC EDGAR からキャッシュフロー(OCF/Capex/FCF)を四半期ごとに取得する
 //   - 10-Q は期首からの累計(YTD)で報告されるため、単一四半期(3ヶ月)に分解する
 //   - さらに直近4四半期を合計した TTM も算出する
-//   実行: node --import tsx secCashflow.ts
+//   実行: node --import tsx src/scripts/fetchUsBigtechCashflow.ts
 // ============================================================
 
 // SEC はコンタクト先付きの User-Agent を必須とする(無いと403)
@@ -14,7 +14,7 @@ const USER_AGENT = 'kabu-research mail@turai.work';
 const TICKERS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'ORCL', 'META'];
 
 // この期末日以降のデータのみ採用(暦ベース)
-const SINCE = '2019-03-01';
+const SINCE = '2017-03-01';
 
 // OCF のタグ(会社差はほぼ無いが一応フォールバックを用意)
 const OCF_TAGS = [

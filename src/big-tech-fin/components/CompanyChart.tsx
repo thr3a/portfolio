@@ -1,5 +1,6 @@
 import { CompositeChart } from '@mantine/charts';
 import { Stack, Title } from '@mantine/core';
+import dayjs from 'dayjs';
 import type { ChartRow, CompanyConfig, QuarterOut } from '../types';
 
 type Props = {
@@ -19,15 +20,23 @@ const hexToRgba = (hex: string, alpha: number): string => {
 // ツールチップのラベルを「YYYY年M月」形式に整形
 const monthLabel = (value: unknown): string => {
   if (typeof value !== 'string') return '';
-  return `${value.slice(0, 4)}年${Number(value.slice(5, 7))}月`;
+  return dayjs(value).format('YYYY年M月');
 };
+
+// 通常時のドットは隠し、ホバー中の四半期だけ系列色のドットを表示する
+const hoverDotProps = (stroke: string) => ({
+  fill: 'var(--mantine-color-body)',
+  r: 4,
+  stroke,
+  strokeWidth: 2
+});
 
 export const CompanyChart = ({ config, quarters }: Props) => {
   // TTMが3系列とも揃った四半期のみ採用し、USD bn(10億ドル)に換算する
-  const rows: ChartRow[] = [];
+  const allRows: ChartRow[] = [];
   for (const q of quarters) {
     if (q.ocfTTM == null || q.fcfTTM == null || q.capexTTM == null) continue;
-    rows.push({
+    allRows.push({
       quarterEnd: q.quarterEnd,
       ocf: q.ocfTTM / 1e9,
       fcf: q.fcfTTM / 1e9,
@@ -35,13 +44,22 @@ export const CompanyChart = ({ config, quarters }: Props) => {
     });
   }
 
+  // 直近X年分のみ表示し、それより古いデータは切り捨てる。
+  // 基準は最新四半期の年月とし、そのX年前より前の四半期を除外する。
+  const latest = allRows.at(-1)?.quarterEnd;
+  const cutoff = latest ? dayjs(latest).subtract(6, 'year') : null;
+  const rows = cutoff ? allRows.filter((row) => dayjs(row.quarterEnd).isAfter(cutoff)) : allRows;
+
   // 各四半期が「年内で最初の四半期」か判定する。前行と西暦が変わる行だけtrue
   // -> 決算期が3月末でないOracle等でもX軸ラベルを年1回だけ表示できる
-  const isFirstOfYear = rows.map((row, i) => row.quarterEnd.slice(0, 4) !== rows[i - 1]?.quarterEnd.slice(0, 4));
+  const isFirstOfYear = rows.map((row, i) => {
+    const prev = rows[i - 1];
+    return prev == null || dayjs(row.quarterEnd).year() !== dayjs(prev.quarterEnd).year();
+  });
 
   // 年内最初の四半期のときだけ西暦を返し、それ以外は空にする
   const yearTick = (value: unknown, index: number): string =>
-    isFirstOfYear[index] && typeof value === 'string' ? value.slice(0, 4) : '';
+    isFirstOfYear[index] && typeof value === 'string' ? dayjs(value).format('YYYY') : '';
 
   // Capex(TTM)の前年同期比伸び率を、年内最初の四半期にだけ「+38%」形式で持たせる。
   // TTM同士の比較なので4四半期前(=1年前)の行と比べる。1年前が無い最初期はnull。
@@ -95,10 +113,19 @@ export const CompanyChart = ({ config, quarters }: Props) => {
         yAxisLabel='USD bn'
         withLegend
         legendProps={{ verticalAlign: 'top', height: 30 }}
-        tooltipProps={{ labelFormatter: monthLabel }}
+        tooltipProps={{
+          cursor: {
+            fill: hexToRgba(config.color, 0.08),
+            stroke: hexToRgba(config.color, 0.45),
+            strokeWidth: 1
+          },
+          labelFormatter: monthLabel
+        }}
         valueFormatter={(value) => value.toFixed(1)}
         yAxisProps={{ width: 44 }}
         xAxisProps={{ interval: 0, minTickGap: 0, tickFormatter: yearTick }}
+        lineProps={{ activeDot: hoverDotProps('#8A8C8E') }}
+        areaProps={{ activeDot: hoverDotProps(config.color) }}
         barProps={(series) => (series.name === 'capex' ? { label: renderCapexLabel } : {})}
         series={[
           { name: 'capex', label: 'Capex(設備投資)', color: hexToRgba(config.color, 0.3), type: 'bar' },

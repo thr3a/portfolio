@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T18:07:24.664Z",
+  "generatedAt": "2026-07-12T00:11:25.212Z",
   "source": "SEC EDGAR (data.sec.gov XBRL companyconcept API)",
   "unit": "USD",
   "note": "ocf/capex/fcf は単一四半期(3ヶ月)。*TTM は直近4四半期合計。capex は支出額の絶対値。fcf = ocf - capex。",
@@ -12,31 +12,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
       "quarters": [
         {
+          "quarterEnd": "2017-03-31",
+          "ocf": 10660000000,
+          "capex": 1695000000,
+          "fcf": 8965000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-06-30",
+          "ocf": 11005000000,
+          "capex": 2283000000,
+          "fcf": 8722000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-09-30",
+          "ocf": 12440000000,
+          "capex": 2132000000,
+          "fcf": 10308000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-12-31",
+          "ocf": 7875000000,
+          "capex": 2586000000,
+          "fcf": 5289000000,
+          "ocfTTM": 41980000000,
+          "capexTTM": 8696000000,
+          "fcfTTM": 33284000000
+        },
+        {
+          "quarterEnd": "2018-03-31",
+          "ocf": 12151000000,
+          "capex": 2934000000,
+          "fcf": 9217000000,
+          "ocfTTM": 43471000000,
+          "capexTTM": 9935000000,
+          "fcfTTM": 33536000000
+        },
+        {
+          "quarterEnd": "2018-06-30",
+          "ocf": 11418000000,
+          "capex": 3980000000,
+          "fcf": 7438000000,
+          "ocfTTM": 43884000000,
+          "capexTTM": 11632000000,
+          "fcfTTM": 32252000000
+        },
+        {
+          "quarterEnd": "2018-09-30",
+          "ocf": 13657000000,
+          "capex": 3602000000,
+          "fcf": 10055000000,
+          "ocfTTM": 45101000000,
+          "capexTTM": 13102000000,
+          "fcfTTM": 31999000000
+        },
+        {
+          "quarterEnd": "2018-12-31",
+          "ocf": 8900000000,
+          "capex": 3707000000,
+          "fcf": 5193000000,
+          "ocfTTM": 46126000000,
+          "capexTTM": 14223000000,
+          "fcfTTM": 31903000000
+        },
+        {
           "quarterEnd": "2019-03-31",
           "ocf": 13520000000,
           "capex": 2565000000,
           "fcf": 10955000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 47495000000,
+          "capexTTM": 13854000000,
+          "fcfTTM": 33641000000
         },
         {
           "quarterEnd": "2019-06-30",
           "ocf": 16108000000,
           "capex": 4051000000,
           "fcf": 12057000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 52185000000,
+          "capexTTM": 13925000000,
+          "fcfTTM": 38260000000
         },
         {
           "quarterEnd": "2019-09-30",
           "ocf": 13818000000,
           "capex": 3385000000,
           "fcf": 10433000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 52346000000,
+          "capexTTM": 13708000000,
+          "fcfTTM": 38638000000
         },
         {
           "quarterEnd": "2019-12-31",
@@ -282,31 +354,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment+PaymentsToAcquireProductiveAssets",
       "quarters": [
         {
+          "quarterEnd": "2017-04-01",
+          "ocf": 12570000000,
+          "capex": 2975000000,
+          "fcf": 9595000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-07-01",
+          "ocf": 8672000000,
+          "capex": 2277000000,
+          "fcf": 6395000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-09-30",
+          "ocf": 15749000000,
+          "capex": 3865000000,
+          "fcf": 11884000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-12-30",
+          "ocf": 28293000000,
+          "capex": 2810000000,
+          "fcf": 25483000000,
+          "ocfTTM": 65284000000,
+          "capexTTM": 11927000000,
+          "fcfTTM": 53357000000
+        },
+        {
+          "quarterEnd": "2018-03-31",
+          "ocf": 15130000000,
+          "capex": 4195000000,
+          "fcf": 10935000000,
+          "ocfTTM": 67844000000,
+          "capexTTM": 13147000000,
+          "fcfTTM": 54697000000
+        },
+        {
+          "quarterEnd": "2018-06-30",
+          "ocf": 14488000000,
+          "capex": 3267000000,
+          "fcf": 11221000000,
+          "ocfTTM": 73660000000,
+          "capexTTM": 14137000000,
+          "fcfTTM": 59523000000
+        },
+        {
+          "quarterEnd": "2018-09-29",
+          "ocf": 19523000000,
+          "capex": 3041000000,
+          "fcf": 16482000000,
+          "ocfTTM": 77434000000,
+          "capexTTM": 13313000000,
+          "fcfTTM": 64121000000
+        },
+        {
+          "quarterEnd": "2018-12-29",
+          "ocf": 26690000000,
+          "capex": 3355000000,
+          "fcf": 23335000000,
+          "ocfTTM": 75831000000,
+          "capexTTM": 13858000000,
+          "fcfTTM": 61973000000
+        },
+        {
           "quarterEnd": "2019-03-30",
           "ocf": 11155000000,
           "capex": 2363000000,
           "fcf": 8792000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 71856000000,
+          "capexTTM": 12026000000,
+          "fcfTTM": 59830000000
         },
         {
           "quarterEnd": "2019-06-29",
           "ocf": 11636000000,
           "capex": 2000000000,
           "fcf": 9636000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 69004000000,
+          "capexTTM": 10759000000,
+          "fcfTTM": 58245000000
         },
         {
           "quarterEnd": "2019-09-28",
           "ocf": 19910000000,
           "capex": 2777000000,
           "fcf": 17133000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 69391000000,
+          "capexTTM": 10495000000,
+          "fcfTTM": 58896000000
         },
         {
           "quarterEnd": "2019-12-28",
@@ -552,31 +696,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
       "quarters": [
         {
+          "quarterEnd": "2017-03-31",
+          "ocf": 9548000000,
+          "capex": 2508000000,
+          "fcf": 7040000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-06-30",
+          "ocf": 7403000000,
+          "capex": 2831000000,
+          "fcf": 4572000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-09-30",
+          "ocf": 9872000000,
+          "capex": 3538000000,
+          "fcf": 6334000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-12-31",
+          "ocf": 10268000000,
+          "capex": 4307000000,
+          "fcf": 5961000000,
+          "ocfTTM": 37091000000,
+          "capexTTM": 13184000000,
+          "fcfTTM": 23907000000
+        },
+        {
+          "quarterEnd": "2018-03-31",
+          "ocf": 11642000000,
+          "capex": 7299000000,
+          "fcf": 4343000000,
+          "ocfTTM": 39185000000,
+          "capexTTM": 17975000000,
+          "fcfTTM": 21210000000
+        },
+        {
+          "quarterEnd": "2018-06-30",
+          "ocf": 10132000000,
+          "capex": 5477000000,
+          "fcf": 4655000000,
+          "ocfTTM": 41914000000,
+          "capexTTM": 20621000000,
+          "fcfTTM": 21293000000
+        },
+        {
+          "quarterEnd": "2018-09-30",
+          "ocf": 13210000000,
+          "capex": 5282000000,
+          "fcf": 7928000000,
+          "ocfTTM": 45252000000,
+          "capexTTM": 22365000000,
+          "fcfTTM": 22887000000
+        },
+        {
+          "quarterEnd": "2018-12-31",
+          "ocf": 12987000000,
+          "capex": 7081000000,
+          "fcf": 5906000000,
+          "ocfTTM": 47971000000,
+          "capexTTM": 25139000000,
+          "fcfTTM": 22832000000
+        },
+        {
           "quarterEnd": "2019-03-31",
           "ocf": 12000000000,
           "capex": 4638000000,
           "fcf": 7362000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 48329000000,
+          "capexTTM": 22478000000,
+          "fcfTTM": 25851000000
         },
         {
           "quarterEnd": "2019-06-30",
           "ocf": 12627000000,
           "capex": 6126000000,
           "fcf": 6501000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 50824000000,
+          "capexTTM": 23127000000,
+          "fcfTTM": 27697000000
         },
         {
           "quarterEnd": "2019-09-30",
           "ocf": 15466000000,
           "capex": 6732000000,
           "fcf": 8734000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 53080000000,
+          "capexTTM": 24577000000,
+          "fcfTTM": 28503000000
         },
         {
           "quarterEnd": "2019-12-31",
@@ -822,31 +1038,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment+PaymentsToAcquireProductiveAssets",
       "quarters": [
         {
+          "quarterEnd": "2017-03-31",
+          "ocf": -1619000000,
+          "capex": 1861000000,
+          "fcf": -3480000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-06-30",
+          "ocf": 3850000000,
+          "capex": null,
+          "fcf": null,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-09-30",
+          "ocf": 3777000000,
+          "capex": 3074000000,
+          "fcf": 703000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-12-31",
+          "ocf": 12358000000,
+          "capex": 3619000000,
+          "fcf": 8739000000,
+          "ocfTTM": 18366000000,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2018-03-31",
+          "ocf": -1791000000,
+          "capex": 3098000000,
+          "fcf": -4889000000,
+          "ocfTTM": 18194000000,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2018-06-30",
+          "ocf": 7449000000,
+          "capex": 3243000000,
+          "fcf": 4206000000,
+          "ocfTTM": 21793000000,
+          "capexTTM": 13034000000,
+          "fcfTTM": 8759000000
+        },
+        {
+          "quarterEnd": "2018-09-30",
+          "ocf": 8588000000,
+          "capex": 3352000000,
+          "fcf": 5236000000,
+          "ocfTTM": 26604000000,
+          "capexTTM": 13312000000,
+          "fcfTTM": 13292000000
+        },
+        {
+          "quarterEnd": "2018-12-31",
+          "ocf": 16477000000,
+          "capex": 3734000000,
+          "fcf": 12743000000,
+          "ocfTTM": 30723000000,
+          "capexTTM": 13427000000,
+          "fcfTTM": 17296000000
+        },
+        {
           "quarterEnd": "2019-03-31",
           "ocf": 1846000000,
           "capex": 3290000000,
           "fcf": -1444000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 34360000000,
+          "capexTTM": 13619000000,
+          "fcfTTM": 20741000000
         },
         {
           "quarterEnd": "2019-06-30",
           "ocf": 9118000000,
           "capex": 3562000000,
           "fcf": 5556000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 36029000000,
+          "capexTTM": 13938000000,
+          "fcfTTM": 22091000000
         },
         {
           "quarterEnd": "2019-09-30",
           "ocf": 7892000000,
           "capex": 4697000000,
           "fcf": 3195000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 35333000000,
+          "capexTTM": 15283000000,
+          "fcfTTM": 20050000000
         },
         {
           "quarterEnd": "2019-12-31",
@@ -1092,31 +1380,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
       "quarters": [
         {
+          "quarterEnd": "2017-05-31",
+          "ocf": 4466000000,
+          "capex": 525000000,
+          "fcf": 3941000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-08-31",
+          "ocf": 6566000000,
+          "capex": 473000000,
+          "fcf": 6093000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-11-30",
+          "ocf": 850000000,
+          "capex": 599000000,
+          "fcf": 251000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2018-02-28",
+          "ocf": 3310000000,
+          "capex": 286000000,
+          "fcf": 3024000000,
+          "ocfTTM": 15192000000,
+          "capexTTM": 1883000000,
+          "fcfTTM": 13309000000
+        },
+        {
+          "quarterEnd": "2018-05-31",
+          "ocf": 4660000000,
+          "capex": 378000000,
+          "fcf": 4282000000,
+          "ocfTTM": 15386000000,
+          "capexTTM": 1736000000,
+          "fcfTTM": 13650000000
+        },
+        {
+          "quarterEnd": "2018-08-31",
+          "ocf": 6722000000,
+          "capex": 383000000,
+          "fcf": 6339000000,
+          "ocfTTM": 15542000000,
+          "capexTTM": 1646000000,
+          "fcfTTM": 13896000000
+        },
+        {
+          "quarterEnd": "2018-11-30",
+          "ocf": 546000000,
+          "capex": 421000000,
+          "fcf": 125000000,
+          "ocfTTM": 15238000000,
+          "capexTTM": 1468000000,
+          "fcfTTM": 13770000000
+        },
+        {
+          "quarterEnd": "2019-02-28",
+          "ocf": 2861000000,
+          "capex": 443000000,
+          "fcf": 2418000000,
+          "ocfTTM": 14789000000,
+          "capexTTM": 1625000000,
+          "fcfTTM": 13164000000
+        },
+        {
           "quarterEnd": "2019-05-31",
           "ocf": 4422000000,
           "capex": 413000000,
           "fcf": 4009000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 14551000000,
+          "capexTTM": 1660000000,
+          "fcfTTM": 12891000000
         },
         {
           "quarterEnd": "2019-08-31",
           "ocf": 6000000000,
           "capex": 386000000,
           "fcf": 5614000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 13829000000,
+          "capexTTM": 1663000000,
+          "fcfTTM": 12166000000
         },
         {
           "quarterEnd": "2019-11-30",
           "ocf": 513000000,
           "capex": 349000000,
           "fcf": 164000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 13796000000,
+          "capexTTM": 1591000000,
+          "fcfTTM": 12205000000
         },
         {
           "quarterEnd": "2020-02-29",
@@ -1362,31 +1722,103 @@
       "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
       "quarters": [
         {
+          "quarterEnd": "2017-03-31",
+          "ocf": 5058000000,
+          "capex": 1271000000,
+          "fcf": 3787000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-06-30",
+          "ocf": 5360000000,
+          "capex": 1444000000,
+          "fcf": 3916000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-09-30",
+          "ocf": 6127000000,
+          "capex": 1755000000,
+          "fcf": 4372000000,
+          "ocfTTM": null,
+          "capexTTM": null,
+          "fcfTTM": null
+        },
+        {
+          "quarterEnd": "2017-12-31",
+          "ocf": 7671000000,
+          "capex": 2263000000,
+          "fcf": 5408000000,
+          "ocfTTM": 24216000000,
+          "capexTTM": 6733000000,
+          "fcfTTM": 17483000000
+        },
+        {
+          "quarterEnd": "2018-03-31",
+          "ocf": 7860000000,
+          "capex": 2812000000,
+          "fcf": 5048000000,
+          "ocfTTM": 27018000000,
+          "capexTTM": 8274000000,
+          "fcfTTM": 18744000000
+        },
+        {
+          "quarterEnd": "2018-06-30",
+          "ocf": 6298000000,
+          "capex": 3460000000,
+          "fcf": 2838000000,
+          "ocfTTM": 27956000000,
+          "capexTTM": 10290000000,
+          "fcfTTM": 17666000000
+        },
+        {
+          "quarterEnd": "2018-09-30",
+          "ocf": 7498000000,
+          "capex": 3342000000,
+          "fcf": 4156000000,
+          "ocfTTM": 29327000000,
+          "capexTTM": 11877000000,
+          "fcfTTM": 17450000000
+        },
+        {
+          "quarterEnd": "2018-12-31",
+          "ocf": 7618000000,
+          "capex": 4301000000,
+          "fcf": 3317000000,
+          "ocfTTM": 29274000000,
+          "capexTTM": 13915000000,
+          "fcfTTM": 15359000000
+        },
+        {
           "quarterEnd": "2019-03-31",
           "ocf": 9308000000,
           "capex": 3837000000,
           "fcf": 5471000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 30722000000,
+          "capexTTM": 14940000000,
+          "fcfTTM": 15782000000
         },
         {
           "quarterEnd": "2019-06-30",
           "ocf": 8616000000,
           "capex": 3633000000,
           "fcf": 4983000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 33040000000,
+          "capexTTM": 15113000000,
+          "fcfTTM": 17927000000
         },
         {
           "quarterEnd": "2019-09-30",
           "ocf": 9307000000,
           "capex": 3532000000,
           "fcf": 5775000000,
-          "ocfTTM": null,
-          "capexTTM": null,
-          "fcfTTM": null
+          "ocfTTM": 34849000000,
+          "capexTTM": 15303000000,
+          "fcfTTM": 19546000000
         },
         {
           "quarterEnd": "2019-12-31",
