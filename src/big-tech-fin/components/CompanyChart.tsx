@@ -109,7 +109,7 @@ export const CompanyChart = ({ config, quarters }: Props) => {
         curveType='monotone'
         withDots={false}
         strokeWidth={2.5}
-        gridAxis='y'
+        gridAxis='x'
         yAxisLabel='USD bn'
         withLegend
         legendProps={{ verticalAlign: 'top', height: 30 }}

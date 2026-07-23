@@ -156,7 +156,7 @@ export const CapexStackedChart = ({ companies, configs }: Props) => {
         type='stacked'
         series={series}
         yAxisLabel='USD bn'
-        gridAxis='y'
+        gridAxis='x'
         withLegend
         legendProps={{ verticalAlign: 'top', height: 30 }}
         valueFormatter={(value) => `${value}`}
