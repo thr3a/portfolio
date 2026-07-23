@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T00:11:25.212Z",
+  "generatedAt": "2026-07-23T14:23:48.352Z",
   "source": "SEC EDGAR (data.sec.gov XBRL companyconcept API)",
   "unit": "USD",
   "note": "ocf/capex/fcf は単一四半期(3ヶ月)。*TTM は直近4四半期合計。capex は支出額の絶対値。fcf = ocf - capex。",
@@ -1027,6 +1027,15 @@
           "ocfTTM": 174353000000,
           "capexTTM": 109924000000,
           "fcfTTM": 64429000000
+        },
+        {
+          "quarterEnd": "2026-06-30",
+          "ocf": 39069000000,
+          "capex": 44924000000,
+          "fcf": -5855000000,
+          "ocfTTM": 185675000000,
+          "capexTTM": 132402000000,
+          "fcfTTM": 53273000000
         }
       ]
     },
