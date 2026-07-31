@@ -9,6 +9,13 @@ export type Work = {
 
 export const works: Work[] = [
   {
+    title: '米国ハイパースケーラーのキャッシュフローグラフ',
+    url: 'https://turai.work/big-tech-fin/',
+    description: '米国ハイパースケーラーの資金繰りをグラフで可視化',
+    group: 'tool',
+    emoji: '💹'
+  },
+  {
     title: 'テーブル画像変換くん',
     url: 'https://turai.work/table2image/',
     description: 'テーブルを画像に変換するシンプルツール',

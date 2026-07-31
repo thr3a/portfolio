@@ -11,7 +11,7 @@ const COMPANIES: CompanyConfig[] = [
   { ticker: 'AMZN', name: 'Amazon', color: '#FF9900' },
   { ticker: 'MSFT', name: 'Microsoft', color: '#00188f' },
   { ticker: 'META', name: 'Meta', color: '#0866FF' },
-  { ticker: 'ORCL', name: 'Oracle', color: '#f80000' },
+  { ticker: 'ORCL', name: 'Oracle', color: '#f80000' }
   // { ticker: 'AAPL', name: 'Apple', color: '#000000' }
 ];
 
@@ -23,7 +23,7 @@ export default function BigTechFinPage() {
     <MantineProvider theme={theme}>
       <Container size='sm' py='md'>
         <Stack gap={4} py='md'>
-          <Title order={2}>米ハイパースケーラーのキャッシュフローグラフ📈</Title>
+          <Title order={2}>米ハイパースケーラーのキャッシュフローグラフ 📈</Title>
           <Text size='sm' c='dimmed'>
             米国主要ハイパースケーラー5社(Google、Amazon、Microsoft、Meta、Oracle)のOCF(営業CF)・FCF(フリーCF)・Capex(設備投資)を直近4四半期合計で比較するグラフです。
             キャッシュ創出力と設備投資の規模・推移を把握できます。SEC EDGARの提出資料ベース、単位は10億米ドル
