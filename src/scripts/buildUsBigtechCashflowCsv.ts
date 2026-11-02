@@ -6,6 +6,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 //   - 値は TTM(直近4四半期合計)を 10億ドル単位・小数1桁 に変換
 //   - 期間は四半期末を YY/MM 表記(例: 2020-03-31 -> 20/03)
 //   - 横持ち: 1列目に指標名、以降の列が各期間
+//   - あわせて全社まとめの all.csv(縦持ち)も出力する
 //   実行: node --import tsx src/scripts/buildUsBigtechCashflowCsv.ts
 // ============================================================
 
@@ -70,6 +71,48 @@ const buildCsv = (company: CompanyOut): string => {
   return [header, ocf, capex, fcf].map(toCsvLine).join('\n');
 };
 
+// JSON の entityName は空のため、社名は big-tech-fin ページと同じ表記をここで持つ
+const COMPANY_NAMES: Record<string, string> = {
+  GOOGL: 'Google',
+  AMZN: 'Amazon',
+  MSFT: 'Microsoft',
+  META: 'Meta',
+  ORCL: 'Oracle',
+  AAPL: 'Apple'
+};
+
+// 全社まとめの CSV。AI に読ませて企業間比較させやすいよう、1行=1社1四半期の縦持ちにする。
+// 単位は列名に含める(TTM と単一四半期の両方を出力)
+const buildAllCsv = (companies: CompanyOut[]): string => {
+  const header = [
+    'ticker',
+    'company',
+    'quarter_end',
+    'ocf_ttm_usd_bn',
+    'capex_ttm_usd_bn',
+    'fcf_ttm_usd_bn',
+    'ocf_quarter_usd_bn',
+    'capex_quarter_usd_bn',
+    'fcf_quarter_usd_bn'
+  ];
+  const lines = companies.flatMap((company) =>
+    company.quarters
+      .filter((q) => q.quarterEnd >= SINCE && q.ocfTTM != null)
+      .map((q) => [
+        company.ticker,
+        COMPANY_NAMES[company.ticker] ?? company.ticker,
+        q.quarterEnd,
+        toBillion(q.ocfTTM),
+        toBillion(q.capexTTM),
+        toBillion(q.fcfTTM),
+        toBillion(q.ocf),
+        toBillion(q.capex),
+        toBillion(q.fcf)
+      ])
+  );
+  return [header, ...lines].map(toCsvLine).join('\n');
+};
+
 const main = async () => {
   const { readFile } = await import('node:fs/promises');
   const data: CashflowJson = JSON.parse(await readFile(INPUT, 'utf-8'));
@@ -84,7 +127,12 @@ const main = async () => {
     console.log(`${company.ticker.padEnd(5)} -> ${path}  (${cols}期間)`);
   }
 
-  console.log(`\n-> ${OUTPUT_DIR}/ にティッカー別 CSV を保存しました`);
+  const allCsv = buildAllCsv(data.companies);
+  const allPath = `${OUTPUT_DIR}/all.csv`;
+  writeFileSync(allPath, `${allCsv}\n`);
+  console.log(`ALL   -> ${allPath}  (${allCsv.split('\n').length - 1}行)`);
+
+  console.log(`\n-> ${OUTPUT_DIR}/ にティッカー別 CSV と全社まとめ CSV を保存しました`);
 };
 
 main().catch((err) => {
