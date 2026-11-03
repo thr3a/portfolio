@@ -11,6 +11,7 @@ const GROUPS: { key: Work['group']; comment: string }[] = [
   { key: 'ai', comment: '生成AI系' },
   { key: 'tool', comment: '日常を便利に' },
   { key: 'dev', comment: '開発者向け' },
+  { key: 'game', comment: 'ゲーム' },
   { key: 'book', comment: '技術同人誌' }
 ];
 

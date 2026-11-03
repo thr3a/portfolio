@@ -2,12 +2,40 @@ export type Work = {
   title: string;
   url: string;
   description: string;
-  group: 'ai' | 'tool' | 'dev' | 'old' | 'book';
+  group: 'ai' | 'tool' | 'dev' | 'old' | 'book' | 'game';
   emoji: string;
   featured?: boolean;
 };
 
 export const works: Work[] = [
+  {
+    title: '四角に切れ！',
+    url: 'https://game.turai.work/shikaku',
+    description: '四角に切れ！',
+    group: 'game',
+    emoji: '🟪'
+  },
+  {
+    title: 'jpx-pdf-parser',
+    url: 'https://github.com/thr3a/jpx-pdf-parser',
+    description: 'JPXが公開しているクソPDF Parser',
+    group: 'dev',
+    emoji: '📄'
+  },
+  {
+    title: 'switch-auto-play',
+    url: 'https://github.com/thr3a/switch-auto-play',
+    description: 'Nintendo Switchを自動操作',
+    group: 'dev',
+    emoji: '🎮'
+  },
+  {
+    title: 'windows-explorer-mod',
+    url: 'https://github.com/thr3a/windows-explorer-mod',
+    description: '余白ダブルクリックで親フォルダへ一発移動',
+    group: 'tool',
+    emoji: '📁'
+  },
   {
     title: '米国ハイパースケーラーのキャッシュフローグラフ',
     url: 'https://turai.work/big-tech-fin/',
@@ -101,13 +129,13 @@ export const works: Work[] = [
     group: 'tool',
     emoji: '🎧'
   },
-  {
-    title: 'レストランメニュー解説くん',
-    url: 'https://ai.turai.work/describe-menu/',
-    description: '海外旅行もこれで安心',
-    group: 'ai',
-    emoji: '🍽️'
-  },
+  // {
+  //   title: 'レストランメニュー解説くん',
+  //   url: 'https://ai.turai.work/describe-menu/',
+  //   description: '海外旅行もこれで安心',
+  //   group: 'ai',
+  //   emoji: '🍽️'
+  // },
   {
     title: 'rubocop-rspec_enforce_description',
     url: 'https://github.com/thr3a/rubocop-rspec_enforce_description',
@@ -144,13 +172,13 @@ export const works: Work[] = [
     emoji: '🔐',
     featured: true
   },
-  {
-    title: 'E-Paper Image tool',
-    url: 'https://epaper.turai.work/',
-    description: '電子ペーパー用の画像に変換ツール',
-    group: 'dev',
-    emoji: '🖼️'
-  },
+  // {
+  //   title: 'E-Paper Image tool',
+  //   url: 'https://epaper.turai.work/',
+  //   description: '電子ペーパー用の画像に変換ツール',
+  //   group: 'dev',
+  //   emoji: '🖼️'
+  // },
   {
     title: 'llm-token-count',
     url: 'https://github.com/thr3a/llm-token-count',
@@ -176,13 +204,13 @@ export const works: Work[] = [
   //   description: '公式ドキュメントに基づいてAIがKamalサポート',
   //   group: 'dev'
   // },
-  {
-    title: 'repo-to-text',
-    url: 'https://github.com/thr3a/repo-to-text',
-    description: 'LLM用にソースコードをテキストに変換するツール',
-    group: 'dev',
-    emoji: '📂'
-  },
+  // {
+  //   title: 'repo-to-text',
+  //   url: 'https://github.com/thr3a/repo-to-text',
+  //   description: 'LLM用にソースコードをテキストに変換するツール',
+  //   group: 'dev',
+  //   emoji: '📂'
+  // },
   {
     title: 'remove-markdown-links',
     url: 'https://github.com/thr3a/remove-markdown-links',
@@ -203,13 +231,13 @@ export const works: Work[] = [
   //   description: 'Amazon販売ページのウザい表示を抹消するChrome拡張機能',
   //   group: 'old'
   // },
-  {
-    title: 'ポケポケ ガチャシュミレーター',
-    url: 'https://gacha.turai.work/pokepoke.html',
-    description: 'ミューツーexください😭',
-    group: 'tool',
-    emoji: '🃏'
-  },
+  // {
+  //   title: 'ポケポケ ガチャシュミレーター',
+  //   url: 'https://gacha.turai.work/pokepoke.html',
+  //   description: 'ミューツーexください😭',
+  //   group: 'tool',
+  //   emoji: '🃏'
+  // },
   {
     title: 'sie; TechBook vol.2',
     url: 'https://techbookfest.org/product/jECrnrUCE2sW1Sg9Xn1KrY',
@@ -269,20 +297,20 @@ export const works: Work[] = [
     group: 'ai',
     emoji: '☁️'
   },
-  {
-    title: 'Anime Remove Background',
-    url: 'https://huggingface.co/spaces/thr3a/anime-remove-background',
-    description: '2次元画像の背景削除時に白色できるようにしたやつ',
-    group: 'ai',
-    emoji: '🌸'
-  },
-  {
-    title: 'Super-IOPaint',
-    url: 'https://huggingface.co/spaces/thr3a/super-iopaint',
-    description: '画像背景削除するやつ',
-    group: 'ai',
-    emoji: '🪄'
-  },
+  // {
+  //   title: 'Anime Remove Background',
+  //   url: 'https://huggingface.co/spaces/thr3a/anime-remove-background',
+  //   description: '2次元画像の背景削除時に白色できるようにしたやつ',
+  //   group: 'ai',
+  //   emoji: '🌸'
+  // },
+  // {
+  //   title: 'Super-IOPaint',
+  //   url: 'https://huggingface.co/spaces/thr3a/super-iopaint',
+  //   description: '画像背景削除するやつ',
+  //   group: 'ai',
+  //   emoji: '🪄'
+  // },
   // {
   //   title: 'JKヒス構文メーカー',
   //   url: 'https://ai.turai.work/jkhiss/',
@@ -300,7 +328,7 @@ export const works: Work[] = [
   {
     title: 'お母さんヒス構文メーカー',
     url: 'https://ai.turai.work/mhiss/',
-    description: 'ヒス構文もAIで自動生成なんだ、じゃあお母さんはいらないってこと？',
+    description: 'ヒス構文もAIなんだ、じゃあお母さんはいらないってこと？',
     group: 'ai',
     emoji: '😤',
     featured: true
@@ -404,14 +432,14 @@ export const works: Work[] = [
     description: '毎日新鮮なイメージをお届けします',
     group: 'dev',
     emoji: '🐳'
-  },
-  {
-    title: 'はてなブログ芝生',
-    url: 'https://hatena.turai.work/',
-    description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
-    group: 'tool',
-    emoji: '🌱'
   }
+  // {
+  //   title: 'はてなブログ芝生',
+  //   url: 'https://hatena.turai.work/',
+  //   description: 'はてなブログの投稿数でGitHubの草を生やそうｗｗｗ',
+  //   group: 'tool',
+  //   emoji: '🌱'
+  // }
   // {
   //   title: 'アートWiki',
   //   url: 'https://wiki.turai.work/',
